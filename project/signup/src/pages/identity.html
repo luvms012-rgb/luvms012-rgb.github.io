@@ -18,9 +18,10 @@
 <!-- 한/영: CSS 보다 먼저, defer 없이 (lang 을 렌더 전에 정한다) — ?lang=en 이면 영문 -->
 <script src="../i18n/en.js"></script>
 <script src="../i18n/i18n.js"></script>
-<link rel="stylesheet" href="https://luvms012-rgb.github.io/ybm-ds/dist/ybm-ds.css">
+<link rel="stylesheet" href="../ybm-ds/ybm-ds.css">
+<link rel="stylesheet" href="../signup-components.css">
 <link rel="stylesheet" href="../signup.css">
-<script src="https://luvms012-rgb.github.io/ybm-ds/dist/ybm-ds.js" defer></script>
+<script src="../ybm-ds/ybm-ds.js" defer></script>
 <script src="../js/verify.js" defer></script>
 <script src="../js/identity.js" defer></script>
 </head>
@@ -31,7 +32,7 @@
   <!-- Header -->
   <header class="signup-header">
     <a class="signup-header__logo" href="#" aria-label="YBM Family 홈">
-      <img src="../assets/YBMFamily.svg" alt="YBM Family" width="140" height="36">
+      <img src="../assets/ybm-family-logo.svg" alt="YBM Family" width="140" height="36">
     </a>
     <h1 class="signup-header__title" data-i18n="회원가입">회원가입</h1>
     <span class="signup-header__end"></span>
@@ -285,7 +286,7 @@
   </div>
 </dialog>
 
-<!-- 인증번호 입력 (SB.12 · 휴대전화/이메일 공통) — DS Dialog 폭 400 + DS Code Input -->
+<!-- 인증번호 입력 (SB.12 · 휴대전화/이메일 공통) — DS Dialog 폭 400 + 회원가입 인증번호 입력(signup-components.css) -->
 <dialog class="ds-dialog signup-modal signup-modal--otp" id="dialog-otp" aria-labelledby="dialog-otp-title">
   <div class="ds-dialog__header">
     <h2 class="ds-dialog__title" id="dialog-otp-title">010-1234-5678로 전송된<br>인증번호를 입력해 주세요</h2>
@@ -293,11 +294,11 @@
   </div>
   <div class="ds-dialog__body">
     <div class="signup-otp">
-      <div class="ds-code-input" id="otp-code">
-        <input class="ds-code-input__control" id="otp" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6"
+      <div class="signup-code-input" id="otp-code">
+        <input class="signup-code-input__control" id="otp" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6"
                aria-label="인증번호 6자리" aria-describedby="otp-error" data-i18n-attr="aria-label:인증번호 6자리">
-        <span class="ds-code-input__cell"></span><span class="ds-code-input__cell"></span><span class="ds-code-input__cell"></span>
-        <span class="ds-code-input__cell"></span><span class="ds-code-input__cell"></span><span class="ds-code-input__cell"></span>
+        <span class="signup-code-input__cell"></span><span class="signup-code-input__cell"></span><span class="signup-code-input__cell"></span>
+        <span class="signup-code-input__cell"></span><span class="signup-code-input__cell"></span><span class="signup-code-input__cell"></span>
       </div>
       <p class="signup-otp__error" id="otp-error" hidden data-i18n="인증번호를 다시 입력해 주세요.">인증번호를 다시 입력해 주세요.</p>
       <div class="signup-otp__meta">

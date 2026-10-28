@@ -160,7 +160,7 @@ body.signup { background: var(--ybm-color-bg-layer-default); }
 .signup-auth-terms__toggle:hover { background: var(--ybm-color-bg-neutral-weak-alpha); }
 .signup-auth-terms__list { gap: var(--ybm-space-x1_5); }
 
-/* SB.12 인증번호 — Code Input ↔ 안내문 ↔ 시간 줄 gap 14 */
+/* SB.12 인증번호 — 인증번호 입력 ↔ 안내문 ↔ 시간 줄 gap 14 */
 .signup-otp { display: flex; flex-direction: column; gap: var(--ybm-space-x3_5); }
 .signup-otp__error { color: var(--ybm-color-fg-critical); font-size: var(--ybm-font-size-t05); line-height: var(--ybm-line-height-t05); }
 .signup-otp__meta { display: flex; align-items: center; justify-content: space-between; gap: var(--ybm-space-x2); font-size: var(--ybm-font-size-t05); line-height: var(--ybm-line-height-t05); }

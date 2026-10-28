@@ -78,7 +78,7 @@
   var otpTitle = $("dialog-otp-title");
   var box = $("otp-code");
   var input = $("otp");
-  var cells = $$(".ds-code-input__cell", box);
+  var cells = $$(".signup-code-input__cell", box);
   var error = $("otp-error");
   var remaining = $("otp-remaining");
   var otpSubmit = $("otp-submit");

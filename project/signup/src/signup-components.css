@@ -1,0 +1,62 @@
+/* ==========================================================================
+   YBM Family · 회원가입 전용 컴포넌트 .signup-*
+   --------------------------------------------------------------------------
+   DS 컴포넌트(.ds-*)에 없고 회원가입에서만 쓰는 부품을 둔다.
+   고객센터(cs-components.css)와 같은 자리다.
+   · link 순서: ybm-ds.css → 이 파일 → signup.css
+   · 화면 골격과 화면별 블록은 signup.css 에 그대로 둔다.
+   · DS 에 넣어야 할 만큼 공통이라고 판단되면 먼저 디자인팀과 확인한다.
+
+   섹션 색인
+     01    인증번호 6칸 입력 .signup-code-input
+   ========================================================================== */
+
+
+/* ==========================================================================
+   01 인증번호 6칸 입력 (SB.12 · SB.26~27 · 보호자 인증)
+   --------------------------------------------------------------------------
+   예전 DS 의 Code Input(CSS 전용, Figma 컴포넌트 없음)이 2026-10-23 DS 에서
+   빠져서 회원가입 전용으로 옮겼다. 모양과 동작은 예전 DS 와 같다.
+   실제 입력은 투명한 <input> 하나가 받고, 칸(__cell)은 보여주기만 한다
+   → 붙여넣기, 자동완성이 그대로 동작한다.
+     <div class="signup-code-input">
+       <input class="signup-code-input__control" inputmode="numeric" autocomplete="one-time-code" maxlength="6">
+       <span class="signup-code-input__cell"></span> ×6
+     </div>
+   칸 상태(data-state): empty / focused / filled
+   오류는 컨테이너 aria-invalid="true", 비활성은 input disabled
+   -------------------------------------------------------------------------- */
+.signup-code-input { position: relative; display: flex; justify-content: center; gap: var(--ybm-space-x1_5); }
+.signup-code-input__control {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  opacity: 0;
+  color: transparent;
+  caret-color: transparent;
+  border: 0;
+  font-size: 16px;
+  cursor: text;
+}
+.signup-code-input__control:focus-visible { outline: none; }
+.signup-code-input__cell {
+  display: grid;
+  place-items: center;
+  flex: 0 1 55px;
+  min-width: 0;
+  height: 56px;
+  border-radius: var(--ybm-shape-md);
+  background: var(--ybm-color-bg-layer-default);
+  box-shadow: inset 0 0 0 1px var(--ybm-color-stroke-neutral-weak);
+  color: var(--ybm-color-fg-brand);
+  font-size: var(--ybm-font-size-t08);
+  line-height: var(--ybm-line-height-t08);
+  font-weight: var(--ybm-font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+  transition: background-color var(--ybm-duration-fast) var(--ybm-easing-standard), box-shadow var(--ybm-duration-fast) var(--ybm-easing-standard);
+}
+.signup-code-input__cell[data-state="focused"] { box-shadow: inset 0 0 0 2px var(--ybm-color-stroke-focus-ring); }
+.signup-code-input__cell[data-state="filled"]  { background: var(--ybm-color-bg-brand-weak); box-shadow: none; }
+.signup-code-input[aria-invalid="true"] .signup-code-input__cell[data-state="filled"] { background: var(--ybm-color-bg-critical-weak); color: var(--ybm-color-fg-critical); }
+.signup-code-input:has(:disabled) .signup-code-input__cell { background: var(--ybm-color-bg-disabled); color: var(--ybm-color-fg-disabled); box-shadow: none; }
