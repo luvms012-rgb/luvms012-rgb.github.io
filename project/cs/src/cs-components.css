@@ -506,8 +506,8 @@
   color: var(--ybm-color-fg-neutral);
   word-break: keep-all;
 }
-/* 괄호 보충(Y클라우드 등), 항목명과 같은 16, 항목명 아래 줄로 (2026-10-28 사용자 지정) */
-.cs-contact__sub { display: block; font-size: var(--ybm-font-size-t05); line-height: var(--ybm-line-height-t05); }
+/* 괄호 보충(Y클라우드 등), 항목명 아래 줄에 14 Regular, 하위 서비스(설명)와 같은 색 (2026-10-28 사용자 지정) */
+.cs-contact__sub { display: block; font-size: var(--ybm-font-size-t04); line-height: var(--ybm-line-height-t04); font-weight: var(--ybm-font-weight-regular); color: var(--ybm-color-fg-neutral-subtle); }
 /* 연락처와 버튼이 한 줄에 다 들어가지 않으면(버튼 2개인 인터넷 강의 등) 버튼이 아랫줄로 내려간다 */
 .cs-contact__info {
   display: flex;
