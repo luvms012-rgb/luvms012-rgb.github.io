@@ -368,11 +368,8 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
     background: var(--ybm-color-bg-layer-default);
   }
   .cs-service-card {
-    position: relative;
-    gap: var(--ybm-space-x5);                      /* 로고 ↔ 연락처 20 */
-    height: auto;
-    /* 오른쪽은 화살표(24) + 간격(12) 자리를 비워 둔다 */
-    padding: var(--ybm-space-x5) calc(var(--ybm-space-x5) + 24px + var(--ybm-space-x3)) var(--ybm-space-x5) var(--ybm-space-x5);
+    gap: var(--ybm-space-x4);                      /* 머리 ↔ 연락처 16 */
+    padding: var(--ybm-space-x6) var(--ybm-space-x5);
     border-radius: 0;
     background: none;
   }
@@ -381,18 +378,10 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
   .cs-page__service .cs-grid > .cs-service-card + .cs-service-card {
     border-top: 1px solid var(--ybm-color-stroke-neutral-muted);
   }
-  .cs-service-card__details { gap: 0; padding-bottom: 0; border-bottom: 0; }
-  .cs-service-card__link,
-  .cs-service-card__logo { height: 26px; }
-  .cs-service-card__tags { display: none; }          /* 모바일 행에는 분류 배지가 없다 */
-  .cs-service-card__head .ds-icon {                   /* 화살표는 행 오른쪽 세로 가운데 */
-    position: absolute;
-    inset-block: 0;
-    right: var(--ybm-space-x5);
-    margin-block: auto;      /* translate 는 호버 이동(5-3)에 양보한다 */
-  }
-  .cs-service-card__contacts { gap: var(--ybm-space-x1); padding-top: 0; }
-  .cs-chat { padding-block: 0; }                     /* 행 자체 gap(20) 을 쓴다 */
+  /* 모바일은 행 사이 선이 이미 있어 머리 아래 구분선을 뺀다 */
+  .cs-service-card__head { padding-bottom: 0; border-bottom: 0; }
+  .cs-service-card__title { font-size: var(--ybm-font-size-t06); line-height: var(--ybm-line-height-t06); }
+  .cs-service-card__contacts { gap: var(--ybm-space-x3); }
   .cs-page__service .cs-grid + .cs-more { margin-top: var(--ybm-space-x6); }
 
   /* 검색 결과 상태 — 본문이 남는 높이를 채우고 블록을 가운데 (Figma 본문 FILL·중앙) */
@@ -674,15 +663,9 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
   }
 }
 
-/* 5-3) 서비스별 고객센터 안내 — 우측 화살표가 오른쪽으로 살짝 */
-.cs-service-card { transition: background-color var(--ybm-duration-normal) var(--ybm-easing-standard); }
-.cs-chat-btn { transition: background-color var(--ybm-duration-normal) var(--ybm-easing-standard); }
-@media (hover: hover) { .cs-chat-btn:hover { background: var(--ybm-color-bg-neutral-weak-pressed); } }
-.cs-chat-btn:active { background: var(--ybm-color-bg-neutral-weak-pressed); }
-.cs-service-card__head .ds-icon { transition: translate var(--ybm-duration-normal) var(--ybm-easing-emphasized); }
-@media (hover: hover) {
-  .cs-service-card:hover .cs-service-card__head .ds-icon { translate: 4px 0; }
-}
+/* 5-3) 서비스별 고객센터 안내 — 카드는 링크가 아니다. 눌림은 행의 버튼(DS Action Button)이 맡는다
+   전화번호는 모바일에서 바로 걸 수 있게 tel: 링크이고, 호버에만 밑줄 */
+@media (hover: hover) { .cs-contact__tel:hover { text-decoration: underline; } }
 
 /* 5-4) [전체보기] — 누르면 행이 하나 더 나오고 버튼은 접히며 사라진다
    (실제로는 서버가 다음 묶음을 내려준다. 여기서는 동작을 보여주기 위한 더미 행) */
@@ -738,7 +721,6 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
 /* 5-7) 터치 기기 — 프레스(:active)만. 호버로 생기는 이동·확대는 쓰지 않는다 */
 @media (hover: none) {
   .cs-faq-card:active::before { background: var(--ybm-color-bg-neutral-weak-pressed); }
-  .cs-service-card:active { background: var(--ybm-color-bg-neutral-muted); }
   .cs-keywords__item:active { border-color: var(--ybm-color-stroke-neutral); }
   .cs-keywords__rolling:active,
   .cs-family__button:active,
@@ -810,9 +792,6 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
   .cs-hero__glow--base { animation: none; transition: none; }
   .cs-hero__glow--orbit { display: none; }
   .cs-faq-card::before,
-  .cs-service-card,
-  .cs-chat-btn,
-  .cs-service-card__head .ds-icon,
   .cs-more,
   .cs-family__button > .ds-icon,
   .cs-family__menu a { transition: none; }

@@ -11,10 +11,10 @@
   · 검색어 2자 미만이면 검색창 아래 인라인 안내 (Figma 2745:13839)
   바로가기(뷰어·QA용): main.html#sb6 · #sb6-min
 -->
-<link rel="stylesheet" href="https://luvms012-rgb.github.io/ybm-ds/dist/ybm-ds.css">
+<link rel="stylesheet" href="../ybm-ds/ybm-ds.css">
 <link rel="stylesheet" href="../cs-components.css">
 <link rel="stylesheet" href="../cs.css">
-<script src="https://luvms012-rgb.github.io/ybm-ds/dist/ybm-ds.js" defer></script>
+<script src="../ybm-ds/ybm-ds.js" defer></script>
 <script src="../js/common.js" defer></script>
 <script src="../js/main.js" defer></script>
 </head>
@@ -173,163 +173,318 @@
     <section class="cs-page__section cs-page__service" aria-labelledby="service-title">
       <div class="cs-container">
         <h2 class="cs-section-title" id="service-title">서비스별 고객센터 안내</h2>
+        <!-- CS/Service Card — 본사 고객센터 리뉴얼과 같은 형식 (2026-10-28 디자인 수정사항 p.13~15)
+             서비스명(타이틀) + 하위 서비스(설명) + 연락처 행(항목명 · 연락처 · [고객센터] · 운영 시 [채팅상담])
+             [고객센터]·[채팅상담] 은 새 창. 순서·연락처·링크는 수정사항 p.14 표 그대로 -->
         <div class="cs-grid">
 
-          <div class="cs-service-card">
-            <div class="cs-service-card__details">
-              <div class="cs-service-card__head">
-                <a class="cs-service-card__link" href="#"><span class="cs-service-card__logo"><img src="../assets/service-logo/exam.svg" alt="YBM 어학시험" width="108" height="26"></span></a>
-                <i class="ds-icon ds-icon--arrow-right" aria-hidden="true"></i>
-              </div>
-              <div class="cs-service-card__tags">
-                <span class="cs-tag">TOEIC</span><span class="cs-tag">TOEIC Speaking</span><span class="cs-tag">기타시험</span>
-              </div>
+          <article class="cs-service-card">
+            <div class="cs-service-card__head">
+              <h3 class="cs-service-card__title">YBM Family</h3>
+              <p class="cs-service-card__desc">회원정보 · 머니</p>
             </div>
-            <dl class="cs-service-card__contacts">
-              <div><dt>시험</dt><dd>02-2279-0505</dd></div>
-              <div><dt>결제</dt><dd>02-2008-5200</dd></div>
-              <div><dt>성적표출력</dt><dd>1544-4536</dd></div>
-            </dl>
-          </div>
+            <ul class="cs-service-card__contacts">
+              <li class="cs-contact">
+                <p class="cs-contact__label">대표 문의</p>
+                <div class="cs-contact__info">
+                  <a class="cs-contact__tel" href="tel:0220085200">02-2008-5200</a>
+                  <span class="cs-contact__actions">
+                    <a class="ds-btn" data-variant="neutralOutline" data-size="xsmall" href="faq.html" aria-label="YBM Family 대표 문의 고객센터 (도움말)">고객센터<i class="ds-icon ds-icon--arrow-right" aria-hidden="true"></i></a>
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </article>
 
-          <div class="cs-service-card">
-            <div class="cs-service-card__details">
-              <div class="cs-service-card__head">
-                <a class="cs-service-card__link" href="#"><span class="cs-service-card__logo"><img src="../assets/service-logo/ingang.svg" alt="YBM 인강" width="89" height="26"></span></a>
-                <i class="ds-icon ds-icon--arrow-right" aria-hidden="true"></i>
-              </div>
-              <div class="cs-service-card__tags">
-                <span class="cs-tag">인강</span><span class="cs-tag">전화화상</span><span class="cs-tag">환급코스</span>
-              </div>
+          <article class="cs-service-card">
+            <div class="cs-service-card__head">
+              <h3 class="cs-service-card__title">어학시험</h3>
+              <p class="cs-service-card__desc">TOEIC · TOEIC Speaking · TSC · JET</p>
             </div>
-            <dl class="cs-service-card__contacts">
-              <div><dt>시험</dt><dd>02-2279-0505</dd></div>
-              <div><dt>결제</dt><dd>02-2008-5200</dd></div>
-            </dl>
-            <div class="cs-chat">
-              <button type="button" class="cs-chat-btn">
-                <svg class="cs-chat-btn__mark" viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" focusable="false">
-                  <path d="M0 10C0 4.47715 4.47715 0 10 0C15.5228 0 20 4.47715 20 10C20 15.5228 15.5228 20 10 20C4.47715 20 0 15.5228 0 10Z" fill="#FEE500"/>
-                  <path d="M10.1664 5.625C7.1748 5.625 4.74976 7.50079 4.74976 9.81479C4.74976 11.3022 5.74101 12.6076 7.23059 13.3465C7.12117 13.7527 6.83517 14.8198 6.77776 15.0484C6.70734 15.3317 6.88176 15.3279 6.99659 15.2515C7.08651 15.1919 8.42821 14.2792 9.00942 13.8838C9.38534 13.9396 9.77317 13.9688 10.1664 13.9688C13.158 13.9688 15.5831 12.093 15.5831 9.77904C15.5831 7.46504 13.158 5.625 10.1664 5.625Z" fill="black"/>
-                </svg>
-                채팅상담<span class="ds-sr-only">(YBM 인강 카카오톡 채팅상담)</span>
-              </button>
-            </div>
-          </div>
+            <ul class="cs-service-card__contacts">
+              <li class="cs-contact">
+                <p class="cs-contact__label">시험 관련</p>
+                <div class="cs-contact__info">
+                  <a class="cs-contact__tel" href="tel:0222790505">02-2279-0505</a>
+                  <span class="cs-contact__actions">
+                    <a class="ds-btn" data-variant="neutralOutline" data-size="xsmall" href="https://www.toeic.co.kr/customer/csFaq.php" target="_blank" rel="noopener" aria-label="시험 관련 고객센터 (새 창)">고객센터<i class="ds-icon ds-icon--external-link" aria-hidden="true"></i></a>
+                  </span>
+                </div>
+              </li>
+              <li class="cs-contact">
+                <p class="cs-contact__label">결제 승인·취소</p>
+                <div class="cs-contact__info">
+                  <a class="cs-contact__tel" href="tel:0220085200">02-2008-5200</a>
+                  <span class="cs-contact__actions">
+                    <a class="ds-btn" data-variant="neutralOutline" data-size="xsmall" href="https://www.toeic.co.kr/customer/csFaq.php" target="_blank" rel="noopener" aria-label="결제 승인·취소 고객센터 (새 창)">고객센터<i class="ds-icon ds-icon--external-link" aria-hidden="true"></i></a>
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </article>
 
-          <div class="cs-service-card">
-            <div class="cs-service-card__details">
-              <div class="cs-service-card__head">
-                <a class="cs-service-card__link" href="#"><span class="cs-service-card__logo"><img src="../assets/service-logo/academy.svg" alt="YBM 어학원" width="96" height="26"></span></a>
-                <i class="ds-icon ds-icon--arrow-right" aria-hidden="true"></i>
-              </div>
-              <div class="cs-service-card__tags">
-                <span class="cs-tag">현장강의</span><span class="cs-tag">불라방(라이브)</span><span class="cs-tag">1:1수업</span>
-              </div>
+          <article class="cs-service-card">
+            <div class="cs-service-card__head">
+              <h3 class="cs-service-card__title">IT시험</h3>
+              <p class="cs-service-card__desc">COS · DATA · MOS · COS Pro</p>
             </div>
-            <dl class="cs-service-card__contacts">
-              <div><dt>종로</dt><dd>02-2278-0509</dd></div>
-              <div><dt>강남</dt><dd>02-565-0509</dd></div>
-              <div><dt>건대</dt><dd>02-464-0509</dd></div>
-            </dl>
-          </div>
+            <ul class="cs-service-card__contacts">
+              <li class="cs-contact">
+                <p class="cs-contact__label">시험 관련</p>
+                <div class="cs-contact__info">
+                  <a class="cs-contact__tel" href="tel:0222790505">02-2279-0505</a>
+                  <span class="cs-contact__actions">
+                    <a class="ds-btn" data-variant="neutralOutline" data-size="xsmall" href="https://www.ybmit.com/cs/faq_list.jsp" target="_blank" rel="noopener" aria-label="IT시험 시험 관련 고객센터 (새 창)">고객센터<i class="ds-icon ds-icon--external-link" aria-hidden="true"></i></a>
+                  </span>
+                </div>
+              </li>
+              <li class="cs-contact">
+                <p class="cs-contact__label">회원가입·인증</p>
+                <div class="cs-contact__info">
+                  <span class="cs-contact__value"><a class="cs-contact__tel" href="tel:0220085200">02-2008-5200</a> + '0번'</span>
+                  <span class="cs-contact__actions">
+                    <a class="ds-btn" data-variant="neutralOutline" data-size="xsmall" href="https://www.ybmit.com/cs/faq_list.jsp" target="_blank" rel="noopener" aria-label="회원가입·인증 고객센터 (새 창)">고객센터<i class="ds-icon ds-icon--external-link" aria-hidden="true"></i></a>
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </article>
 
-          <div class="cs-service-card">
-            <div class="cs-service-card__details">
-              <div class="cs-service-card__head">
-                <a class="cs-service-card__link" href="#"><span class="cs-service-card__logo"><img src="../assets/service-logo/it.svg" alt="YBM IT" width="82" height="26"></span></a>
-                <i class="ds-icon ds-icon--arrow-right" aria-hidden="true"></i>
-              </div>
-              <div class="cs-service-card__tags">
-                <span class="cs-tag">MOS</span><span class="cs-tag">COS</span><span class="cs-tag">COS PRO</span><span class="cs-tag">DATA</span>
-              </div>
+          <article class="cs-service-card">
+            <div class="cs-service-card__head">
+              <h3 class="cs-service-card__title">인터넷 강의</h3>
+              <p class="cs-service-card__desc">YBM인강 · YBM전화화상 · YBM커리어캠퍼스 · YBM교원연수</p>
             </div>
-            <dl class="cs-service-card__contacts">
-              <div><dt>접수/결제</dt><dd>02-2279-0505</dd></div>
-              <div><dt>회원/인증</dt><dd>02-2008-5200</dd></div>
-            </dl>
-          </div>
+            <ul class="cs-service-card__contacts">
+              <li class="cs-contact">
+                <p class="cs-contact__label">YBM 인강</p>
+                <div class="cs-contact__info">
+                  <a class="cs-contact__tel" href="tel:0220085200">02-2008-5200</a>
+                  <span class="cs-contact__actions">
+                    <a class="ds-btn" data-variant="neutralOutline" data-size="xsmall" href="https://toeic.ybmclass.com/toeic/toeic_notice_list.asp" target="_blank" rel="noopener" aria-label="YBM 인강 고객센터 (새 창)">고객센터<i class="ds-icon ds-icon--external-link" aria-hidden="true"></i></a>
+                    <a class="ds-btn cs-chat-link" data-variant="neutralWeak" data-size="xsmall" href="https://pf.kakao.com/_gIdRj" target="_blank" rel="noopener" aria-label="YBM 인강 카카오톡 채팅상담 (새 창)"><svg class="cs-chat-link__mark" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false"><path d="M0 10C0 4.47715 4.47715 0 10 0C15.5228 0 20 4.47715 20 10C20 15.5228 15.5228 20 10 20C4.47715 20 0 15.5228 0 10Z" fill="#FEE500"/><path d="M10.1664 5.625C7.1748 5.625 4.74976 7.50079 4.74976 9.81479C4.74976 11.3022 5.74101 12.6076 7.23059 13.3465C7.12117 13.7527 6.83517 14.8198 6.77776 15.0484C6.70734 15.3317 6.88176 15.3279 6.99659 15.2515C7.08651 15.1919 8.42821 14.2792 9.00942 13.8838C9.38534 13.9396 9.77317 13.9688 10.1664 13.9688C13.158 13.9688 15.5831 12.093 15.5831 9.77904C15.5831 7.46504 13.158 5.625 10.1664 5.625Z" fill="black"/></svg>채팅상담</a>
+                  </span>
+                </div>
+              </li>
+              <li class="cs-contact">
+                <p class="cs-contact__label">YBM 전화화상</p>
+                <div class="cs-contact__info">
+                  <a class="cs-contact__tel" href="tel:0220085268">02-2008-5268</a>
+                  <span class="cs-contact__actions">
+                    <a class="ds-btn" data-variant="neutralOutline" data-size="xsmall" href="https://phone.ybmclass.com/phone/phone_notice_list.asp" target="_blank" rel="noopener" aria-label="YBM 전화화상 고객센터 (새 창)">고객센터<i class="ds-icon ds-icon--external-link" aria-hidden="true"></i></a>
+                    <a class="ds-btn cs-chat-link" data-variant="neutralWeak" data-size="xsmall" href="https://pf.kakao.com/_gIdRj" target="_blank" rel="noopener" aria-label="YBM 전화화상 카카오톡 채팅상담 (새 창)"><svg class="cs-chat-link__mark" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false"><path d="M0 10C0 4.47715 4.47715 0 10 0C15.5228 0 20 4.47715 20 10C20 15.5228 15.5228 20 10 20C4.47715 20 0 15.5228 0 10Z" fill="#FEE500"/><path d="M10.1664 5.625C7.1748 5.625 4.74976 7.50079 4.74976 9.81479C4.74976 11.3022 5.74101 12.6076 7.23059 13.3465C7.12117 13.7527 6.83517 14.8198 6.77776 15.0484C6.70734 15.3317 6.88176 15.3279 6.99659 15.2515C7.08651 15.1919 8.42821 14.2792 9.00942 13.8838C9.38534 13.9396 9.77317 13.9688 10.1664 13.9688C13.158 13.9688 15.5831 12.093 15.5831 9.77904C15.5831 7.46504 13.158 5.625 10.1664 5.625Z" fill="black"/></svg>채팅상담</a>
+                  </span>
+                </div>
+              </li>
+              <li class="cs-contact">
+                <p class="cs-contact__label">YBM 커리어캠퍼스</p>
+                <div class="cs-contact__info">
+                  <span class="cs-contact__value">1:1 문의 게시판 이용</span>
+                  <span class="cs-contact__actions">
+                    <a class="ds-btn" data-variant="neutralOutline" data-size="xsmall" href="https://www.ybmcc.com/v2/custom/myqna_write.asp" target="_blank" rel="noopener" aria-label="YBM 커리어캠퍼스 고객센터 (새 창)">고객센터<i class="ds-icon ds-icon--external-link" aria-hidden="true"></i></a>
+                    <a class="ds-btn cs-chat-link" data-variant="neutralWeak" data-size="xsmall" href="https://pf.kakao.com/_xmZxfjb" target="_blank" rel="noopener" aria-label="YBM 커리어캠퍼스 카카오톡 채팅상담 (새 창)"><svg class="cs-chat-link__mark" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false"><path d="M0 10C0 4.47715 4.47715 0 10 0C15.5228 0 20 4.47715 20 10C20 15.5228 15.5228 20 10 20C4.47715 20 0 15.5228 0 10Z" fill="#FEE500"/><path d="M10.1664 5.625C7.1748 5.625 4.74976 7.50079 4.74976 9.81479C4.74976 11.3022 5.74101 12.6076 7.23059 13.3465C7.12117 13.7527 6.83517 14.8198 6.77776 15.0484C6.70734 15.3317 6.88176 15.3279 6.99659 15.2515C7.08651 15.1919 8.42821 14.2792 9.00942 13.8838C9.38534 13.9396 9.77317 13.9688 10.1664 13.9688C13.158 13.9688 15.5831 12.093 15.5831 9.77904C15.5831 7.46504 13.158 5.625 10.1664 5.625Z" fill="black"/></svg>채팅상담</a>
+                  </span>
+                </div>
+              </li>
+              <li class="cs-contact">
+                <p class="cs-contact__label">YBM 교원연수</p>
+                <div class="cs-contact__info">
+                  <a class="cs-contact__tel" href="tel:025017812">02-501-7812</a>
+                  <span class="cs-contact__actions">
+                    <a class="ds-btn" data-variant="neutralOutline" data-size="xsmall" href="https://www.ybmteachers.com/ver20/community/faq.asp" target="_blank" rel="noopener" aria-label="YBM 교원연수 고객센터 (새 창)">고객센터<i class="ds-icon ds-icon--external-link" aria-hidden="true"></i></a>
+                    <a class="ds-btn cs-chat-link" data-variant="neutralWeak" data-size="xsmall" href="https://pf.kakao.com/_xexfHTj" target="_blank" rel="noopener" aria-label="YBM 교원연수 카카오톡 채팅상담 (새 창)"><svg class="cs-chat-link__mark" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false"><path d="M0 10C0 4.47715 4.47715 0 10 0C15.5228 0 20 4.47715 20 10C20 15.5228 15.5228 20 10 20C4.47715 20 0 15.5228 0 10Z" fill="#FEE500"/><path d="M10.1664 5.625C7.1748 5.625 4.74976 7.50079 4.74976 9.81479C4.74976 11.3022 5.74101 12.6076 7.23059 13.3465C7.12117 13.7527 6.83517 14.8198 6.77776 15.0484C6.70734 15.3317 6.88176 15.3279 6.99659 15.2515C7.08651 15.1919 8.42821 14.2792 9.00942 13.8838C9.38534 13.9396 9.77317 13.9688 10.1664 13.9688C13.158 13.9688 15.5831 12.093 15.5831 9.77904C15.5831 7.46504 13.158 5.625 10.1664 5.625Z" fill="black"/></svg>채팅상담</a>
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </article>
 
-          <div class="cs-service-card">
-            <div class="cs-service-card__details">
-              <div class="cs-service-card__head">
-                <a class="cs-service-card__link" href="#"><span class="cs-service-card__logo"><img src="../assets/service-logo/biz.svg" alt="YBM 기업교육" width="110" height="26"></span></a>
-                <i class="ds-icon ds-icon--arrow-right" aria-hidden="true"></i>
-              </div>
-              <div class="cs-service-card__tags">
-                <span class="cs-tag">비대면 교육</span><span class="cs-tag">직무교육</span><span class="cs-tag">맞춤 사내교육</span>
-              </div>
+          <article class="cs-service-card">
+            <div class="cs-service-card__head">
+              <h3 class="cs-service-card__title">성인 어학원</h3>
             </div>
-            <dl class="cs-service-card__contacts">
-              <div><dt>온/오프 교육</dt><dd>02-2009-0000</dd></div>
-              <div><dt>출강 교육</dt><dd>02-2009-0071</dd></div>
-            </dl>
-          </div>
+            <ul class="cs-service-card__contacts">
+              <li class="cs-contact">
+                <p class="cs-contact__label">YBM 어학원</p>
+                <div class="cs-contact__info">
+                  <span class="cs-contact__value"><a class="cs-contact__tel" href="tel:025113870">02-511-3870</a><span class="cs-contact__note">각 학원으로 문의</span></span>
+                  <span class="cs-contact__actions">
+                    <a class="ds-btn" data-variant="neutralOutline" data-size="xsmall" href="https://www.ybmedu.com/qna" target="_blank" rel="noopener" aria-label="YBM 어학원 고객센터 (새 창)">고객센터<i class="ds-icon ds-icon--external-link" aria-hidden="true"></i></a>
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </article>
 
-          <div class="cs-service-card">
-            <div class="cs-service-card__details">
-              <div class="cs-service-card__head">
-                <a class="cs-service-card__link" href="#"><span class="cs-service-card__logo"><img src="../assets/service-logo/textbook.svg" alt="YBM 교과서" width="95" height="26"></span></a>
-                <i class="ds-icon ds-icon--arrow-right" aria-hidden="true"></i>
-              </div>
-              <div class="cs-service-card__tags">
-                <span class="cs-tag">Y클라우드</span><span class="cs-tag">YBM스마트스쿨</span><span class="cs-tag">YBM북샘</span>
-              </div>
+          <article class="cs-service-card">
+            <div class="cs-service-card__head">
+              <h3 class="cs-service-card__title">주니어 학원</h3>
+              <p class="cs-service-card__desc">ECC · 잉글루</p>
             </div>
-            <dl class="cs-service-card__contacts">
-              <div><dt>Y클라우드</dt><dd>02-2279-0505</dd></div>
-              <div><dt>YBM북샘</dt><dd>02-2008-5200</dd></div>
-            </dl>
-          </div>
+            <ul class="cs-service-card__contacts">
+              <li class="cs-contact">
+                <p class="cs-contact__label">ECC</p>
+                <div class="cs-contact__info">
+                  <a class="cs-contact__tel" href="tel:0220090509">02-2009-0509</a>
+                  <span class="cs-contact__actions">
+                    <a class="ds-btn" data-variant="neutralOutline" data-size="xsmall" href="https://www.ybmecc.com/entrance" target="_blank" rel="noopener" aria-label="ECC 고객센터 (새 창)">고객센터<i class="ds-icon ds-icon--external-link" aria-hidden="true"></i></a>
+                  </span>
+                </div>
+              </li>
+              <li class="cs-contact">
+                <p class="cs-contact__label">잉글루</p>
+                <div class="cs-contact__info">
+                  <a class="cs-contact__tel" href="tel:0220090007">02-2009-0007</a>
+                  <span class="cs-contact__actions">
+                    <a class="ds-btn" data-variant="neutralOutline" data-size="xsmall" href="https://www.ybmengloo.com/cus/faq" target="_blank" rel="noopener" aria-label="잉글루 고객센터 (새 창)">고객센터<i class="ds-icon ds-icon--external-link" aria-hidden="true"></i></a>
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </article>
 
-          <!-- [전체보기] 를 누르면 나타나는 다음 묶음 — 동작 확인용 더미 (실제로는 서버가 내려준다) -->
-          <div class="cs-service-card cs-service-card--more" hidden>
-            <div class="cs-service-card__details">
-              <div class="cs-service-card__head">
-                <a class="cs-service-card__link" href="#"><span class="cs-service-card__logo"><img src="../assets/service-logo/it.svg" alt="YBM IT" width="82" height="26"></span></a>
-                <i class="ds-icon ds-icon--arrow-right" aria-hidden="true"></i>
-              </div>
-              <div class="cs-service-card__tags">
-                <span class="cs-tag">MOS</span><span class="cs-tag">COS</span><span class="cs-tag">COS PRO</span><span class="cs-tag">DATA</span>
-              </div>
+          <!-- [전체보기] 를 누르면 나타나는 나머지 5개 (7~11) -->
+          <article class="cs-service-card cs-service-card--more" hidden>
+            <div class="cs-service-card__head">
+              <h3 class="cs-service-card__title">기업·단체 교육</h3>
+              <p class="cs-service-card__desc">비대면 교육 · 온라인 직무교육 · 어학교육 · 맞춤형 사내교육</p>
             </div>
-            <dl class="cs-service-card__contacts">
-              <div><dt>접수/결제</dt><dd>02-2279-0505</dd></div>
-              <div><dt>회원/인증</dt><dd>02-2008-5200</dd></div>
-            </dl>
-          </div>
+            <ul class="cs-service-card__contacts">
+              <li class="cs-contact">
+                <p class="cs-contact__label">비대면 어학교육 <span class="cs-contact__sub">(인강·전화화상·AI)</span></p>
+                <div class="cs-contact__info">
+                  <a class="cs-contact__tel" href="tel:0220090000">02-2009-0000</a>
+                  <span class="cs-contact__actions">
+                    <a class="ds-btn" data-variant="neutralOutline" data-size="xsmall" href="https://www.ybmb2b.com/" target="_blank" rel="noopener" aria-label="비대면 어학교육 고객센터 (새 창)">고객센터<i class="ds-icon ds-icon--external-link" aria-hidden="true"></i></a>
+                  </span>
+                </div>
+              </li>
+              <li class="cs-contact">
+                <p class="cs-contact__label">온라인 직무교육</p>
+                <div class="cs-contact__info">
+                  <a class="cs-contact__tel" href="tel:0220090000">02-2009-0000</a>
+                  <span class="cs-contact__actions">
+                    <a class="ds-btn" data-variant="neutralOutline" data-size="xsmall" href="https://www.ybmb2b.com/views/onoffWork.php" target="_blank" rel="noopener" aria-label="온라인 직무교육 고객센터 (새 창)">고객센터<i class="ds-icon ds-icon--external-link" aria-hidden="true"></i></a>
+                  </span>
+                </div>
+              </li>
+              <li class="cs-contact">
+                <p class="cs-contact__label">온·오프라인 어학교육 <span class="cs-contact__sub">(사내출강·인텐시브 코스·외국어 면접)</span></p>
+                <div class="cs-contact__info">
+                  <a class="cs-contact__tel" href="tel:0220090071">02-2009-0071</a>
+                  <span class="cs-contact__actions">
+                    <a class="ds-btn" data-variant="neutralOutline" data-size="xsmall" href="https://www.ybmb2b.com/" target="_blank" rel="noopener" aria-label="온·오프라인 어학교육 고객센터 (새 창)">고객센터<i class="ds-icon ds-icon--external-link" aria-hidden="true"></i></a>
+                  </span>
+                </div>
+              </li>
+              <li class="cs-contact">
+                <p class="cs-contact__label">맞춤형 사내교육·워크숍·행사 플랫폼 <span class="cs-contact__sub">(YBM 플랜버스)</span></p>
+                <div class="cs-contact__info">
+                  <a class="cs-contact__tel" href="tel:0220090373">02-2009-0373</a>
+                  <span class="cs-contact__actions">
+                    <!-- 확인 필요: 수정사항 표의 링크가 YBM북샘 공지사항으로 되어 있다 -->
+                    <a class="ds-btn" data-variant="neutralOutline" data-size="xsmall" href="https://www.ybmbooksam.com/html/board/notice_list" target="_blank" rel="noopener" aria-label="맞춤형 사내교육 고객센터 (새 창)">고객센터<i class="ds-icon ds-icon--external-link" aria-hidden="true"></i></a>
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </article>
 
-          <div class="cs-service-card cs-service-card--more" hidden>
-            <div class="cs-service-card__details">
-              <div class="cs-service-card__head">
-                <a class="cs-service-card__link" href="#"><span class="cs-service-card__logo"><img src="../assets/service-logo/biz.svg" alt="YBM 기업교육" width="110" height="26"></span></a>
-                <i class="ds-icon ds-icon--arrow-right" aria-hidden="true"></i>
-              </div>
-              <div class="cs-service-card__tags">
-                <span class="cs-tag">비대면 교육</span><span class="cs-tag">직무교육</span><span class="cs-tag">맞춤 사내교육</span>
-              </div>
+          <article class="cs-service-card cs-service-card--more" hidden>
+            <div class="cs-service-card__head">
+              <h3 class="cs-service-card__title">교과서</h3>
+              <p class="cs-service-card__desc">Y클라우드 · YBM스마트스쿨 · 참고서</p>
             </div>
-            <dl class="cs-service-card__contacts">
-              <div><dt>온/오프 교육</dt><dd>02-2009-0000</dd></div>
-              <div><dt>출강 교육</dt><dd>02-2009-0071</dd></div>
-            </dl>
-          </div>
+            <ul class="cs-service-card__contacts">
+              <li class="cs-contact">
+                <p class="cs-contact__label">교과서 콘텐츠 및 에듀테크 서비스 <span class="cs-contact__sub">(Y클라우드)</span></p>
+                <div class="cs-contact__info">
+                  <a class="cs-contact__tel" href="tel:0220000599">02-2000-0599</a>
+                  <span class="cs-contact__actions">
+                    <a class="ds-btn" data-variant="neutralOutline" data-size="xsmall" href="https://www.ybmcloud.com/cscenter/faq?gnbId=347&amp;siteType=E" target="_blank" rel="noopener" aria-label="Y클라우드 고객센터 (새 창)">고객센터<i class="ds-icon ds-icon--external-link" aria-hidden="true"></i></a>
+                  </span>
+                </div>
+              </li>
+              <li class="cs-contact">
+                <p class="cs-contact__label">YBM스마트스쿨</p>
+                <div class="cs-contact__info">
+                  <a class="cs-contact__tel" href="tel:0220000599">02-2000-0599</a>
+                  <span class="cs-contact__actions">
+                    <a class="ds-btn" data-variant="neutralOutline" data-size="xsmall" href="https://ybmsmartschool.com/notice/list?sso_tag=4d98d9dac67bc0aa8652d832d0cf2c77" target="_blank" rel="noopener" aria-label="YBM스마트스쿨 고객센터 (새 창)">고객센터<i class="ds-icon ds-icon--external-link" aria-hidden="true"></i></a>
+                  </span>
+                </div>
+              </li>
+              <li class="cs-contact">
+                <p class="cs-contact__label">초·중·고 참고서 <span class="cs-contact__sub">(YBM북샘)</span></p>
+                <div class="cs-contact__info">
+                  <a class="cs-contact__tel" href="tel:0220000500">02-2000-0500</a>
+                  <span class="cs-contact__actions">
+                    <a class="ds-btn" data-variant="neutralOutline" data-size="xsmall" href="https://www.ybmbooksam.com/html/board/notice_list" target="_blank" rel="noopener" aria-label="YBM북샘 고객센터 (새 창)">고객센터<i class="ds-icon ds-icon--external-link" aria-hidden="true"></i></a>
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </article>
 
-          <div class="cs-service-card cs-service-card--more" hidden>
-            <div class="cs-service-card__details">
-              <div class="cs-service-card__head">
-                <a class="cs-service-card__link" href="#"><span class="cs-service-card__logo"><img src="../assets/service-logo/textbook.svg" alt="YBM 교과서" width="95" height="26"></span></a>
-                <i class="ds-icon ds-icon--arrow-right" aria-hidden="true"></i>
-              </div>
-              <div class="cs-service-card__tags">
-                <span class="cs-tag">Y클라우드</span><span class="cs-tag">YBM스마트스쿨</span><span class="cs-tag">YBM북샘</span>
-              </div>
+          <article class="cs-service-card cs-service-card--more" hidden>
+            <div class="cs-service-card__head">
+              <h3 class="cs-service-card__title">수험서</h3>
             </div>
-            <dl class="cs-service-card__contacts">
-              <div><dt>Y클라우드</dt><dd>02-2279-0505</dd></div>
-              <div><dt>YBM북샘</dt><dd>02-2008-5200</dd></div>
-            </dl>
-          </div>
+            <ul class="cs-service-card__contacts">
+              <li class="cs-contact">
+                <p class="cs-contact__label">어학 수험서</p>
+                <div class="cs-contact__info">
+                  <a class="cs-contact__tel" href="tel:0220000515">02-2000-0515</a>
+                  <span class="cs-contact__actions">
+                    <a class="ds-btn" data-variant="neutralOutline" data-size="xsmall" href="https://www.ybmbooks.com/customer/faq.asp" target="_blank" rel="noopener" aria-label="어학 수험서 고객센터 (새 창)">고객센터<i class="ds-icon ds-icon--external-link" aria-hidden="true"></i></a>
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </article>
+
+          <article class="cs-service-card cs-service-card--more" hidden>
+            <div class="cs-service-card__head">
+              <h3 class="cs-service-card__title">유학</h3>
+            </div>
+            <ul class="cs-service-card__contacts">
+              <li class="cs-contact">
+                <p class="cs-contact__label">YBM 유학센터</p>
+                <div class="cs-contact__info">
+                  <a class="cs-contact__tel" href="tel:0222739671">02-2273-9671</a>
+                  <span class="cs-contact__actions">
+                    <a class="ds-btn" data-variant="neutralOutline" data-size="xsmall" href="https://www.ybmuhak.com/custom/consult_write.asp" target="_blank" rel="noopener" aria-label="YBM 유학센터 고객센터 (새 창)">고객센터<i class="ds-icon ds-icon--external-link" aria-hidden="true"></i></a>
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </article>
+
+          <article class="cs-service-card cs-service-card--more" hidden>
+            <div class="cs-service-card__head">
+              <h3 class="cs-service-card__title">연수원</h3>
+            </div>
+            <ul class="cs-service-card__contacts">
+              <li class="cs-contact">
+                <p class="cs-contact__label">YBM the Biz</p>
+                <div class="cs-contact__info">
+                  <a class="cs-contact__tel" href="tel:15884172">1588-4172</a>
+                  <span class="cs-contact__actions">
+                    <a class="ds-btn" data-variant="neutralOutline" data-size="xsmall" href="http://www.ybmthebiz.com/customer/question_list.asp" target="_blank" rel="noopener" aria-label="YBM the Biz 고객센터 (새 창)">고객센터<i class="ds-icon ds-icon--external-link" aria-hidden="true"></i></a>
+                  </span>
+                </div>
+              </li>
+              <li class="cs-contact">
+                <p class="cs-contact__label">YBM 연수원 이용</p>
+                <div class="cs-contact__info">
+                  <a class="cs-contact__tel" href="tel:0313740509">031-374-0509</a>
+                  <span class="cs-contact__actions">
+                    <a class="ds-btn" data-variant="neutralOutline" data-size="xsmall" href="https://www.ybmacademy.com/community/faq" target="_blank" rel="noopener" aria-label="YBM 연수원 이용 고객센터 (새 창)">고객센터<i class="ds-icon ds-icon--external-link" aria-hidden="true"></i></a>
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </article>
 
         </div>
 

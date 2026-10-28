@@ -451,90 +451,90 @@
    03 서비스
    ========================================================================== */
 
-/* CS/Service Card — 2276:622 · 349×280 (3열 기준) */
+/* CS/Service Card — 본사 고객센터 리뉴얼 형식 (2026-10-28 디자인 수정사항 p.13~15)
+   타이틀(서비스명) + 설명(하위 서비스) → 구분선 → 연락처 행.
+   카드 높이는 고정하지 않는다. 같은 줄 카드는 그리드가 가장 큰 카드 높이로 맞춘다.
+   예전 로고·분류 태그·카드 전체 링크는 쓰지 않는다(행마다 [고객센터] 버튼이 생겼다). */
 .cs-service-card {
-  position: relative;          /* 카드 전체를 덮는 면 링크(__link::after)의 기준 */
   display: flex;
   flex-direction: column;
-  height: 280px;
-  padding: var(--ybm-space-x6) var(--ybm-space-x6) 0 var(--ybm-space-x8);   /* 24 / 24 / 0 / 32 */
+  gap: var(--ybm-space-x5);                                        /* 머리 ↔ 연락처 20 */
+  padding: var(--ybm-space-x6) var(--ybm-space-x6) var(--ybm-space-x7) var(--ybm-space-x8);   /* 24 / 24 / 28 / 32 */
   border-radius: var(--ybm-radius-r5);
   background: var(--ybm-color-bg-layer-default);
-  text-decoration: none;
 }
-.cs-service-card__details {
+.cs-service-card__head {
   display: flex;
   flex-direction: column;
-  gap: var(--ybm-space-x4);
-  padding-bottom: var(--ybm-space-x6);   /* Figma 24 */
+  gap: var(--ybm-space-x1);
+  padding-bottom: var(--ybm-space-x5);
   border-bottom: 1px solid var(--ybm-color-stroke-neutral-muted);
 }
-.cs-service-card__head { display: flex; align-items: center; gap: var(--ybm-space-x4); }
-/* 카드 전체가 링크다. 카드 안에 채팅상담 버튼이 들어가므로 <a> 로 카드를 감쌀 수
-   없어, 로고를 감싼 링크가 ::after 로 카드 면을 덮는다(링크 안에 버튼 금지 회피). */
-.cs-service-card__link { display: flex; flex: 1 1 0; min-width: 0; align-items: center; height: 36px; text-decoration: none; }
-.cs-service-card__link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
-.cs-service-card__logo { display: flex; align-items: center; height: 36px; }
-.cs-service-card__logo img { display: block; height: 26px; width: auto; }
-.cs-service-card__head .ds-icon { --ds-icon-size: 24px; color: var(--ybm-color-fg-neutral-subtle); }
-.cs-service-card__tags { display: flex; align-items: center; gap: var(--ybm-space-x1_5); }
-/* 서비스 분류 태그 — DS Badge 가 아니라 전용(14/21 · radius xs · 회색 면) */
-.cs-tag {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: none;
-  min-height: 24px;
-  padding: var(--ybm-space-x1) var(--ybm-space-x2);
-  border-radius: var(--ybm-shape-xs);
-  background: var(--ybm-color-bg-neutral-muted);
-  color: var(--ybm-color-fg-neutral-muted);
+.cs-service-card__title {
+  margin: 0;
+  font-size: var(--ybm-font-size-t07);
+  line-height: var(--ybm-line-height-t07);
+  font-weight: var(--ybm-font-weight-bold);
+  color: var(--ybm-color-fg-neutral);
+}
+.cs-service-card__desc {
+  margin: 0;
   font-size: var(--ybm-font-size-t04);
   line-height: var(--ybm-line-height-t04);
-  font-weight: var(--ybm-font-weight-medium);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  color: var(--ybm-color-fg-neutral-subtle);
+  word-break: keep-all;
 }
-.cs-service-card__tags .cs-tag:first-child { max-width: 108px; }
 .cs-service-card__contacts {
   display: flex;
   flex-direction: column;
-  gap: var(--ybm-space-x2_5);
+  gap: var(--ybm-space-x4);
   margin: 0;
-  padding-top: var(--ybm-space-x6);
-  font-size: var(--ybm-font-size-t05);
-  line-height: var(--ybm-line-height-t05);
-  white-space: nowrap;
+  padding: 0;
+  list-style: none;
 }
-.cs-service-card__contacts > div { display: flex; align-items: center; gap: var(--ybm-space-x2); }
-.cs-service-card__contacts dt { color: var(--ybm-color-fg-neutral-subtle); }
-.cs-service-card__contacts dd { margin: 0; color: var(--ybm-color-fg-neutral); }
 
-/* CS/Chat Consult Button — 2977:13117 · 36 높이 · pill · 카카오 마크 20
-   카드 하단 슬롯(상하 16)에 놓인다. 면 링크 위로 올려 눌리게 한다. */
-.cs-chat { display: flex; padding-block: var(--ybm-space-x4); }
-.cs-chat-btn {
-  position: relative;
-  z-index: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--ybm-space-x2);
-  height: 36px;
-  padding: var(--ybm-space-x2) var(--ybm-space-x3);
-  border: 0;
-  border-radius: var(--ybm-radius-full);
-  background: var(--ybm-color-bg-neutral-muted);
-  color: var(--ybm-color-fg-neutral-muted);
-  font-family: inherit;
+/* 연락처 행 — 1줄: 항목명 / 2줄: 연락처 + [고객센터] (+ [채팅상담]) */
+.cs-contact { display: flex; flex-direction: column; gap: var(--ybm-space-x1); }
+.cs-contact__label {
+  margin: 0;
   font-size: var(--ybm-font-size-t04);
   line-height: var(--ybm-line-height-t04);
-  font-weight: var(--ybm-font-weight-medium);
-  white-space: nowrap;
-  cursor: pointer;
+  color: var(--ybm-color-fg-neutral-subtle);
+  word-break: keep-all;
 }
-.cs-chat-btn__mark { display: block; flex: none; width: 20px; height: 20px; }
+.cs-contact__sub { font-size: var(--ybm-font-size-t03); line-height: var(--ybm-line-height-t03); }
+/* 연락처와 버튼이 한 줄에 다 들어가지 않으면(버튼 2개인 인터넷 강의 등) 버튼이 아랫줄로 내려간다 */
+.cs-contact__info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ybm-space-x2) var(--ybm-space-x3);
+  min-height: 32px;
+}
+.cs-contact__value,
+.cs-contact__tel {
+  font-size: var(--ybm-font-size-t05);
+  line-height: var(--ybm-line-height-t05);
+  font-weight: var(--ybm-font-weight-medium);
+  color: var(--ybm-color-fg-neutral);
+}
+.cs-contact__value { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: var(--ybm-space-x1_5); min-width: 0; }
+.cs-contact__tel { text-decoration: none; white-space: nowrap; }
+/* "각 학원으로 문의" 처럼 번호에 붙는 짧은 안내 */
+.cs-contact__note {
+  font-size: var(--ybm-font-size-t03);
+  line-height: var(--ybm-line-height-t03);
+  font-weight: var(--ybm-font-weight-regular);
+  color: var(--ybm-color-fg-neutral-subtle);
+}
+.cs-contact__actions { display: flex; flex: none; gap: var(--ybm-space-x1_5); }
+/* [채팅상담] 까지 있는 행은 번호 길이와 상관없이 늘 버튼을 아랫줄에 둔다(한 카드 안에서 모양을 같게) */
+.cs-contact__actions:has(.cs-chat-link) { flex-basis: 100%; }
+.cs-contact__actions .ds-btn { white-space: nowrap; }
+
+/* [채팅상담] — DS Action Button(xsmall · neutralWeak) 에 카카오 마크(16)만 얹는다 */
+.cs-chat-link__mark { display: block; flex: none; width: 16px; height: 16px; }
 
 
 /* ==========================================================================
