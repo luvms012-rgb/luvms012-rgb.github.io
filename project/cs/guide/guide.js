@@ -57,7 +57,7 @@
   var mobile = window.matchMedia("(max-width: 767px)");
   function isMobile() { return mobile.matches; }
 
-  document.title = CFG.title + " — 퍼블리싱 가이드";
+  document.title = CFG.title + " - 퍼블리싱 가이드";
   // MO 보기 폭은 config.deviceWidth.mo 를 따른다 (CSS 기본값 360)
   content.style.setProperty("--g-mo-width", CFG.deviceWidth.mo + "px");
   projectTitle.textContent = CFG.title;
@@ -132,7 +132,7 @@
   function esc(t) { return String(t).replace(/[&<>"']/g, function (c) { return "&#" + c.charCodeAt(0) + ";"; }); }
   function figmaUrl(node) { return "https://www.figma.com/design/" + CFG.figmaFile + "/?node-id=" + node; }
   function renderEmpty(it) {
-    if (it.page) { empty.innerHTML = '<p class="g-empty__title">' + esc(it.enNote || "영문 화면 없음 — 한국어 전용 화면입니다") + "</p>"; return; }
+    if (it.page) { empty.innerHTML = '<p class="g-empty__title">' + esc(it.enNote || "영문 화면 없음 - 한국어 전용 화면입니다") + "</p>"; return; }
     var links = "";
     if (CFG.figmaFile && it.figma) links += '<a class="ds-btn" data-variant="neutralOutline" data-size="small" target="_blank" rel="noopener" href="' + figmaUrl(it.figma) + '">피그마 PC</a>';
     if (CFG.figmaFile && it.figmaMo) links += '<a class="ds-btn" data-variant="neutralOutline" data-size="small" target="_blank" rel="noopener" href="' + figmaUrl(it.figmaMo) + '">피그마 MO</a>';

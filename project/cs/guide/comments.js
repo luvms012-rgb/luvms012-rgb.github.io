@@ -372,7 +372,7 @@
   /* ======================================================================
      뷰어 쪽 UI — 코멘트 창 · 작성창 · 토스트
      ====================================================================== */
-  var hint = el('<span class="ds-badge gc-hint" data-variant="solid" data-size="large" hidden>코멘트를 남길 위치를 누르세요 · Esc 취소</span>');
+  var hint = el('<span class="ds-badge gc-hint" data-variant="solid" data-size="large" hidden>코멘트를 남길 위치를 누르세요, Esc 취소</span>');
   stage.appendChild(hint);
 
   // 오른쪽 코멘트 창 — 항상 열려 있다 (모바일은 아래 시트, 머리를 누르면 펼침/접힘)
@@ -501,7 +501,7 @@
   function paintWho(show) {
     whoBox.hidden = !show;
     whoEdit.hidden = show || !me.name;
-    whoEdit.textContent = me.name + " · 이름 변경";
+    whoEdit.textContent = me.name + " / 이름 변경";
   }
   whoEdit.addEventListener("click", function () { paintWho(true); nameInput.focus(); placeComposer(); });
   // 내용에 맞춰 입력칸이 늘어난다 (최대 160). 비었거나 숨겨져 있으면 기본 한 줄
@@ -699,7 +699,7 @@
   // 코멘트 목록 — 당근 댓글식: [번호] 이름 / 역할 · 시간 / 본문 / 회색 텍스트 액션 / 들여쓴 답글 (2026-10-22)
   function subHTML(x) {
     var role = roleLabel(x.role);
-    return '<span class="gc-sub">' + (role ? esc(role) + " · " : "") + '<time class="gc-time" datetime="' + esc(x.at) + '">' + ago(x.at) + "</time></span>";
+    return '<span class="gc-sub">' + (role ? esc(role) + " / " : "") + '<time class="gc-time" datetime="' + esc(x.at) + '">' + ago(x.at) + "</time></span>";
   }
   function threadHTML(c) {
     var rs = repliesOf(c.id), open = c.id === selected, mine = c.cid === me.cid;
@@ -707,11 +707,11 @@
     var whereNote = "";
     if (c.state.indexOf("screen:") !== 0 && c.sel !== undefined) {
       if (!c.sel && c.x === "") whereNote = '<span class="gc-where">위치 없음</span>';
-      else if (!c._placed && layer) whereNote = '<span class="gc-where">이 보기에서 위치 없음 · ' + (c.device === "mo" ? "MO" : "PC") + "에서 작성</span>";
+      else if (!c._placed && layer) whereNote = '<span class="gc-where">이 보기에서 위치 없음, ' + (c.device === "mo" ? "MO" : "PC") + "에서 작성</span>";
     }
     var act = function (name, label) { return '<button type="button" class="gc-act" data-act="' + name + '" data-id="' + esc(c.id) + '">' + label + "</button>"; };
     return '<article class="ds-card gc-thread" data-size="small" data-thread="' + esc(c.id) + '" data-status="' + esc(c.status) + '"' + (open ? ' aria-current="true"' : "") + ">" +
-      '<span class="ds-badge gc-num" data-variant="solid" data-tone="' + (c.status === "resolved" ? "" : "critical") + '">' + (c._n || "·") + "</span>" +
+      '<span class="ds-badge gc-num" data-variant="solid" data-tone="' + (c.status === "resolved" ? "" : "critical") + '">' + (c._n || "-") + "</span>" +
       '<div class="gc-thread__main">' +
         '<div class="gc-thread__head"><span class="gc-name-row"><span class="gc-author">' + esc(c.author) + "</span>" + partBadge(c) + "</span>" + subHTML(c) + "</div>" +
         '<div class="gc-text-body">' + richText(c.text) + "</div>" +
@@ -732,7 +732,7 @@
               '</div><div class="gc-text-body">' + richText(r.text) + "</div></div>";
           }).join("") + "</div>" +
           '<form class="gc-reply" data-id="' + esc(c.id) + '">' + (me.name ? "" : whoHTML()) +
-            '<div class="gc-reply__box"><textarea class="ds-textarea gc-reply__text" data-size="medium" rows="1" maxlength="2000" placeholder="답글 · @로 멘션" aria-label="답글"></textarea>' +
+            '<div class="gc-reply__box"><textarea class="ds-textarea gc-reply__text" data-size="medium" rows="1" maxlength="2000" placeholder="답글, @로 멘션" aria-label="답글"></textarea>' +
             '<button type="submit" class="ds-btn" data-variant="neutralWeak">등록</button></div></form>'
         : "") +
       "</div>" +
