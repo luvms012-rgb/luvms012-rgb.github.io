@@ -171,7 +171,7 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
 
 /* 서비스별 안내는 PC 에서도 2열 (2026-10-28 사용자 확정). 모바일은 4) 에서 한 장 리스트로 바뀐다 */
 .cs-page__service .cs-grid { --cs-cols: 2; }
-/* 타이틀 영역 높이 통일 (2026-10-28) — 카드마다 머리(타이틀 + 설명)와 연락처를 그리드 두 줄로 나눠
+/* 타이틀 영역 높이 통일 (2026-10-28), 카드마다 머리(타이틀 + 설명)와 연락처를 그리드 두 줄로 나눠
    같은 줄 카드끼리 머리 높이를 맞춘다. 설명이 없거나 두 줄이 되는 카드도 구분선이 같은 높이에 온다.
    모바일은 한 장 리스트라 4) 에서 그리드를 풀어 이 규칙이 쓰이지 않는다 */
 @media (min-width: 768px) {
@@ -188,8 +188,8 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
     min-height: calc(var(--ybm-line-height-t07) + var(--ybm-space-x2) + var(--ybm-line-height-t04) + var(--ybm-space-x5) + 1px);
   }
 }
-/* 연락처 행 가로 한 줄 (2026-10-28, 본사 고객센터 PC 와 같게) — 항목명은 왼쪽, 번호와 버튼은 오른쪽.
-   항목명이 길면 왼쪽 칸 안에서 줄바꿈되고, "각 학원으로 문의" 같은 안내는 번호 아래 오른쪽 정렬.
+/* 연락처 행 가로 한 줄 (2026-10-28, 본사 고객센터 PC 와 같게), 항목명은 왼쪽, 번호와 버튼은 오른쪽.
+   항목명이 길면 왼쪽 칸 안에서 줄바꿈되고, "(각 학원으로 문의)" 같은 안내는 번호 바로 뒤에 붙는다.
    카드 폭이 532 가 되는 1280 부터 적용한다. 그보다 좁으면 본사처럼 두 줄(항목명 / 번호와 버튼) */
 @media (min-width: 1280px) {
   /* 머리도 한 줄 — 서비스명 왼쪽, 하위 서비스 오른쪽(길면 오른쪽 칸 안에서 줄바꿈) */
@@ -198,15 +198,14 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
     align-items: center;
     justify-content: space-between;
     gap: var(--ybm-space-x4);
-    min-height: calc(var(--ybm-line-height-t09) + var(--ybm-space-x5) + 1px);   /* 34 + 20 + 1 */
+    min-height: calc(var(--ybm-line-height-t07) + var(--ybm-space-x5) + 1px);   /* 29 + 20 + 1 */
   }
-  /* 폰트 PC — 서비스명 24 SemiBold (하위 서비스 14, 항목명 16, 연락처 16 은 전 구간 같음) */
-  .cs-service-card__title { flex: none; font-size: var(--ybm-font-size-t09); line-height: var(--ybm-line-height-t09); }
+  /* 폰트는 전 구간 같다: 서비스명 20 SemiBold, 하위 서비스 14, 항목명 16 Medium, 연락처 16 (2026-10-28 사용자 지정) */
+  .cs-service-card__title { flex: none; }
   .cs-service-card__desc { min-width: 0; text-align: right; }
-  .cs-contact { flex-direction: row; align-items: center; gap: var(--ybm-space-x3); min-height: 32px; }
+  .cs-contact { flex-direction: row; align-items: center; gap: var(--ybm-space-x3); min-height: var(--ybm-space-x9); }
   .cs-contact__label { flex: 1 1 auto; min-width: 0; }
   .cs-contact__info { flex: none; flex-wrap: nowrap; justify-content: flex-end; min-height: 0; }
-  .cs-contact__value:has(.cs-contact__note) { flex-direction: column; align-items: flex-end; text-align: right; }
 }
 
 /* 서비스 카드 그리드 ↔ [전체보기] 48 */
