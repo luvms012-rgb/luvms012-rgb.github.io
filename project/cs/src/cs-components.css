@@ -463,24 +463,27 @@
   border-radius: var(--ybm-radius-r5);
   background: var(--ybm-color-bg-layer-default);
 }
+/* 폰트 위계는 본사 고객센터와 같게 (2026-10-28) — 서비스명 > 항목명 > 연락처 > 하위 서비스
+   여기 값은 두 줄 배치(1279 이하) 기준이고, 1280 이상 한 줄 배치의 값은 cs.css 2) 에서 덮는다 */
 .cs-service-card__head {
   display: flex;
   flex-direction: column;
-  gap: var(--ybm-space-x1);
+  gap: var(--ybm-space-x2);
   padding-bottom: var(--ybm-space-x5);
   border-bottom: 1px solid var(--ybm-color-stroke-neutral-muted);
 }
-.cs-service-card__title {
+.cs-service-card__title {                    /* 본사 20 SemiBold */
   margin: 0;
   font-size: var(--ybm-font-size-t07);
   line-height: var(--ybm-line-height-t07);
-  font-weight: var(--ybm-font-weight-bold);
+  font-weight: var(--ybm-font-weight-semibold);
   color: var(--ybm-color-fg-neutral);
 }
-.cs-service-card__desc {
+.cs-service-card__desc {                     /* 본사 12 Medium 연회색 */
   margin: 0;
-  font-size: var(--ybm-font-size-t04);
-  line-height: var(--ybm-line-height-t04);
+  font-size: var(--ybm-font-size-t02);
+  line-height: var(--ybm-line-height-t02);
+  font-weight: var(--ybm-font-weight-medium);
   color: var(--ybm-color-fg-neutral-subtle);
   word-break: keep-all;
 }
@@ -494,12 +497,13 @@
 }
 
 /* 연락처 행 — 1줄: 항목명 / 2줄: 연락처 + [고객센터] (+ [채팅상담]) */
-.cs-contact { display: flex; flex-direction: column; gap: var(--ybm-space-x1); }
-.cs-contact__label {
+.cs-contact { display: flex; flex-direction: column; gap: var(--ybm-space-x0_5); }
+.cs-contact__label {                         /* 본사 16 Medium 진회색 */
   margin: 0;
-  font-size: var(--ybm-font-size-t04);
-  line-height: var(--ybm-line-height-t04);
-  color: var(--ybm-color-fg-neutral-subtle);
+  font-size: var(--ybm-font-size-t05);
+  line-height: var(--ybm-line-height-t05);
+  font-weight: var(--ybm-font-weight-medium);
+  color: var(--ybm-color-fg-neutral-muted);
   word-break: keep-all;
 }
 .cs-contact__sub { font-size: var(--ybm-font-size-t03); line-height: var(--ybm-line-height-t03); }
@@ -513,24 +517,23 @@
   min-height: 32px;
 }
 .cs-contact__value,
-.cs-contact__tel {
-  font-size: var(--ybm-font-size-t05);
-  line-height: var(--ybm-line-height-t05);
-  font-weight: var(--ybm-font-weight-medium);
-  color: var(--ybm-color-fg-neutral);
+.cs-contact__tel {                           /* 본사 14 SemiBold 진회색 */
+  font-size: var(--ybm-font-size-t04);
+  line-height: var(--ybm-line-height-t04);
+  font-weight: var(--ybm-font-weight-semibold);
+  color: var(--ybm-color-fg-neutral-muted);
 }
 .cs-contact__value { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: var(--ybm-space-x1_5); min-width: 0; }
 .cs-contact__tel { text-decoration: none; white-space: nowrap; }
 /* "각 학원으로 문의" 처럼 번호에 붙는 짧은 안내 */
 .cs-contact__note {
-  font-size: var(--ybm-font-size-t03);
-  line-height: var(--ybm-line-height-t03);
-  font-weight: var(--ybm-font-weight-regular);
+  font-size: var(--ybm-font-size-t02);
+  line-height: var(--ybm-line-height-t02);
+  font-weight: var(--ybm-font-weight-medium);
   color: var(--ybm-color-fg-neutral-subtle);
 }
 .cs-contact__actions { display: flex; flex: none; gap: var(--ybm-space-x1_5); }
 .cs-contact__actions .ds-btn { white-space: nowrap; }
-
 /* [채팅상담] — DS Action Button(xsmall · neutralWeak) 에 카카오 마크(16)만 얹는다 */
 .cs-chat-link__mark { display: block; flex: none; width: 16px; height: 16px; }
 
