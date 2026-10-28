@@ -529,8 +529,6 @@
   color: var(--ybm-color-fg-neutral-subtle);
 }
 .cs-contact__actions { display: flex; flex: none; gap: var(--ybm-space-x1_5); }
-/* [채팅상담] 까지 있는 행은 번호 길이와 상관없이 늘 버튼을 아랫줄에 둔다(한 카드 안에서 모양을 같게) */
-.cs-contact__actions:has(.cs-chat-link) { flex-basis: 100%; }
 .cs-contact__actions .ds-btn { white-space: nowrap; }
 
 /* [채팅상담] — DS Action Button(xsmall · neutralWeak) 에 카카오 마크(16)만 얹는다 */
