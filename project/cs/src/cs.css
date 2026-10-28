@@ -183,9 +183,9 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
     align-content: start;
   }
   /* 설명이 없는 카드(성인 어학원, 수험서 등)도 타이틀 + 설명 한 줄 높이를 기본으로 둔다
-     = 타이틀 29 + 간격 8 + 설명 18 + 아래 여백 20 + 구분선 1 */
+     = 타이틀 29 + 간격 8 + 설명 21 + 아래 여백 20 + 구분선 1 */
   .cs-page__service .cs-service-card__head {
-    min-height: calc(var(--ybm-line-height-t07) + var(--ybm-space-x2) + var(--ybm-line-height-t02) + var(--ybm-space-x5) + 1px);
+    min-height: calc(var(--ybm-line-height-t07) + var(--ybm-space-x2) + var(--ybm-line-height-t04) + var(--ybm-space-x5) + 1px);
   }
 }
 /* 연락처 행 가로 한 줄 (2026-10-28, 본사 고객센터 PC 와 같게) — 항목명은 왼쪽, 번호와 버튼은 오른쪽.
@@ -200,9 +200,9 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
     gap: var(--ybm-space-x4);
     min-height: calc(var(--ybm-line-height-t09) + var(--ybm-space-x5) + 1px);   /* 34 + 20 + 1 */
   }
-  /* 폰트 위계 PC — 본사 1920 기준: 서비스명 24 SemiBold / 하위 서비스 13 / 항목명 16 / 연락처 14 SemiBold */
+  /* 폰트 PC — 서비스명 24 SemiBold (하위 서비스 14, 항목명 16, 연락처 16 은 전 구간 같음) */
   .cs-service-card__title { flex: none; font-size: var(--ybm-font-size-t09); line-height: var(--ybm-line-height-t09); }
-  .cs-service-card__desc { min-width: 0; text-align: right; font-size: var(--ybm-font-size-t03); line-height: var(--ybm-line-height-t03); }
+  .cs-service-card__desc { min-width: 0; text-align: right; }
   .cs-contact { flex-direction: row; align-items: center; gap: var(--ybm-space-x3); min-height: 32px; }
   .cs-contact__label { flex: 1 1 auto; min-width: 0; }
   .cs-contact__info { flex: none; flex-wrap: nowrap; justify-content: flex-end; min-height: 0; }

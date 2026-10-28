@@ -463,7 +463,7 @@
   border-radius: var(--ybm-radius-r5);
   background: var(--ybm-color-bg-layer-default);
 }
-/* 폰트 위계는 본사 고객센터와 같게 (2026-10-28) — 서비스명 > 항목명 > 연락처 > 하위 서비스
+/* 폰트 위계는 본사 고객센터 기준 (2026-10-28) — 서비스명 24(PC)/20 > 항목명 16, 연락처 16 SemiBold > 하위 서비스 14
    여기 값은 두 줄 배치(1279 이하) 기준이고, 1280 이상 한 줄 배치의 값은 cs.css 2) 에서 덮는다 */
 .cs-service-card__head {
   display: flex;
@@ -479,10 +479,10 @@
   font-weight: var(--ybm-font-weight-semibold);
   color: var(--ybm-color-fg-neutral);
 }
-.cs-service-card__desc {                     /* 본사 12 Medium 연회색 */
+.cs-service-card__desc {                     /* 14 Medium 연회색 (2026-10-28 사용자 지정) */
   margin: 0;
-  font-size: var(--ybm-font-size-t02);
-  line-height: var(--ybm-line-height-t02);
+  font-size: var(--ybm-font-size-t04);
+  line-height: var(--ybm-line-height-t04);
   font-weight: var(--ybm-font-weight-medium);
   color: var(--ybm-color-fg-neutral-subtle);
   word-break: keep-all;
@@ -506,7 +506,7 @@
   color: var(--ybm-color-fg-neutral-muted);
   word-break: keep-all;
 }
-.cs-contact__sub { font-size: var(--ybm-font-size-t03); line-height: var(--ybm-line-height-t03); }
+.cs-contact__sub { font-size: var(--ybm-font-size-t05); line-height: var(--ybm-line-height-t05); }   /* 괄호 보충(Y클라우드 등)도 항목명과 같은 16 (2026-10-28 사용자 지정) */
 /* 연락처와 버튼이 한 줄에 다 들어가지 않으면(버튼 2개인 인터넷 강의 등) 버튼이 아랫줄로 내려간다 */
 .cs-contact__info {
   display: flex;
@@ -517,9 +517,9 @@
   min-height: 32px;
 }
 .cs-contact__value,
-.cs-contact__tel {                           /* 본사 14 SemiBold 진회색 */
-  font-size: var(--ybm-font-size-t04);
-  line-height: var(--ybm-line-height-t04);
+.cs-contact__tel {                           /* 16 SemiBold 진회색 (2026-10-28 사용자 지정) */
+  font-size: var(--ybm-font-size-t05);
+  line-height: var(--ybm-line-height-t05);
   font-weight: var(--ybm-font-weight-semibold);
   color: var(--ybm-color-fg-neutral-muted);
 }
