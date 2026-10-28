@@ -171,6 +171,23 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
 
 /* 서비스별 안내는 PC 에서도 2열 (2026-10-28 사용자 확정). 모바일은 4) 에서 한 장 리스트로 바뀐다 */
 .cs-page__service .cs-grid { --cs-cols: 2; }
+/* 타이틀 영역 높이 통일 (2026-10-28) — 카드마다 머리(타이틀 + 설명)와 연락처를 그리드 두 줄로 나눠
+   같은 줄 카드끼리 머리 높이를 맞춘다. 설명이 없거나 두 줄이 되는 카드도 구분선이 같은 높이에 온다.
+   모바일은 한 장 리스트라 4) 에서 그리드를 풀어 이 규칙이 쓰이지 않는다 */
+@media (min-width: 768px) {
+  .cs-page__service .cs-grid > .cs-service-card {
+    display: grid;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    row-gap: var(--ybm-space-x5);          /* 머리 ↔ 연락처 20 (카드 안에서만) */
+    align-content: start;
+  }
+  /* 설명이 없는 카드(성인 어학원·수험서 등)도 타이틀 + 설명 한 줄 높이를 기본으로 둔다
+     = 타이틀 29 + 간격 4 + 설명 21 + 아래 여백 20 + 구분선 1 */
+  .cs-page__service .cs-service-card__head {
+    min-height: calc(var(--ybm-line-height-t07) + var(--ybm-space-x1) + var(--ybm-line-height-t04) + var(--ybm-space-x5) + 1px);
+  }
+}
 
 /* 서비스 카드 그리드 ↔ [전체보기] 48 */
 .cs-page__service .cs-grid + .cs-more { margin-top: var(--ybm-space-x12); }
