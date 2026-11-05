@@ -50,7 +50,7 @@ window.GUIDE_SCREENS = [
         "선택한 값이 필드에 표시되고 [다음] 활성",
         "필드를 다시 누르면 현재 선택값이 체크된 상태로 팝업 재오픈(310-1519)"
       ]},
-    { sb: "8", name: "본인인증 - 휴대전화번호 (실명인증 선택)", page: "../src/pages/identity.html", hash: "sb8-real", figma: "323-642", en: true,
+    { sb: "8", name: "본인인증 - 휴대전화번호 (실명인증 선택)", page: "../src/pages/identity.html", hash: "sb8-real", figma: "323-642",
       notes: [
         "스텝이 나타나면 번호 입력으로 포커스, 앞의 '통신사 ∨' 를 누르면 통신사 선택 팝업",
         "번호는 010 자동 입력 상태에서 시작, 010-0000-0000 자동 포맷",
@@ -72,18 +72,18 @@ window.GUIDE_SCREENS = [
         "형식이 틀린 채 포커스가 빠지면 '이메일 주소를 다시 확인해주세요.' (칩 숨김)",
         "형식이 맞으면 [인증번호 발송] 활성 → SB.12 인증번호 입력(퍼블리싱 예정)"
       ]},
-    { sb: "10", name: "본인인증 - 입력 정보 확인", page: "../src/pages/identity.html", hash: "sb10", figma: "654-18460", en: true,
+    { sb: "10", name: "본인인증 - 입력 정보 확인", page: "../src/pages/identity.html", hash: "sb10", figma: "654-18460",
       notes: [
         "실명인증 선택 경로 전용, SB.8 휴대전화(통신사) 입력 후 [다음]을 누르면 나타남",
         "입력한 4개 항목이 라벨과 함께 펼쳐지고, 눌러서 바로 수정 가능, [확인했어요] → SB.11 본인확인 약관동의(퍼블리싱 예정)",
-        "영문은 실명인증이 없어 실제로는 거치지 않음 - Figma EN 'KO 유추' 프레임 기준으로 문구만 준비"
+        "영문은 실명인증이 없어 이 화면이 없다 (기획 11-05)"
       ]},
-    { sb: "10", name: "본인인증 - 입력 정보 확인 (정보 불일치 Alert)", page: "../src/pages/identity.html", hash: "sb10-alert", figma: "654-18603", en: true,
+    { sb: "10", name: "본인인증 - 입력 정보 확인 (정보 불일치 Alert)", page: "../src/pages/identity.html", hash: "sb10-alert", figma: "654-18603",
       notes: [
         "실명인증 정보와 입력 정보가 다르면 Alert (서버 판정 - 퍼블리싱은 이 바로가기로만 확인)",
         "[확인] 버튼으로만 닫힘 (바깥 클릭/닫기 버튼 없음, ESC 는 브라우저 기본 동작)"
       ]},
-    { sb: "11", name: "본인인증 - 본인확인 약관동의 레이어팝업", page: "../src/pages/identity.html", hash: "sb11", figma: "654-18771", en: true,
+    { sb: "11", name: "본인인증 - 본인확인 약관동의 레이어팝업", page: "../src/pages/identity.html", hash: "sb11", figma: "654-18771",
       notes: [
         "실명인증 선택 경로 전용, SB.10 [확인했어요]를 누르면 열림",
         "'필수 약관 전체 동의' 체크 = 5종 모두 체크, 우측 ∨ 로 약관 목록 펼침/접힘",
@@ -100,11 +100,11 @@ window.GUIDE_SCREENS = [
         "인증 성공 → 기존 회원 조회(SB.13/14)",
         "상태 바로 보기: #sb12-filled (입력 완료), #sb12-error (불일치)"
       ]},
-    { sb: "13", name: "기존 회원 조회 - 이미 가입된 회원 안내", page: "../src/pages/existing-member.html", hash: "sb13", figma: "654-19167", en: true,
+    { sb: "13", name: "기존 회원 조회 - 이미 가입된 회원 안내", page: "../src/pages/existing-member.html", hash: "sb13", figma: "654-19167",
       notes: [
         "실명인증된 아이디가 1개 있으면 추가 가입 불가 → 이름/아이디/가입일자 표시",
         "비밀번호 재설정: 새 창 member.ybmnet.co.kr/join/find_pw.jsp, 로그인하기: 현재 창 www.ybm.co.kr/common/login.asp (퍼블리싱은 스낵바)",
-        "영문은 기획서에 없음 - Figma EN 'KO 유추' 기준"
+        "영문은 실명인증이 없어 이 화면이 없다 (기획 11-05)"
       ]},
     { sb: "14", name: "기존 회원 조회 - 이미 가입된 아이디 선택", page: "../src/pages/existing-member.html", hash: "sb14", figma: "653-19068", en: true,
       notes: [
