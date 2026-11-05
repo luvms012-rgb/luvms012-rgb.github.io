@@ -203,19 +203,20 @@
      화면(iframe) 안 핀 레이어 — Shadow DOM 이라 화면 CSS 와 섞이지 않는다
      ====================================================================== */
   // 핀은 화면(iframe) 안 Shadow DOM 에 그린다 — DS 토큰은 화면 문서(ybm-ds.css)에서 상속받는다
+  // 화면의 DS 사본이 예전 이름(--ybm-)일 수 있어 새 이름(--ds-, 11-04 바뀜) 다음에 옛 이름을 둔다
   var PIN_CSS =
     ":host{all:initial}" +
     ".pins{position:absolute;left:0;top:0}" +
-    ".pin{--c:var(--ybm-color-bg-critical-solid);position:absolute;display:grid;place-items:center;min-width:28px;height:28px;padding:0 var(--ybm-space-x1_5);box-sizing:border-box;" +
-    "border:0;border-radius:var(--ybm-shape-pill) var(--ybm-shape-pill) var(--ybm-shape-pill) var(--ybm-radius-r0_5);" +
-    "background:var(--c);color:var(--ybm-color-palette-static-white);font-family:var(--ybm-font-family-base);font-size:var(--ybm-font-size-t05);line-height:1;font-weight:var(--ybm-font-weight-semibold);cursor:pointer;" +
-    "box-shadow:var(--ybm-elevation-raised);transform-origin:0 100%;transform:translateY(-100%) scale(var(--inv,1));transition:transform var(--ybm-duration-fast) var(--ybm-easing-standard)}" +
+    ".pin{--c:var(--ds-color-bg-critical-solid, var(--ybm-color-bg-critical-solid));position:absolute;display:grid;place-items:center;min-width:28px;height:28px;padding:0 var(--ds-space-x1_5, var(--ybm-space-x1_5));box-sizing:border-box;" +
+    "border:0;border-radius:var(--ds-shape-pill, var(--ybm-shape-pill)) var(--ds-shape-pill, var(--ybm-shape-pill)) var(--ds-shape-pill, var(--ybm-shape-pill)) var(--ds-radius-r0_5, var(--ybm-radius-r0_5));" +
+    "background:var(--c);color:var(--ds-color-palette-static-white, var(--ybm-color-palette-static-white));font-family:var(--ds-font-family-base, var(--ybm-font-family-base));font-size:var(--ds-font-size-t05, var(--ybm-font-size-t05));line-height:1;font-weight:var(--ds-font-weight-semibold, var(--ybm-font-weight-semibold));cursor:pointer;" +
+    "box-shadow:var(--ds-elevation-raised, var(--ybm-elevation-raised));transform-origin:0 100%;transform:translateY(-100%) scale(var(--inv,1));transition:transform var(--ds-duration-fast, var(--ybm-duration-fast)) var(--ds-easing-standard, var(--ybm-easing-standard))}" +
     ".pin:hover{transform:translateY(-100%) scale(calc(var(--inv,1)*1.12))}" +
-    ".pin[data-status=resolved]{--c:var(--ybm-color-bg-disabled);color:var(--ybm-color-fg-disabled)}" +
-    ".pin[aria-current=true]{box-shadow:0 0 0 3px var(--c),var(--ybm-elevation-floating);z-index:2}" +
-    ".pin[data-draft]{width:28px;animation:pop var(--ybm-duration-normal) var(--ybm-easing-standard)}" +
+    ".pin[data-status=resolved]{--c:var(--ds-color-bg-disabled, var(--ybm-color-bg-disabled));color:var(--ds-color-fg-disabled, var(--ybm-color-fg-disabled))}" +
+    ".pin[aria-current=true]{box-shadow:0 0 0 3px var(--c),var(--ds-elevation-floating, var(--ybm-elevation-floating));z-index:2}" +
+    ".pin[data-draft]{width:28px;animation:pop var(--ds-duration-normal, var(--ybm-duration-normal)) var(--ds-easing-standard, var(--ybm-easing-standard))}" +
     "@keyframes pop{from{transform:translateY(-100%) scale(0)}}" +
-    ".hover{position:absolute;pointer-events:none;outline:2px solid var(--ybm-color-stroke-neutral-contrast);outline-offset:-1px;background:var(--ybm-color-bg-transparent-pressed);border-radius:var(--ybm-shape-2xs)}" +
+    ".hover{position:absolute;pointer-events:none;outline:2px solid var(--ds-color-stroke-neutral-contrast, var(--ybm-color-stroke-neutral-contrast));outline-offset:-1px;background:var(--ds-color-bg-transparent-pressed, var(--ybm-color-bg-transparent-pressed));border-radius:var(--ds-shape-2xs, var(--ybm-shape-2xs))}" +
     ".hover[hidden]{display:none}";
 
   function frameDoc() { try { var d = frame.contentDocument; return d && d.documentElement && frame.contentWindow.location.href !== "about:blank" ? d : null; } catch (e) { return null; } }
@@ -297,7 +298,7 @@
   var cursorCache = "";
   function commentCursor() {
     if (cursorCache) return cursorCache;
-    var c = getComputedStyle(document.documentElement).getPropertyValue("--ybm-color-bg-critical-solid").trim() || "red";
+    var c = getComputedStyle(document.documentElement).getPropertyValue("--ds-color-bg-critical-solid").trim() || "red";
     var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">' +
       '<path d="M12 0a12 12 0 0 1 0 24H2a2 2 0 0 1-2-2V12A12 12 0 0 1 12 0Z" fill="' + c + '"/></svg>';
     cursorCache = 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '") 1 23, crosshair';
@@ -412,12 +413,12 @@
       '<button type="button" class="ds-link gc-whoedit" hidden></button>' +
     "</form>");
   stage.appendChild(composer);
-  // 알림 — DS Snackbar (ybm-ds.js 의 YBM.snackbar)
+  // 알림 — DS Snackbar (ybm-ds.js 의 DS.snackbar)
   function say(msg, bad, more) {
-    if (!(window.YBM && YBM.snackbar)) return;
+    if (!(window.YBM && DS.snackbar)) return;
     var o = { variant: bad ? "critical" : "positive", duration: more ? 4000 : 2600 };
     if (more) { o.action = more.action; o.onAction = more.onAction; }
-    YBM.snackbar(msg, o);
+    DS.snackbar(msg, o);
   }
 
   /* ---- 모드 ------------------------------------------------------------- */

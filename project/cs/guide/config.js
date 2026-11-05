@@ -9,7 +9,7 @@
      lang         고객센터는 영문 요건이 없다 → false (언어 전환 UI 가 사라진다)
      device       PC / MO 전환 사용
      deviceWidth  보기 폭. PC 1280 = 퍼블리싱 Desktop 분기 시작점(1280~)이라
-                  컨테이너 1080 고정 레이아웃을 그대로 확인할 수 있다.
+                  컨테이너 1200 고정 레이아웃을 그대로 확인할 수 있다.
                   MO 375 = 모바일 기준 시안 폭.
      srcLabel     화면 목록 번호 접두사 (기획서 슬라이드 번호 = SB 번호)
      figmaFile    피그마 fileKey — screens.js 의 figma/figmaMo 노드를 링크로 연다
