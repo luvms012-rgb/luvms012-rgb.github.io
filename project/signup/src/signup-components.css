@@ -26,7 +26,7 @@
    칸 상태(data-state): empty / focused / filled
    오류는 컨테이너 aria-invalid="true", 비활성은 input disabled
    -------------------------------------------------------------------------- */
-.signup-code-input { position: relative; display: flex; justify-content: center; gap: var(--ybm-space-x1_5); }
+.signup-code-input { position: relative; display: flex; justify-content: center; gap: var(--ds-space-x1_5); }
 .signup-code-input__control {
   position: absolute;
   inset: 0;
@@ -45,18 +45,18 @@
   flex: 0 1 55px;
   min-width: 0;
   height: 56px;
-  border-radius: var(--ybm-shape-md);
-  background: var(--ybm-color-bg-layer-default);
-  box-shadow: inset 0 0 0 1px var(--ybm-color-stroke-neutral-weak);
-  color: var(--ybm-color-fg-brand);
-  font-size: var(--ybm-font-size-t08);
-  line-height: var(--ybm-line-height-t08);
-  font-weight: var(--ybm-font-weight-semibold);
+  border-radius: var(--ds-shape-md);
+  background: var(--ds-color-bg-layer-default);
+  box-shadow: inset 0 0 0 1px var(--ds-color-stroke-neutral-weak);
+  color: var(--ds-color-fg-brand);
+  font-size: var(--ds-font-size-t08);
+  line-height: var(--ds-line-height-t08);
+  font-weight: var(--ds-font-weight-semibold);
   font-variant-numeric: tabular-nums;
   pointer-events: none;
-  transition: background-color var(--ybm-duration-fast) var(--ybm-easing-standard), box-shadow var(--ybm-duration-fast) var(--ybm-easing-standard);
+  transition: background-color var(--ds-duration-fast) var(--ds-easing-standard), box-shadow var(--ds-duration-fast) var(--ds-easing-standard);
 }
-.signup-code-input__cell[data-state="focused"] { box-shadow: inset 0 0 0 2px var(--ybm-color-stroke-focus-ring); }
-.signup-code-input__cell[data-state="filled"]  { background: var(--ybm-color-bg-brand-weak); box-shadow: none; }
-.signup-code-input[aria-invalid="true"] .signup-code-input__cell[data-state="filled"] { background: var(--ybm-color-bg-critical-weak); color: var(--ybm-color-fg-critical); }
-.signup-code-input:has(:disabled) .signup-code-input__cell { background: var(--ybm-color-bg-disabled); color: var(--ybm-color-fg-disabled); box-shadow: none; }
+.signup-code-input__cell[data-state="focused"] { box-shadow: inset 0 0 0 2px var(--ds-color-stroke-focus-ring); }
+.signup-code-input__cell[data-state="filled"]  { background: var(--ds-color-bg-brand-weak); box-shadow: none; }
+.signup-code-input[aria-invalid="true"] .signup-code-input__cell[data-state="filled"] { background: var(--ds-color-bg-critical-weak); color: var(--ds-color-fg-critical); }
+.signup-code-input:has(:disabled) .signup-code-input__cell { background: var(--ds-color-bg-disabled); color: var(--ds-color-fg-disabled); box-shadow: none; }

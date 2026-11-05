@@ -18,11 +18,11 @@
   var BRAND = { naver: "네이버", kakao: "카카오", google: "구글", apple: "애플" };
   $$(".signup-social__btn").forEach(function (b) {
     b.addEventListener("click", function () {
-      YBM.snackbar(BRAND[b.getAttribute("data-brand")] + " 로그인 → 간편계정 연결 (개발)");
+      DS.snackbar(BRAND[b.getAttribute("data-brand")] + " 로그인 → 간편계정 연결 (개발)");
     });
   });
   $("#skip-link").addEventListener("click", function () {
-    YBM.snackbar("연결 없이 로그인 상태로 가입을 시작한 사이트로 이동 (개발)");
+    DS.snackbar("연결 없이 로그인 상태로 가입을 시작한 사이트로 이동 (개발)");
   });
 
   /* ---- 바로가기 해시 (가이드 뷰어 전용) -----------------------------------
@@ -30,9 +30,9 @@
      -------------------------------------------------------------------------- */
   var ALERT = { "sb18-dup": "dialog-social-dup", "sb18-ci": "dialog-social-ci" };
   function applyHash() {
-    ["dialog-social-dup", "dialog-social-ci"].forEach(function (id) { YBM.closeDialog(id); });
+    ["dialog-social-dup", "dialog-social-ci"].forEach(function (id) { DS.closeDialog(id); });
     var id = ALERT[location.hash.replace("#", "")];
-    if (id) YBM.openDialog(id);
+    if (id) DS.openDialog(id);
   }
   window.addEventListener("hashchange", applyHash);
   applyHash();

@@ -1,0 +1,52 @@
+/* ==========================================================================
+   yds 테마 예시 (테스트용) - 코랄 (coral)
+   --------------------------------------------------------------------------
+   흰 바탕에 코랄 레드와 사진이 큰 상품 카드를 쓴 테마입니다. 쇼핑몰, 뷰티처럼 상품을 많이 보여 주는 화면에 어울립니다.
+
+   쓰는 법
+     <html lang="ko" data-ds-theme="coral">
+     <link rel="stylesheet" href="…/yds/dist/ybm-ds.css">
+     <link rel="stylesheet" href="…/yds/dist/themes/coral.css">      ← DS 다음에
+
+   테마가 바꾸는 것은 세 가지뿐이다. 컴포넌트는 모두 시맨틱 토큰을 거치므로 따로 고치지 않는다.
+     1) palette/brand-100~1000  브랜드 색 (다크는 같은 단계를 뒤집어 넣는다)
+     2) bg/canvas, bg/layer-*   바탕과 면 색
+     3) --ds-shape-scale        모서리 곡률 노브 1
+   이 파일은 site/themes/gen.mjs 가 만든다. 직접 고치지 말고 생성기를 고친다.
+   ========================================================================== */
+
+:root[data-ds-theme="coral"] {
+  --ds-color-palette-brand-100: #fef1f3;
+  --ds-color-palette-brand-200: #fde3e8;
+  --ds-color-palette-brand-300: #fbcbd4;
+  --ds-color-palette-brand-400: #f8a8b7;
+  --ds-color-palette-brand-500: #f47e94;
+  --ds-color-palette-brand-600: #f0506e;
+  --ds-color-palette-brand-700: #ca435c;
+  --ds-color-palette-brand-800: #a3364b;
+  --ds-color-palette-brand-900: #782837;
+  --ds-color-palette-brand-1000: #4d1a23;
+
+  --ds-color-bg-canvas: #ffffff;
+  --ds-color-bg-layer-default: #ffffff;
+  --ds-color-bg-layer-floating: #ffffff;
+
+  --ds-shape-scale: 1;
+}
+
+:root[data-ds-theme="coral"][data-theme="dark"] {
+  --ds-color-palette-brand-100: #4d1a23;
+  --ds-color-palette-brand-200: #782837;
+  --ds-color-palette-brand-300: #a3364b;
+  --ds-color-palette-brand-400: #ca435c;
+  --ds-color-palette-brand-500: #f0506e;
+  --ds-color-palette-brand-600: #f47e94;
+  --ds-color-palette-brand-700: #f8a8b7;
+  --ds-color-palette-brand-800: #fbcbd4;
+  --ds-color-palette-brand-900: #fde3e8;
+  --ds-color-palette-brand-1000: #fef1f3;
+
+  --ds-color-bg-canvas: #15100f;
+  --ds-color-bg-layer-default: #15100f;
+  --ds-color-bg-layer-floating: #1f1817;
+}

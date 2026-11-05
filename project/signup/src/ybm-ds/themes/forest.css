@@ -1,0 +1,52 @@
+/* ==========================================================================
+   yds 테마 예시 (테스트용) - 숲 (forest)
+   --------------------------------------------------------------------------
+   흰 바탕에 진한 초록과 또렷한 강의 카드를 쓴 테마입니다. 온라인 강의, 학습 마켓처럼 정보가 많은 화면에 어울립니다.
+
+   쓰는 법
+     <html lang="ko" data-ds-theme="forest">
+     <link rel="stylesheet" href="…/yds/dist/ybm-ds.css">
+     <link rel="stylesheet" href="…/yds/dist/themes/forest.css">      ← DS 다음에
+
+   테마가 바꾸는 것은 세 가지뿐이다. 컴포넌트는 모두 시맨틱 토큰을 거치므로 따로 고치지 않는다.
+     1) palette/brand-100~1000  브랜드 색 (다크는 같은 단계를 뒤집어 넣는다)
+     2) bg/canvas, bg/layer-*   바탕과 면 색
+     3) --ds-shape-scale        모서리 곡률 노브 1
+   이 파일은 site/themes/gen.mjs 가 만든다. 직접 고치지 말고 생성기를 고친다.
+   ========================================================================== */
+
+:root[data-ds-theme="forest"] {
+  --ds-color-palette-brand-100: #ebf8f3;
+  --ds-color-palette-brand-200: #d6f0e7;
+  --ds-color-palette-brand-300: #b3e3d3;
+  --ds-color-palette-brand-400: #80d1b6;
+  --ds-color-palette-brand-500: #42bb92;
+  --ds-color-palette-brand-600: #00a36c;
+  --ds-color-palette-brand-700: #00895b;
+  --ds-color-palette-brand-800: #006f49;
+  --ds-color-palette-brand-900: #005236;
+  --ds-color-palette-brand-1000: #003423;
+
+  --ds-color-bg-canvas: #ffffff;
+  --ds-color-bg-layer-default: #ffffff;
+  --ds-color-bg-layer-floating: #ffffff;
+
+  --ds-shape-scale: 1;
+}
+
+:root[data-ds-theme="forest"][data-theme="dark"] {
+  --ds-color-palette-brand-100: #003423;
+  --ds-color-palette-brand-200: #005236;
+  --ds-color-palette-brand-300: #006f49;
+  --ds-color-palette-brand-400: #00895b;
+  --ds-color-palette-brand-500: #00a36c;
+  --ds-color-palette-brand-600: #42bb92;
+  --ds-color-palette-brand-700: #80d1b6;
+  --ds-color-palette-brand-800: #b3e3d3;
+  --ds-color-palette-brand-900: #d6f0e7;
+  --ds-color-palette-brand-1000: #ebf8f3;
+
+  --ds-color-bg-canvas: #0e1311;
+  --ds-color-bg-layer-default: #0e1311;
+  --ds-color-bg-layer-floating: #161c19;
+}

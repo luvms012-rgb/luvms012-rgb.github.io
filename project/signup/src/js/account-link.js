@@ -15,14 +15,14 @@
   agree.addEventListener("change", sync);
 
   $(".signup-terms__view").addEventListener("click", function (e) {
-    YBM.snackbar("약관 전문 보기: " + e.currentTarget.getAttribute("data-term"));
+    DS.snackbar("약관 전문 보기: " + e.currentTarget.getAttribute("data-term"));
   });
 
   $("#link-form").addEventListener("submit", function (e) {
     e.preventDefault();
-    if (!cta.disabled) YBM.snackbar("보호자·자녀 계정 연동 저장 → 다음 단계 (개발)");
+    if (!cta.disabled) DS.snackbar("보호자·자녀 계정 연동 저장 → 다음 단계 (개발)");
   });
-  $("#link-later").addEventListener("click", function () { YBM.snackbar("연동 없이 다음 단계 (개발)"); });
+  $("#link-later").addEventListener("click", function () { DS.snackbar("연동 없이 다음 단계 (개발)"); });
 
   /* ---- 바로가기 — #sb28 미동의 · #sb28-agreed 동의 완료 ---------------- */
   function applyHash() {

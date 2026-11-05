@@ -26,7 +26,7 @@
       e.preventDefault();
       if (b.disabled) return;
       var picked = radios.filter(function (r) { return r.checked; })[0];
-      YBM.snackbar((picked && b.closest('[data-case="list"]') ? picked.value + " · " : "") + "이동: " + b.getAttribute("data-href"));
+      DS.snackbar((picked && b.closest('[data-case="list"]') ? picked.value + " · " : "") + "이동: " + b.getAttribute("data-href"));
     });
   });
   $("#member-form").addEventListener("submit", function (e) { e.preventDefault(); });

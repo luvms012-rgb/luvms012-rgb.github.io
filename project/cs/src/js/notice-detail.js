@@ -13,7 +13,7 @@
   document.querySelectorAll(".cs-notice-body .cs-attachment").forEach(function (a) {
     a.addEventListener("click", function (e) {
       e.preventDefault();
-      YBM.snackbar("첨부파일을 내려받는 자리입니다.");
+      DS.snackbar("첨부파일을 내려받는 자리입니다.");
     });
   });
 })();

@@ -1,0 +1,52 @@
+/* ==========================================================================
+   yds 테마 예시 (테스트용) - 먹 (ink)
+   --------------------------------------------------------------------------
+   종이색 바탕에 검정 하나와 거의 각진 모서리를 쓴 테마입니다. 서점, 출판, 아카이브처럼 글과 책이 주인공인 화면에 어울립니다.
+
+   쓰는 법
+     <html lang="ko" data-ds-theme="ink">
+     <link rel="stylesheet" href="…/yds/dist/ybm-ds.css">
+     <link rel="stylesheet" href="…/yds/dist/themes/ink.css">      ← DS 다음에
+
+   테마가 바꾸는 것은 세 가지뿐이다. 컴포넌트는 모두 시맨틱 토큰을 거치므로 따로 고치지 않는다.
+     1) palette/brand-100~1000  브랜드 색 (다크는 같은 단계를 뒤집어 넣는다)
+     2) bg/canvas, bg/layer-*   바탕과 면 색
+     3) --ds-shape-scale        모서리 곡률 노브 0.5
+   이 파일은 site/themes/gen.mjs 가 만든다. 직접 고치지 말고 생성기를 고친다.
+   ========================================================================== */
+
+:root[data-ds-theme="ink"] {
+  --ds-color-palette-brand-100: #ededed;
+  --ds-color-palette-brand-200: #dadbdb;
+  --ds-color-palette-brand-300: #babbbc;
+  --ds-color-palette-brand-400: #8d8e90;
+  --ds-color-palette-brand-500: #56575a;
+  --ds-color-palette-brand-600: #1a1c20;
+  --ds-color-palette-brand-700: #16181b;
+  --ds-color-palette-brand-800: #121316;
+  --ds-color-palette-brand-900: #0d0e10;
+  --ds-color-palette-brand-1000: #08090a;
+
+  --ds-color-bg-canvas: #f7f5f0;
+  --ds-color-bg-layer-default: #ffffff;
+  --ds-color-bg-layer-floating: #ffffff;
+
+  --ds-shape-scale: 0.5;
+}
+
+:root[data-ds-theme="ink"][data-theme="dark"] {
+  --ds-color-palette-brand-100: #08090a;
+  --ds-color-palette-brand-200: #0d0e10;
+  --ds-color-palette-brand-300: #121316;
+  --ds-color-palette-brand-400: #16181b;
+  --ds-color-palette-brand-500: #1a1c20;
+  --ds-color-palette-brand-600: #56575a;
+  --ds-color-palette-brand-700: #8d8e90;
+  --ds-color-palette-brand-800: #babbbc;
+  --ds-color-palette-brand-900: #dadbdb;
+  --ds-color-palette-brand-1000: #ededed;
+
+  --ds-color-bg-canvas: #121212;
+  --ds-color-bg-layer-default: #1a1a1a;
+  --ds-color-bg-layer-floating: #222222;
+}

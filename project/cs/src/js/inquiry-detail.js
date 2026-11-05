@@ -90,7 +90,7 @@
       return;
     }
     if (e.target.closest(".cs-feedback__submit")) {
-      if (!fb.querySelector("input[type='radio']:checked")) { YBM.snackbar("아쉬웠던 점을 선택해 주세요."); return; }
+      if (!fb.querySelector("input[type='radio']:checked")) { DS.snackbar("아쉬웠던 점을 선택해 주세요."); return; }
       setFeedback("result", "no");
       return;
     }
@@ -138,10 +138,10 @@
     attachInput.value = "";
     if (!picked.length) return;
     var bad = picked.some(function (f) { return ALLOWED.indexOf(f.name.split(".").pop().toLowerCase()) === -1; });
-    if (bad) { YBM.snackbar("JPG, PNG, PDF, XLSX 파일만 첨부할 수 있습니다."); return; }
+    if (bad) { DS.snackbar("JPG, PNG, PDF, XLSX 파일만 첨부할 수 있습니다."); return; }
     var next = files.concat(picked);
     if (next.reduce(function (s, f) { return s + f.size; }, 0) > MAX_BYTES) {
-      YBM.snackbar("전체 10MB까지 첨부할 수 있습니다."); return;
+      DS.snackbar("전체 10MB까지 첨부할 수 있습니다."); return;
     }
     files = next;
     renderFiles();
@@ -165,12 +165,12 @@
 
   /* ---- 수정 · 삭제 (답변대기에서만) ------------------------------------------- */
   $("edit-btn").addEventListener("click", function () {
-    YBM.snackbar("문의 수정 화면으로 가는 자리입니다.");
+    DS.snackbar("문의 수정 화면으로 가는 자리입니다.");
   });
   $("delete-btn").addEventListener("click", function () { $("alert-delete").showModal(); });
   $("delete-confirm").addEventListener("click", function () {
     $("alert-delete").close();
-    YBM.snackbar("문의를 삭제하고 목록으로 돌아가는 자리입니다.");
+    DS.snackbar("문의를 삭제하고 목록으로 돌아가는 자리입니다.");
   });
 
   document.querySelectorAll(".cs-alert").forEach(function (dlg) {

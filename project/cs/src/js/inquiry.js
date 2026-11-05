@@ -106,7 +106,7 @@
   });
   $("leave-confirm").addEventListener("click", function () {
     $("alert-leave").close();
-    YBM.snackbar("선택한 도움말을 새 창으로 여는 자리입니다.");
+    DS.snackbar("선택한 도움말을 새 창으로 여는 자리입니다.");
   });
 
   /* ---- 글자 수 --------------------------------------------------------------- */
@@ -213,7 +213,7 @@
   });
 
   $("cancel-btn").addEventListener("click", function () {
-    YBM.snackbar("작성을 취소하고 이전 화면으로 돌아가는 자리입니다.");
+    DS.snackbar("작성을 취소하고 이전 화면으로 돌아가는 자리입니다.");
   });
 
   /* 팝업 닫기 — DS Alert Dialog 공통 */

@@ -15,10 +15,10 @@
 
   R.methods($("#methods"), {
     consent: { get checked() { return mode === "guest" || consent.checked; } },
-    onPick: function (m) { YBM.snackbar("본인인증 팝업: " + m); }
+    onPick: function (m) { DS.snackbar("본인인증 팝업: " + m); }
   });
   $("#guest-signup").addEventListener("click", function () { location.href = "terms.html"; });
-  $("#guest-login").addEventListener("click", function () { YBM.snackbar("이동: 로그인"); });
+  $("#guest-login").addEventListener("click", function () { DS.snackbar("이동: 로그인"); });
 
   function applyHash() {
     R.closeAlert();

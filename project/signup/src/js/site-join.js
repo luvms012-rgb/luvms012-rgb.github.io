@@ -19,7 +19,7 @@
   all.addEventListener("change", function () { checks.forEach(function (c) { c.checked = all.checked; }); });
   checks.forEach(function (c) { c.addEventListener("change", syncAll); });
   $$(".signup-terms__view").forEach(function (b) {
-    b.addEventListener("click", function () { YBM.snackbar("약관 전문 보기: " + b.getAttribute("data-term")); });
+    b.addEventListener("click", function () { DS.snackbar("약관 전문 보기: " + b.getAttribute("data-term")); });
   });
 
   function showCase(key) {
@@ -33,10 +33,10 @@
     if (!required.every(function (c) { return c.checked; })) { R.alert("필수 약관에 모두 동의해 주세요."); return; }
     showCase("done");                                       // ★ 실제로는 동의를 저장한 뒤 완료 화면으로
   });
-  $("#agree-cancel").addEventListener("click", function () { YBM.snackbar("취소 — 이전 화면으로 (개발)"); });
-  $("#done-login").addEventListener("click", function () { YBM.snackbar("이동: 로그인"); });
+  $("#agree-cancel").addEventListener("click", function () { DS.snackbar("취소 — 이전 화면으로 (개발)"); });
+  $("#done-login").addEventListener("click", function () { DS.snackbar("이동: 로그인"); });
   $$(".signup-services a").forEach(function (a) {
-    a.addEventListener("click", function (e) { e.preventDefault(); YBM.snackbar("이동: " + a.textContent); });
+    a.addEventListener("click", function (e) { e.preventDefault(); DS.snackbar("이동: " + a.textContent); });
   });
 
   /* ---- 바로가기 해시 (가이드 뷰어 전용) ---- */

@@ -82,7 +82,7 @@
     if (!item) return;
     e.preventDefault();
     if (item.getAttribute("aria-disabled") === "true") return;
-    YBM.snackbar("해당 페이지를 불러오는 자리입니다.");
+    DS.snackbar("해당 페이지를 불러오는 자리입니다.");
   });
 
   /* ---- 상태 바로가기 --------------------------------------------------------- */

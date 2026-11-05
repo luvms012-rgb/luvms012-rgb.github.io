@@ -216,7 +216,7 @@
     //   휴대전화 : 번호 입력으로 포커스 (통신사는 앞의 '통신사 ∨' 를 눌러 고른다)
     //   확인 : 입력이 없으므로 CTA 버튼으로
     if (key === "gender") {
-      setTimeout(function () { YBM.openDialog("dialog-gender"); }, 240);
+      setTimeout(function () { DS.openDialog("dialog-gender"); }, 240);
     } else if (key === "confirm") {
       cta.focus();
     } else {
@@ -282,7 +282,7 @@
       syncPhonePrefix();
       fields.phone.value = formatPhone(fields.phone.value);
     }
-    YBM.closeDialog(dialog);
+    DS.closeDialog(dialog);
     (target === "gender" ? fields.gender : fields.phone).focus();
     if (target !== "gender") showFieldState("phone", false);
     updateCta();
@@ -418,7 +418,7 @@
   };
 
   function reset() {
-    ["dialog-gender", "dialog-carrier", "dialog-country", "dialog-mismatch"].forEach(function (id) { YBM.closeDialog(id); });
+    ["dialog-gender", "dialog-carrier", "dialog-country", "dialog-mismatch"].forEach(function (id) { DS.closeDialog(id); });
     SignupVerify.closeAll();
     fields.name.value = ""; fields.birth.value = ""; fields.phone.value = "010"; fields.email.value = "";
     setGender("");
@@ -456,7 +456,7 @@
       f.focus();
       caretToEnd(f);
     }
-    if (p.dialog) YBM.openDialog(p.dialog);
+    if (p.dialog) DS.openDialog(p.dialog);
     // SB.11·12 — 팝업을 특정 상태로 열어 둔다 (564854 는 예시 인증번호)
     if (p.verify === "terms") SignupVerify.openTerms(contactTarget());
     if (p.verify === "terms-open") SignupVerify.openTerms(contactTarget(), { agreed: true, expanded: true });

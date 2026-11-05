@@ -36,7 +36,7 @@
 
   // ★ 약관 전문 보기 — 화면이 아직 없어 이동 지점만 표시한다
   $$(".signup-terms__view").forEach(function (b) {
-    b.addEventListener("click", function () { YBM.snackbar("약관 전문 보기: " + b.getAttribute("data-term")); });
+    b.addEventListener("click", function () { DS.snackbar("약관 전문 보기: " + b.getAttribute("data-term")); });
   });
 
   // 다음 → 본인인증. 언어와 실명인증 선택값을 넘긴다

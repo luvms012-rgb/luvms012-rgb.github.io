@@ -70,7 +70,7 @@
   // SB.57 — 회원정보 변경 동의(필수)를 안 하고 수단을 누르면 Alert
   // ★ 본인인증을 받지 않은 아이디는 본인인증 탭 자체를 숨긴다 (서버 값으로 판단)
   var consent = $("#consent");
-  R.methods($("#panel-identity"), { consent: consent, onPick: function (m) { YBM.snackbar("본인인증 팝업: " + m); verified(); } });
+  R.methods($("#panel-identity"), { consent: consent, onPick: function (m) { DS.snackbar("본인인증 팝업: " + m); verified(); } });
 
   /* ======================================================================
      SB.54 새 비밀번호 — 조건 4개 실시간 체크 (SB.16 과 같은 규칙)
@@ -106,7 +106,7 @@
     if (pwCta.disabled) return;
     changePassword(userId, pw.value).then(function (res) {
       if (res === "same") { R.alert("기존에 사용한 비밀번호는\n사용할 수 없습니다", "새로운 비밀번호를 입력해 주세요.").then(function () { pw.focus(); }); return; }
-      R.alert("비밀번호가 변경되었습니다", "새 비밀번호로 로그인해 주세요.").then(function () { YBM.snackbar("이동: 로그인"); });
+      R.alert("비밀번호가 변경되었습니다", "새 비밀번호로 로그인해 주세요.").then(function () { DS.snackbar("이동: 로그인"); });
     });
   });
 

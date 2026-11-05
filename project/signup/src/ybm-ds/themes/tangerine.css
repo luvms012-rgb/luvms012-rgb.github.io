@@ -1,0 +1,52 @@
+/* ==========================================================================
+   yds 테마 예시 (테스트용) - 귤 (tangerine)
+   --------------------------------------------------------------------------
+   따뜻한 흰 바탕에 주황 하나와 글 중심 배치를 쓴 테마입니다. 뉴스레터, 매거진, 읽을거리가 많은 화면에 어울립니다.
+
+   쓰는 법
+     <html lang="ko" data-ds-theme="tangerine">
+     <link rel="stylesheet" href="…/yds/dist/ybm-ds.css">
+     <link rel="stylesheet" href="…/yds/dist/themes/tangerine.css">      ← DS 다음에
+
+   테마가 바꾸는 것은 세 가지뿐이다. 컴포넌트는 모두 시맨틱 토큰을 거치므로 따로 고치지 않는다.
+     1) palette/brand-100~1000  브랜드 색 (다크는 같은 단계를 뒤집어 넣는다)
+     2) bg/canvas, bg/layer-*   바탕과 면 색
+     3) --ds-shape-scale        모서리 곡률 노브 1
+   이 파일은 site/themes/gen.mjs 가 만든다. 직접 고치지 말고 생성기를 고친다.
+   ========================================================================== */
+
+:root[data-ds-theme="tangerine"] {
+  --ds-color-palette-brand-100: #fff3eb;
+  --ds-color-palette-brand-200: #ffe7d6;
+  --ds-color-palette-brand-300: #ffd2b3;
+  --ds-color-palette-brand-400: #ffb580;
+  --ds-color-palette-brand-500: #ff9142;
+  --ds-color-palette-brand-600: #ff6a00;
+  --ds-color-palette-brand-700: #d65900;
+  --ds-color-palette-brand-800: #ad4800;
+  --ds-color-palette-brand-900: #803500;
+  --ds-color-palette-brand-1000: #522200;
+
+  --ds-color-bg-canvas: #fffdfa;
+  --ds-color-bg-layer-default: #ffffff;
+  --ds-color-bg-layer-floating: #ffffff;
+
+  --ds-shape-scale: 1;
+}
+
+:root[data-ds-theme="tangerine"][data-theme="dark"] {
+  --ds-color-palette-brand-100: #522200;
+  --ds-color-palette-brand-200: #803500;
+  --ds-color-palette-brand-300: #ad4800;
+  --ds-color-palette-brand-400: #d65900;
+  --ds-color-palette-brand-500: #ff6a00;
+  --ds-color-palette-brand-600: #ff9142;
+  --ds-color-palette-brand-700: #ffb580;
+  --ds-color-palette-brand-800: #ffd2b3;
+  --ds-color-palette-brand-900: #ffe7d6;
+  --ds-color-palette-brand-1000: #fff3eb;
+
+  --ds-color-bg-canvas: #15110d;
+  --ds-color-bg-layer-default: #15110d;
+  --ds-color-bg-layer-floating: #1e1812;
+}

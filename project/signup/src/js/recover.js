@@ -35,12 +35,12 @@
     desc.hidden = !descKey;
     desc.innerHTML = descKey ? html(descKey) : "";
     if (dlg.open) dlg.close();
-    YBM.openDialog("dialog-alert");
+    DS.openDialog("dialog-alert");
     return new Promise(function (resolve) {
       dlg.addEventListener("close", function once() { dlg.removeEventListener("close", once); resolve(); });
     });
   }
-  function closeAlert() { YBM.closeDialog("dialog-alert"); }
+  function closeAlert() { DS.closeDialog("dialog-alert"); }
 
   /* ======================================================================
      Tabs — role="tab" + aria-controls 로 패널 전환, ← → 키 이동

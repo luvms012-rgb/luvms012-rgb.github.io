@@ -51,13 +51,13 @@
     checks.forEach(function (c) { c.addEventListener("change", syncTerms); });
     toggle.addEventListener("click", function () { setExpanded(list.hidden); });
     $$(".signup-terms__view", terms).forEach(function (b) {
-      b.addEventListener("click", function () { YBM.snackbar("약관 전문 보기: " + b.getAttribute("data-term")); });
+      b.addEventListener("click", function () { DS.snackbar("약관 전문 보기: " + b.getAttribute("data-term")); });
     });
   }
 
   var pendingTarget = "";
   if (hasTerms) termsSubmit.addEventListener("click", function () {
-    YBM.closeDialog(terms);
+    DS.closeDialog(terms);
     openOtp(pendingTarget);
   });
 
@@ -68,7 +68,7 @@
     checks.forEach(function (c) { c.checked = !!opts.agreed; });
     syncTerms();
     setExpanded(!!opts.expanded);
-    YBM.openDialog("dialog-auth-terms");
+    DS.openDialog("dialog-auth-terms");
   }
 
   /* ======================================================================
@@ -121,7 +121,7 @@
   $("otp-resend").addEventListener("click", function () {                                                   // 재전송
     sendCode(currentTarget).then(function () {
       input.value = ""; setError(false); paintCells(); startTimer(); input.focus();
-      YBM.snackbar(t("인증번호를 재전송했습니다"));
+      DS.snackbar(t("인증번호를 재전송했습니다"));
     });
   });
   otpDialog.addEventListener("close", function () { clearInterval(timer); });
@@ -130,7 +130,7 @@
   otpSubmit.addEventListener("click", function () {
     checkCode(input.value).then(function (ok) {
       if (!ok) { setError(true); paintCells(); input.focus(); return; }    // 불일치 → 입력칸 오류색 + 안내문
-      YBM.closeDialog(otpDialog);
+      DS.closeDialog(otpDialog);
       verifiedFns.forEach(function (fn) { fn(); });
     });
   });
@@ -143,7 +143,7 @@
     input.value = opts.code || "";
     setError(!!opts.error);
     sendCode(target);
-    YBM.openDialog("dialog-otp");
+    DS.openDialog("dialog-otp");
     startTimer();
     if (opts.elapsed) { left = LIMIT - opts.elapsed; paintTimer(); }
     input.focus();
@@ -154,6 +154,6 @@
     openTerms: openTerms,
     openOtp: openOtp,
     onVerified: function (fn) { verifiedFns.push(fn); },
-    closeAll: function () { if (hasTerms) YBM.closeDialog(terms); YBM.closeDialog(otpDialog); }
+    closeAll: function () { if (hasTerms) DS.closeDialog(terms); DS.closeDialog(otpDialog); }
   };
 })();

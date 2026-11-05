@@ -25,7 +25,7 @@
 
   $("#login-form").addEventListener("submit", function (e) {
     e.preventDefault();
-    if (!cta.disabled) YBM.snackbar("로그인 · 네이버 계정 연결 (개발)");
+    if (!cta.disabled) DS.snackbar("로그인 · 네이버 계정 연결 (개발)");
   });
 
   /* ---- 바로가기 해시 (가이드 뷰어 전용) ---- */

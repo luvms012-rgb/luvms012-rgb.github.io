@@ -181,7 +181,7 @@ window.CS = (function () {
     var el = $("keywords-rolling");
     if (!el) return;
     el.addEventListener("click", onClick || function () {
-      YBM.snackbar("인기키워드 전체를 펼치는 자리입니다. (모바일)");
+      DS.snackbar("인기키워드 전체를 펼치는 자리입니다. (모바일)");
     });
   }
 
@@ -205,7 +205,7 @@ window.CS = (function () {
       e.preventDefault();
       open(false);
       btn.focus();
-      YBM.snackbar(item.textContent + " 로 이동하는 자리입니다.");
+      DS.snackbar(item.textContent + " 로 이동하는 자리입니다.");
     });
     document.addEventListener("click", function (e) {
       if (menu.hidden) return;

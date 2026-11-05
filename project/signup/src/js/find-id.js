@@ -37,12 +37,12 @@
   });
 
   // 본인인증 수단 — 실제는 인증 기관 팝업. 퍼블리싱은 바로 SB.47
-  R.methods($("#panel-identity"), { onPick: function (m) { YBM.snackbar("본인인증 팝업: " + m); showResult(true); } });
+  R.methods($("#panel-identity"), { onPick: function (m) { DS.snackbar("본인인증 팝업: " + m); showResult(true); } });
 
   // SB.47 이동 — 퍼블리싱에서는 스낵바로 표시
   $("#result-login").addEventListener("click", function () {
     var id = document.querySelector('input[name="found-id"]:checked');
-    YBM.snackbar((id ? id.value + " · " : "") + "이동: 로그인 (아이디 자동 입력)");
+    DS.snackbar((id ? id.value + " · " : "") + "이동: 로그인 (아이디 자동 입력)");
   });
   $("#result-reset").addEventListener("click", function () { window.open("reset-pw.html" + location.search, "_blank"); });
 

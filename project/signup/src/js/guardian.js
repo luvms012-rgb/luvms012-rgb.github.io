@@ -43,7 +43,7 @@
   termChecks.forEach(function (c) { c.addEventListener("change", syncConsent); });
   ipinCheck.addEventListener("change", syncConsent);
   $$(".signup-terms__view", consentCard).forEach(function (b) {
-    b.addEventListener("click", function () { YBM.snackbar("약관 전문 보기: " + b.getAttribute("data-term")); });
+    b.addEventListener("click", function () { DS.snackbar("약관 전문 보기: " + b.getAttribute("data-term")); });
   });
 
   consentForm.addEventListener("submit", function (e) {
@@ -164,7 +164,7 @@
     if (opts.silent) return;
 
     if (key === "gender") {
-      setTimeout(function () { YBM.openDialog("dialog-gender"); }, 240);
+      setTimeout(function () { DS.openDialog("dialog-gender"); }, 240);
     } else if (key === "confirm") {
       cta.focus();
     } else {
@@ -193,7 +193,7 @@
     if (target === "gender") setGender(value);
     else { state.carrier = value; syncCarrier(); }
 
-    YBM.closeDialog(list.closest("dialog"));
+    DS.closeDialog(list.closest("dialog"));
     (target === "gender" ? fields.gender : fields.phone).focus();
     if (target !== "gender") showFieldState("phone", false);
     updateCta();
@@ -267,7 +267,7 @@
   };
 
   function reset() {
-    ["dialog-gender", "dialog-carrier", "dialog-mismatch"].forEach(function (id) { YBM.closeDialog(id); });
+    ["dialog-gender", "dialog-carrier", "dialog-mismatch"].forEach(function (id) { DS.closeDialog(id); });
     SignupVerify.closeAll();
     fields.name.value = ""; fields.birth.value = ""; fields.phone.value = "010";
     setGender("");
@@ -304,7 +304,7 @@
     showCase("identity", { silent: true });
     activate(p.step, { silent: true });
     if (p.focus) { fields[p.focus].focus(); caretToEnd(fields[p.focus]); }
-    if (p.dialog) YBM.openDialog(p.dialog);
+    if (p.dialog) DS.openDialog(p.dialog);
     if (p.otp) SignupVerify.openOtp(fields.phone.value, { elapsed: 2 });
   }
 

@@ -1,0 +1,52 @@
+/* ==========================================================================
+   yds 테마 예시 (테스트용) - 네이비 (navy)
+   --------------------------------------------------------------------------
+   옅은 회색 바탕 위 흰 카드와 네이비, 덜 둥근 모서리를 쓴 테마입니다. 시험 접수, 공공, 금융 서비스처럼 신뢰가 중요한 화면에 어울립니다.
+
+   쓰는 법
+     <html lang="ko" data-ds-theme="navy">
+     <link rel="stylesheet" href="…/yds/dist/ybm-ds.css">
+     <link rel="stylesheet" href="…/yds/dist/themes/navy.css">      ← DS 다음에
+
+   테마가 바꾸는 것은 세 가지뿐이다. 컴포넌트는 모두 시맨틱 토큰을 거치므로 따로 고치지 않는다.
+     1) palette/brand-100~1000  브랜드 색 (다크는 같은 단계를 뒤집어 넣는다)
+     2) bg/canvas, bg/layer-*   바탕과 면 색
+     3) --ds-shape-scale        모서리 곡률 노브 0.75
+   이 파일은 site/themes/gen.mjs 가 만든다. 직접 고치지 말고 생성기를 고친다.
+   ========================================================================== */
+
+:root[data-ds-theme="navy"] {
+  --ds-color-palette-brand-100: #edf0f6;
+  --ds-color-palette-brand-200: #dbe0ee;
+  --ds-color-palette-brand-300: #bbc5df;
+  --ds-color-palette-brand-400: #8e9fca;
+  --ds-color-palette-brand-500: #5771b0;
+  --ds-color-palette-brand-600: #1c3f94;
+  --ds-color-palette-brand-700: #18357c;
+  --ds-color-palette-brand-800: #132b65;
+  --ds-color-palette-brand-900: #0e204a;
+  --ds-color-palette-brand-1000: #09142f;
+
+  --ds-color-bg-canvas: #f4f6f9;
+  --ds-color-bg-layer-default: #ffffff;
+  --ds-color-bg-layer-floating: #ffffff;
+
+  --ds-shape-scale: 0.75;
+}
+
+:root[data-ds-theme="navy"][data-theme="dark"] {
+  --ds-color-palette-brand-100: #09142f;
+  --ds-color-palette-brand-200: #0e204a;
+  --ds-color-palette-brand-300: #132b65;
+  --ds-color-palette-brand-400: #18357c;
+  --ds-color-palette-brand-500: #1c3f94;
+  --ds-color-palette-brand-600: #5771b0;
+  --ds-color-palette-brand-700: #8e9fca;
+  --ds-color-palette-brand-800: #bbc5df;
+  --ds-color-palette-brand-900: #dbe0ee;
+  --ds-color-palette-brand-1000: #edf0f6;
+
+  --ds-color-bg-canvas: #0d1017;
+  --ds-color-bg-layer-default: #141922;
+  --ds-color-bg-layer-floating: #1a2030;
+}

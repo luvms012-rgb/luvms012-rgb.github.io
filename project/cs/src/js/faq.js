@@ -71,7 +71,7 @@
   });
   document.getElementById("login-confirm").addEventListener("click", function () {
     alertEl.close();
-    YBM.snackbar("로그인 화면으로 이동하는 자리입니다.");
+    DS.snackbar("로그인 화면으로 이동하는 자리입니다.");
   });
 
   /* ---- 모바일 전체 메뉴 ------------------------------------------------------ */

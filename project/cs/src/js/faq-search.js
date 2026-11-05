@@ -58,7 +58,7 @@
     }
     if (e.target.closest(".cs-feedback__submit")) {
       var fb2 = e.target.closest(".cs-feedback");
-      if (!fb2.querySelector("input[type='radio']:checked")) { YBM.snackbar("아쉬웠던 점을 선택해 주세요."); return; }
+      if (!fb2.querySelector("input[type='radio']:checked")) { DS.snackbar("아쉬웠던 점을 선택해 주세요."); return; }
       setFeedback(fb2, "result", "no");
       return;
     }
@@ -86,7 +86,7 @@
   });
   document.getElementById("login-confirm").addEventListener("click", function () {
     alertEl.close();
-    YBM.snackbar("로그인 화면으로 이동하는 자리입니다.");
+    DS.snackbar("로그인 화면으로 이동하는 자리입니다.");
   });
 
   /* 상태 바로가기 — #sb14* 는 첫 항목을 펼쳐 만족도 상태를 보여 준다 */

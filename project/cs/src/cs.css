@@ -37,8 +37,8 @@
   --cs-gradient-glow-end: #744aff;
 
   /* 검색창 테두리 · AI 안내 문구 그라데이션 — DS 팔레트를 가리키는 alias */
-  --cs-gradient-brand-start: var(--ybm-color-palette-brand-600);
-  --cs-gradient-brand-end: var(--ybm-color-palette-purple-800);
+  --cs-gradient-brand-start: var(--ds-color-palette-brand-600);
+  --cs-gradient-brand-end: var(--ds-color-palette-purple-800);
 
   /* 검색 카테고리 패널 그림자 — 0 10px 8px rgba(0,0,0,.1) */
   --cs-shadow-search-panel: 0 10px 8px rgb(0 0 0 / 10%);
@@ -65,9 +65,9 @@
    -------------------------------------------------------------------------- */
 /* 공지바·목록형 텍스트 버튼은 본문과 같은 16/24 Regular 로 쓴다 */
 .cs-notice-bar .ds-btn {
-  --ds-btn-font-size: var(--ybm-font-size-t05);
-  --ds-btn-line-height: var(--ybm-line-height-t05);
-  --ds-btn-font-weight: var(--ybm-font-weight-regular);
+  --ds-btn-font-size: var(--ds-font-size-t05);
+  --ds-btn-line-height: var(--ds-line-height-t05);
+  --ds-btn-font-weight: var(--ds-font-weight-regular);
 }
 
 
@@ -88,13 +88,13 @@
 :root {
   --cs-container: 1200px;   /* 콘텐츠 최대 폭 (2026-10-28 1080 → 1200 사용자 확정: 1280 화면 - 좌우 40 = 1200) */
   --cs-gutter: 0px;         /* 좌우 여백 — 구간별로 4) 에서 바꾼다 */
-  --cs-card-gap: var(--ybm-space-x4);   /* 16 */
+  --cs-card-gap: var(--ds-space-x4);   /* 16 */
   --cs-cols: 3;             /* 카드 열 수 — 구간별로 4) 에서 바꾼다 */
 }
 
 body.cs {
-  background: var(--ybm-color-bg-layer-default);
-  color: var(--ybm-color-fg-neutral);
+  background: var(--ds-color-bg-layer-default);
+  color: var(--ds-color-fg-neutral);
 }
 
 /* 모든 섹션이 쓰는 가운데 컨테이너 */
@@ -144,30 +144,30 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
   align-items: center;
   justify-content: center;
   height: 64px;
-  padding-block: var(--ybm-space-x5);
-  border-bottom: 1px solid var(--ybm-color-stroke-neutral-muted);
+  padding-block: var(--ds-space-x5);
+  border-bottom: 1px solid var(--ds-color-stroke-neutral-muted);
 }
 
 /* 자주 찾는 도움말 — 흰 배경 · 상 40 / 하 64 */
-.cs-page__faq { padding-block: var(--ybm-space-x10) var(--ybm-space-x16); }
+.cs-page__faq { padding-block: var(--ds-space-x10) var(--ds-space-x16); }
 
 /* 서비스별 고객센터 안내 — 회색 배경 · 상 64 / 하 80 */
 .cs-page__service {
-  padding-block: var(--ybm-space-x16) var(--ybm-space-x20);
-  background: var(--ybm-color-bg-neutral-muted);
+  padding-block: var(--ds-space-x16) var(--ds-space-x20);
+  background: var(--ds-color-bg-neutral-muted);
 }
 
 /* 섹션 타이틀 ↔ 내용 24 */
 .cs-section-title {
-  margin: 0 0 var(--ybm-space-x6);
-  font-size: var(--ybm-font-size-t11);
-  line-height: var(--ybm-line-height-t11);
-  font-weight: var(--ybm-font-weight-bold);
-  color: var(--ybm-color-fg-neutral);
+  margin: 0 0 var(--ds-space-x6);
+  font-size: var(--ds-font-size-t11);
+  line-height: var(--ds-line-height-t11);
+  font-weight: var(--ds-font-weight-bold);
+  color: var(--ds-color-fg-neutral);
 }
 
 /* 도움말 카드 2행 — 행 간격 20 (열 간격 16 은 --cs-card-gap) */
-.cs-page__faq .cs-grid { row-gap: var(--ybm-space-x5); }
+.cs-page__faq .cs-grid { row-gap: var(--ds-space-x5); }
 
 /* 서비스별 안내는 PC 에서도 2열 (2026-10-28 사용자 확정). 모바일은 4) 에서 한 장 리스트로 바뀐다 */
 .cs-page__service .cs-grid { --cs-cols: 2; }
@@ -179,13 +179,13 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
     display: grid;
     grid-row: span 2;
     grid-template-rows: subgrid;
-    row-gap: var(--ybm-space-x5);          /* 머리 ↔ 연락처 20 (카드 안에서만) */
+    row-gap: var(--ds-space-x5);          /* 머리 ↔ 연락처 20 (카드 안에서만) */
     align-content: start;
   }
   /* 설명이 없는 카드(성인 어학원, 수험서 등)도 타이틀 + 설명 한 줄 높이를 기본으로 둔다
      = 타이틀 29 + 간격 4 + 설명 21 + 아래 여백 20 + 구분선 1 */
   .cs-page__service .cs-service-card__head {
-    min-height: calc(var(--ybm-line-height-t07) + var(--ybm-space-x1) + var(--ybm-line-height-t04) + var(--ybm-space-x5) + 1px);
+    min-height: calc(var(--ds-line-height-t07) + var(--ds-space-x1) + var(--ds-line-height-t04) + var(--ds-space-x5) + 1px);
   }
 }
 /* 연락처 행 가로 한 줄 (2026-10-28, 본사 고객센터 PC 와 같게), 항목명은 왼쪽, 번호와 버튼은 오른쪽.
@@ -197,21 +197,21 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: var(--ybm-space-x4);
-    min-height: calc(var(--ybm-line-height-t07) + var(--ybm-space-x5) + 1px);   /* 29 + 20 + 1 */
+    gap: var(--ds-space-x4);
+    min-height: calc(var(--ds-line-height-t07) + var(--ds-space-x5) + 1px);   /* 29 + 20 + 1 */
   }
   /* 폰트는 전 구간 같다: 서비스명 20 SemiBold, 하위 서비스 14, 항목명 16 Medium, 연락처 16 (2026-10-28 사용자 지정) */
   .cs-service-card__title { flex: none; }
   .cs-service-card__desc { min-width: 0; text-align: right; }
-  .cs-contact { grid-template-columns: minmax(0, 1fr) auto auto; grid-template-rows: auto; min-height: var(--ybm-space-x9); }
-  .cs-contact__label { grid-row: 1; line-height: var(--ybm-line-height-t05); }
+  .cs-contact { grid-template-columns: minmax(0, 1fr) auto auto; grid-template-rows: auto; min-height: var(--ds-space-x9); }
+  .cs-contact__label { grid-row: 1; line-height: var(--ds-line-height-t05); }
   .cs-contact__info > .cs-contact__tel,
   .cs-contact__info > .cs-contact__value { grid-column: 2; grid-row: 1; justify-self: end; margin-top: 0; }
   .cs-contact__actions { grid-column: 3; grid-row: 1; }
 }
 
 /* 서비스 카드 그리드 ↔ [전체보기] 48 */
-.cs-page__service .cs-grid + .cs-more { margin-top: var(--ybm-space-x12); }
+.cs-page__service .cs-grid + .cs-more { margin-top: var(--ds-space-x12); }
 .cs-more { display: flex; justify-content: center; }
 
 
@@ -222,7 +222,7 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
 .cs-page__result {
   display: flex;
   justify-content: center;
-  padding-block: var(--ybm-space-x24) 120px;   /* 하 120 은 DS space 스케일에 없다 */
+  padding-block: var(--ds-space-x24) 120px;   /* 하 120 은 DS space 스케일에 없다 */
 }
 
 
@@ -232,23 +232,23 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
    목록 영역 = 중분류 칩 + 32 + FAQ 목록.
    -------------------------------------------------------------------------- */
 .cs-page__faq-body { padding-bottom: 176px; }   /* SB 12·13·14 공통 176 */
-.cs-page__faq-body > .cs-container { margin-top: var(--ybm-space-x10); }   /* 히어로 ↔ 콘텐츠 40 */
-.cs-faq-content { display: flex; flex-direction: column; gap: var(--ybm-space-x12); }
-.cs-faq-area { display: flex; flex-direction: column; gap: var(--ybm-space-x8); }
+.cs-page__faq-body > .cs-container { margin-top: var(--ds-space-x10); }   /* 히어로 ↔ 콘텐츠 40 */
+.cs-faq-content { display: flex; flex-direction: column; gap: var(--ds-space-x12); }
+.cs-faq-area { display: flex; flex-direction: column; gap: var(--ds-space-x8); }
 /* 결과 하단 — PC 는 페이지네이션만, 모바일용 더보기는 숨긴다 */
 .cs-result-foot__more { display: none; }
 
 /* 중분류 칩 — PC gap 10 (Figma 2347:1357) */
-.cs-category-chips { display: flex; flex-wrap: wrap; gap: var(--ybm-space-x2_5); }
+.cs-category-chips { display: flex; flex-wrap: wrap; gap: var(--ds-space-x2_5); }
 /* 중분류에 도움말이 없을 때 — 목록 자리에 빈 상태 하나 (Figma 2744:11279) */
-.cs-faq--empty { display: flex; justify-content: center; padding-block: var(--ybm-space-x32); }
+.cs-faq--empty { display: flex; justify-content: center; padding-block: var(--ds-space-x32); }
 
 
 /* 3-4) 문의하기 (SB 15~16) — Figma 2366:4906 · Mobile 2664:8779
    헤더 → 본문(상 48 / 하 120) → 푸터. 본문 안은 컨테이너 1080 + 폼 섹션 4개(gap 56).
    컴포넌트(.cs-form-*)는 cs-components.css 05 문의 에 있다.
    -------------------------------------------------------------------------- */
-.cs-page__inquiry-body { padding-block: var(--ybm-space-x12) 120px; }
+.cs-page__inquiry-body { padding-block: var(--ds-space-x12) 120px; }
 
 
 /* 3-5) 내 문의 내역 (SB 17~20) — Figma 2366:5283 · 2405:3532 · Mobile 2677:11782
@@ -256,13 +256,13 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
    목록 gap 24 · 상세 gap 32 (모바일 16 / 24)
    -------------------------------------------------------------------------- */
 .cs-page__list-body,
-.cs-page__detail-body { padding-block: var(--ybm-space-x12) 120px; }
-.cs-list { display: flex; flex-direction: column; gap: var(--ybm-space-x6); }
-.cs-detail { display: flex; flex-direction: column; gap: var(--ybm-space-x8); }
+.cs-page__detail-body { padding-block: var(--ds-space-x12) 120px; }
+.cs-list { display: flex; flex-direction: column; gap: var(--ds-space-x6); }
+.cs-detail { display: flex; flex-direction: column; gap: var(--ds-space-x8); }
 /* 페이지 타이틀 우측 ghost 버튼([지난 문의]) — DS 기본 좌우 패딩(large x5=20)을 그대로 둬야
    호버 면에 좌우 여백이 생긴다. 패딩을 0 으로 지우면 글자에 딱 붙은 면이 떠서 DS 와 어긋난다.
    라벨 자체는 컨테이너 오른쪽 끝에 맞아야 하므로 패딩만큼 바깥으로 당긴다. */
-.cs-page-heading__action { margin-right: calc(var(--ybm-space-x5) * -1); }
+.cs-page-heading__action { margin-right: calc(var(--ds-space-x5) * -1); }
 
 
 /* 4) 반응형 — 768 / 1024 / 1280 --------------------------------------------
@@ -271,7 +271,7 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
 
 /* Laptop 1024~1279 — 컨테이너를 폭에 맞추고 좌우 40 */
 @media (max-width: 1279px) {
-  :root { --cs-gutter: var(--ybm-space-x10); }   /* 40 */
+  :root { --cs-gutter: var(--ds-space-x10); }   /* 40 */
   /* 헤더 좌우 80 → 컨테이너와 같은 여백으로 */
   .cs-header__inner { padding-inline: var(--cs-gutter); }
   /* 검색창 720 고정 → 좌우 여백을 뺀 폭 (최대 720) */
@@ -283,8 +283,8 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
 /* Tablet 768~1023 — 좌우 32 · 카드 2열 · 히어로 타이틀 t12
    이 구간은 시안이 없다 — 아래 값이 원본이다. */
 @media (max-width: 1023px) {
-  :root { --cs-gutter: var(--ybm-space-x8); --cs-cols: 2; }   /* 32 */
-  .cs-hero__title { font-size: var(--ybm-font-size-t12); line-height: var(--ybm-line-height-t12); }
+  :root { --cs-gutter: var(--ds-space-x8); --cs-cols: 2; }   /* 32 */
+  .cs-hero__title { font-size: var(--ds-font-size-t12); line-height: var(--ds-line-height-t12); }
   /* 카드가 좁아지는 구간(태블릿, 모바일)에서 [채팅상담] 까지 있는 행은 두 버튼을 오른쪽 칸에 위아래로 쌓는다.
      다른 행처럼 버튼은 오른쪽, 폭은 넓은 쪽에 맞춰 같게 (2026-10-28 사용자 지정) */
   .cs-contact__actions:has(.cs-chat-link) { flex-direction: column; align-items: stretch; }
@@ -296,7 +296,7 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
      · 서비스 안내 3열 카드 → 흰 카드 하나 안의 리스트 행
    -------------------------------------------------------------------------- */
 @media (max-width: 767px) {
-  :root { --cs-gutter: var(--ybm-space-x4); --cs-cols: 1; --cs-card-gap: var(--ybm-space-x3); }   /* 16 / 1열 / 12 */
+  :root { --cs-gutter: var(--ds-space-x4); --cs-cols: 1; --cs-card-gap: var(--ds-space-x3); }   /* 16 / 1열 / 12 */
 
   /* 헤더 60 */
   .cs-header { height: 60px; }
@@ -304,13 +304,13 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
   .cs-header__brand { gap: 5.44px; height: 31px; }
   .cs-header__logo { width: 99.06px; height: 25.74px; }
   /* 라벨 y7 (Figma 2310:1989 — 로고 99.06×25.74 위 기준) */
-  .cs-header__service { margin-top: 7px; font-size: var(--ybm-font-size-t05); line-height: var(--ybm-line-height-t05); }
-  .cs-header__links { gap: var(--ybm-space-x2); }
-  .cs-header__links a { font-size: var(--ybm-font-size-t04); line-height: var(--ybm-line-height-t04); }
+  .cs-header__service { margin-top: 7px; font-size: var(--ds-font-size-t05); line-height: var(--ds-line-height-t05); }
+  .cs-header__links { gap: var(--ds-space-x2); }
+  .cs-header__links a { font-size: var(--ds-font-size-t04); line-height: var(--ds-line-height-t04); }
 
   /* 히어로 — 상 24 / 하 32 · 타이틀 t08 · 검색창 48 */
   .cs-hero {
-    padding: var(--ybm-space-x6) var(--cs-gutter) var(--ybm-space-x8);
+    padding: var(--ds-space-x6) var(--cs-gutter) var(--ds-space-x8);
     background: linear-gradient(100.317deg,
       var(--cs-gradient-hero-start) 39.01%,
       var(--cs-gradient-hero-end) 87.974%);
@@ -324,22 +324,22 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
       var(--cs-gradient-glow-start) 11.814%,
       var(--cs-gradient-glow-end) 83.535%);
   }
-  .cs-hero__inner { gap: var(--ybm-space-x4); }
-  .cs-hero__title { font-size: var(--ybm-font-size-t08); line-height: var(--ybm-line-height-t08); }
-  .cs-hero__search { gap: var(--ybm-space-x4); }
-  .cs-hero__searchbox { gap: var(--ybm-space-x3); }
-  .cs-hero__hint { font-size: var(--ybm-font-size-t04); line-height: var(--ybm-line-height-t04); }
+  .cs-hero__inner { gap: var(--ds-space-x4); }
+  .cs-hero__title { font-size: var(--ds-font-size-t08); line-height: var(--ds-line-height-t08); }
+  .cs-hero__search { gap: var(--ds-space-x4); }
+  .cs-hero__searchbox { gap: var(--ds-space-x3); }
+  .cs-hero__hint { font-size: var(--ds-font-size-t04); line-height: var(--ds-line-height-t04); }
 
   .cs-search {
     height: auto;
-    padding: var(--ybm-space-x0_5) var(--ybm-space-x2) var(--ybm-space-x0_5) var(--ybm-space-x5);
+    padding: var(--ds-space-x0_5) var(--ds-space-x2) var(--ds-space-x0_5) var(--ds-space-x5);
     border-width: 2px;
   }
-  .cs-search__main { gap: var(--ybm-space-x3); }
+  .cs-search__main { gap: var(--ds-space-x3); }
   .cs-search__category, .cs-search__input {
-    font-size: var(--ybm-font-size-t05);
-    line-height: var(--ybm-line-height-t05);
-    font-weight: var(--ybm-font-weight-regular);
+    font-size: var(--ds-font-size-t05);
+    line-height: var(--ds-line-height-t05);
+    font-weight: var(--ds-font-weight-regular);
   }
   .cs-search__submit { width: 40px; height: 40px; }
   .cs-search__submit .ds-icon { --ds-icon-size: 24px; }
@@ -348,265 +348,265 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
   .cs-search__clear .ds-icon { --ds-icon-size: 20px; }
 
   /* 인기키워드 — 롤링 한 줄 */
-  .cs-keywords { gap: var(--ybm-space-x2); padding-inline: var(--ybm-space-x2); overflow: hidden; }
-  .cs-keywords__label { font-size: var(--ybm-font-size-t04); line-height: var(--ybm-line-height-t04); }
+  .cs-keywords { gap: var(--ds-space-x2); padding-inline: var(--ds-space-x2); overflow: hidden; }
+  .cs-keywords__label { font-size: var(--ds-font-size-t04); line-height: var(--ds-line-height-t04); }
   .cs-keywords__list { display: none; }
   .cs-keywords__rolling { display: flex; }
 
   /* 공지 — 상하 8 (좌우 16은 .cs-container 가 준다. 여기서 또 주면 32가 된다) */
-  .cs-page__notice { height: auto; padding: var(--ybm-space-x2) 0; }
-  .cs-notice-bar__content { gap: var(--ybm-space-x4); min-width: 0; }
+  .cs-page__notice { height: auto; padding: var(--ds-space-x2) 0; }
+  .cs-notice-bar__content { gap: var(--ds-space-x4); min-width: 0; }
   .cs-notice-bar__title {
     flex: 1 1 0;
     min-width: 0;
     white-space: nowrap;
-    font-size: var(--ybm-font-size-t05);
-    line-height: var(--ybm-line-height-t05);
+    font-size: var(--ds-font-size-t05);
+    line-height: var(--ds-line-height-t05);
   }
   .cs-notice-bar .ds-btn {
-    --ds-btn-padding-x: var(--ybm-space-x2_5);
+    --ds-btn-padding-x: var(--ds-space-x2_5);
     min-width: 40px;
   }
   .cs-notice-bar .ds-btn > .ds-icon { --ds-icon-size: 20px; }
   .cs-notice-bar .ds-btn > .cs-notice-bar__more-label { display: none; }
 
   /* 자주 찾는 도움말 — 상 32 / 하 40 · 타이틀 t07 · 카드 간격 12 · 한 행에 2개 */
-  .cs-page__faq { padding-block: var(--ybm-space-x8) var(--ybm-space-x10); }
+  .cs-page__faq { padding-block: var(--ds-space-x8) var(--ds-space-x10); }
   .cs-section-title {
-    margin-bottom: var(--ybm-space-x4);
-    font-size: var(--ybm-font-size-t07);
-    line-height: var(--ybm-line-height-t07);
+    margin-bottom: var(--ds-space-x4);
+    font-size: var(--ds-font-size-t07);
+    line-height: var(--ds-line-height-t07);
   }
-  .cs-page__faq .cs-grid { --cs-cols: 2; row-gap: var(--ybm-space-x3); }
+  .cs-page__faq .cs-grid { --cs-cols: 2; row-gap: var(--ds-space-x3); }
   .cs-faq-card {
     height: auto;
-    gap: var(--ybm-space-x4);
-    padding: var(--ybm-space-x5);
-    border-radius: var(--ybm-radius-r4);
+    gap: var(--ds-space-x4);
+    padding: var(--ds-space-x5);
+    border-radius: var(--ds-radius-r4);
   }
   /* PC 와 같이 내용 높이를 고정해 카테고리(경로) 줄 위치를 카드마다 맞춘다.
      149 = 배지 29 + 간격 8 + 질문 4줄(28×4) */
-  .cs-faq-card__content { height: 149px; gap: var(--ybm-space-x2); }
+  .cs-faq-card__content { height: 149px; gap: var(--ds-space-x2); }
   .cs-faq-card__badge {
     max-width: 120px;
     min-height: 20px;
-    font-size: var(--ybm-font-size-t01);
-    line-height: var(--ybm-line-height-t01);
-    font-weight: var(--ybm-font-weight-medium);
+    font-size: var(--ds-font-size-t01);
+    line-height: var(--ds-line-height-t01);
+    font-weight: var(--ds-font-weight-medium);
   }
   .cs-faq-card__question {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 4;
     overflow: hidden;
-    font-size: var(--ybm-font-size-t06);
-    line-height: var(--ybm-line-height-t06);
+    font-size: var(--ds-font-size-t06);
+    line-height: var(--ds-line-height-t06);
   }
 
   /* 서비스별 안내 — 흰 카드 하나 안의 리스트 행 */
-  .cs-page__service { padding-block: var(--ybm-space-x10) var(--ybm-space-x12); }
+  .cs-page__service { padding-block: var(--ds-space-x10) var(--ds-space-x12); }
   .cs-page__service .cs-grid {
     display: block;
-    border-radius: var(--ybm-radius-r4);
-    background: var(--ybm-color-bg-layer-default);
+    border-radius: var(--ds-radius-r4);
+    background: var(--ds-color-bg-layer-default);
   }
   .cs-service-card {
-    gap: var(--ybm-space-x4);                      /* 머리 ↔ 연락처 16 */
-    padding: var(--ybm-space-x6) var(--ybm-space-x5);
+    gap: var(--ds-space-x4);                      /* 머리 ↔ 연락처 16 */
+    padding: var(--ds-space-x6) var(--ds-space-x5);
     border-radius: 0;
     background: none;
   }
   /* 행 사이 구분선 — 아래가 아니라 위에 둔다. 그래야 감춰 둔 [전체보기] 행이
      있어도 마지막 행 아래에 선이 남지 않는다 */
   .cs-page__service .cs-grid > .cs-service-card + .cs-service-card {
-    border-top: 1px solid var(--ybm-color-stroke-neutral-muted);
+    border-top: 1px solid var(--ds-color-stroke-neutral-muted);
   }
   /* 모바일은 행 사이 선이 이미 있어 머리 아래 구분선을 뺀다 */
   .cs-service-card__head { padding-bottom: 0; border-bottom: 0; }
-  .cs-service-card__contacts { gap: var(--ybm-space-x3); }
-  .cs-page__service .cs-grid + .cs-more { margin-top: var(--ybm-space-x6); }
+  .cs-service-card__contacts { gap: var(--ds-space-x3); }
+  .cs-page__service .cs-grid + .cs-more { margin-top: var(--ds-space-x6); }
 
   /* 검색 결과 상태 — 본문이 남는 높이를 채우고 블록을 가운데 (Figma 본문 FILL·중앙) */
   .cs-page--search .cs-page__body { display: flex; flex-direction: column; }
   .cs-page__result {
     flex: 1 1 auto;
     align-items: center;
-    padding: var(--ybm-space-x12) var(--cs-gutter) var(--ybm-space-x16);
+    padding: var(--ds-space-x12) var(--cs-gutter) var(--ds-space-x16);
   }
   /* 빈 상태 — 343 · gap 32 · 타이틀 t07 · 설명 t04 */
-  .cs-empty { gap: var(--ybm-space-x8); width: 100%; }
-  .cs-empty__text { gap: var(--ybm-space-x2); }
-  .cs-empty__title { font-size: var(--ybm-font-size-t07); line-height: var(--ybm-line-height-t07); }
-  .cs-empty__desc { font-size: var(--ybm-font-size-t04); line-height: var(--ybm-line-height-t04); }
+  .cs-empty { gap: var(--ds-space-x8); width: 100%; }
+  .cs-empty__text { gap: var(--ds-space-x2); }
+  .cs-empty__title { font-size: var(--ds-font-size-t07); line-height: var(--ds-line-height-t07); }
+  .cs-empty__desc { font-size: var(--ds-font-size-t04); line-height: var(--ds-line-height-t04); }
   /* 로딩 — 343 · gap 24 · 원 40 · 타이틀 t07 · 설명 t05 */
-  .cs-loading { gap: var(--ybm-space-x6); width: 100%; }
-  .cs-loading__text { gap: var(--ybm-space-x2); }
+  .cs-loading { gap: var(--ds-space-x6); width: 100%; }
+  .cs-loading__text { gap: var(--ds-space-x2); }
   .cs-loading__circle { --ds-pc-size: 40px; --ds-pc-stroke: 5px; }
-  .cs-loading__title { font-size: var(--ybm-font-size-t07); line-height: var(--ybm-line-height-t07); }
-  .cs-loading__desc { font-size: var(--ybm-font-size-t05); line-height: var(--ybm-line-height-t05); }
+  .cs-loading__title { font-size: var(--ds-font-size-t07); line-height: var(--ds-line-height-t07); }
+  .cs-loading__desc { font-size: var(--ds-font-size-t05); line-height: var(--ds-line-height-t05); }
 
   /* 도움말 목록 — 본문 상 24 / 하 40, 콘텐츠 gap 32, 목록 영역 gap 20, 칩 gap 8 */
-  .cs-page__faq-body { padding-bottom: var(--ybm-space-x10); }
-  .cs-page__faq-body > .cs-container { margin-top: var(--ybm-space-x6); }
-  .cs-faq-content { gap: var(--ybm-space-x8); }
-  .cs-faq-area { gap: var(--ybm-space-x5); }
-  .cs-category-chips { gap: var(--ybm-space-x2); }
+  .cs-page__faq-body { padding-bottom: var(--ds-space-x10); }
+  .cs-page__faq-body > .cs-container { margin-top: var(--ds-space-x6); }
+  .cs-faq-content { gap: var(--ds-space-x8); }
+  .cs-faq-area { gap: var(--ds-space-x5); }
+  .cs-category-chips { gap: var(--ds-space-x2); }
   /* 모바일 칩은 medium — 같은 마크업을 쓰므로 large 토큰만 medium 값으로 바꾼다 */
   .cs-category-chips .ds-chip[data-size="large"] {
     --ds-chip-height: 36px;
-    --ds-chip-padding-x: calc(var(--ybm-space-x2) + var(--ybm-space-x1_5));
-    --ds-chip-min-width: var(--ybm-space-x12);
-    font-size: var(--ybm-font-size-t04);
-    line-height: var(--ybm-line-height-t04);
+    --ds-chip-padding-x: calc(var(--ds-space-x2) + var(--ds-space-x1_5));
+    --ds-chip-min-width: var(--ds-space-x12);
+    font-size: var(--ds-font-size-t04);
+    line-height: var(--ds-line-height-t04);
   }
-  .cs-faq--empty { padding-block: var(--ybm-space-x24); }
+  .cs-faq--empty { padding-block: var(--ds-space-x24); }
   /* 서비스 히어로 — 타이틀 24/34 (Figma 2607:7146) · 검색 영역은 검색창만 */
   .cs-hero[data-type="service"] .cs-hero__title { font-size: 24px; line-height: 34px; }
   /* 아코디언 — 질문 영역 상하 20, 답변 gap·아래 20, 답변 t05
      질문은 모바일만 t06 18/28 유지 (PC 는 t07 20/29) */
-  .cs-faq-item__q { gap: var(--ybm-space-x6); padding-block: var(--ybm-space-x5); align-items: flex-start; }
+  .cs-faq-item__q { gap: var(--ds-space-x6); padding-block: var(--ds-space-x5); align-items: flex-start; }
   .cs-faq-item__text {
     align-items: flex-start;
-    font-size: var(--ybm-font-size-t06);
-    line-height: var(--ybm-line-height-t06);
+    font-size: var(--ds-font-size-t06);
+    line-height: var(--ds-line-height-t06);
   }
-  .cs-faq-item__a-inner { gap: var(--ybm-space-x5); }
-  .cs-faq-item__a-inner > :last-child { padding-bottom: var(--ybm-space-x5); }
-  .cs-faq-item__answer { font-size: var(--ybm-font-size-t05); line-height: var(--ybm-line-height-t05); }
+  .cs-faq-item__a-inner { gap: var(--ds-space-x5); }
+  .cs-faq-item__a-inner > :last-child { padding-bottom: var(--ds-space-x5); }
+  .cs-faq-item__answer { font-size: var(--ds-font-size-t05); line-height: var(--ds-line-height-t05); }
   /* 검색 결과 영역 — 타이틀↔목록 16, 목록 영역 gap 24 (Figma SB 13 Mobile) */
-  .cs-result-area { gap: var(--ybm-space-x4); }
-  .cs-page__faq-body[data-screen="search-result"] .cs-faq-area { gap: var(--ybm-space-x6); }
+  .cs-result-area { gap: var(--ds-space-x4); }
+  .cs-page__faq-body[data-screen="search-result"] .cs-faq-area { gap: var(--ds-space-x6); }
 
   /* AI 안내 pill — 36 (패딩 6/16 · gap·아이콘은 PC 와 같다 · 문구만 14) */
-  .cs-ai-notice { padding: var(--ybm-space-x1_5) var(--ybm-space-x4); }
-  .cs-ai-notice__text { font-size: var(--ybm-font-size-t04); line-height: var(--ybm-line-height-t04); }
+  .cs-ai-notice { padding: var(--ds-space-x1_5) var(--ds-space-x4); }
+  .cs-ai-notice__text { font-size: var(--ds-font-size-t04); line-height: var(--ds-line-height-t04); }
 
   /* 검색 결과 항목 — 질문 18/28 · 요약 t05 말줄임 없음 · 상하 20 */
-  .cs-result-item__q { gap: var(--ybm-space-x2); padding-block: var(--ybm-space-x5); align-items: flex-start; }
-  .cs-result-item__title { font-size: var(--ybm-font-size-t06); line-height: var(--ybm-line-height-t06); }
+  .cs-result-item__q { gap: var(--ds-space-x2); padding-block: var(--ds-space-x5); align-items: flex-start; }
+  .cs-result-item__title { font-size: var(--ds-font-size-t06); line-height: var(--ds-line-height-t06); }
   .cs-result-item__summary {
     -webkit-line-clamp: unset;
-    padding: 0 0 var(--ybm-space-x5);
-    font-size: var(--ybm-font-size-t05);
-    line-height: var(--ybm-line-height-t05);
+    padding: 0 0 var(--ds-space-x5);
+    font-size: var(--ds-font-size-t05);
+    line-height: var(--ds-line-height-t05);
   }
   /* 펼침 항목의 답변 영역 — gap 32 · 아래 20 · 우측 여백 없음 · 본문 t05 · 이미지 200 */
-  .cs-result-item[data-state="open"] .cs-result-item__a { gap: var(--ybm-space-x8); padding: 0 0 var(--ybm-space-x5); }
-  .cs-result-item__answer { font-size: var(--ybm-font-size-t05); line-height: var(--ybm-line-height-t05); }
+  .cs-result-item[data-state="open"] .cs-result-item__a { gap: var(--ds-space-x8); padding: 0 0 var(--ds-space-x5); }
+  .cs-result-item__answer { font-size: var(--ds-font-size-t05); line-height: var(--ds-line-height-t05); }
   .cs-result-item__image { height: 200px; }
 
   /* 만족도 평가 — 안내문과 버튼을 세로로, 사유는 한 줄에 하나씩 */
-  .cs-feedback__row { flex-direction: column; align-items: flex-start; gap: var(--ybm-space-x2); }
-  .cs-feedback__reason { gap: var(--ybm-space-x3); padding: var(--ybm-space-x5); }
-  .cs-feedback__reasons { flex-direction: column; gap: var(--ybm-space-x1); }
+  .cs-feedback__row { flex-direction: column; align-items: flex-start; gap: var(--ds-space-x2); }
+  .cs-feedback__reason { gap: var(--ds-space-x3); padding: var(--ds-space-x5); }
+  .cs-feedback__reasons { flex-direction: column; gap: var(--ds-space-x1); }
 
   /* 하단은 페이지네이션 대신 더보기 */
   .cs-result-foot__pagination { display: none; }
   .cs-result-foot__more { display: flex; }
 
   /* 문의 유도 배너 — 세로 스택 · 패딩 20 · gap 20 · 버튼 전체폭 */
-  .cs-inquiry-banner { flex-direction: column; align-items: stretch; gap: var(--ybm-space-x5); padding: var(--ybm-space-x5); }
-  .cs-inquiry-banner__title { font-size: var(--ybm-font-size-t06); line-height: var(--ybm-line-height-t06); }
+  .cs-inquiry-banner { flex-direction: column; align-items: stretch; gap: var(--ds-space-x5); padding: var(--ds-space-x5); }
+  .cs-inquiry-banner__title { font-size: var(--ds-font-size-t06); line-height: var(--ds-line-height-t06); }
   .cs-inquiry-banner .ds-btn { width: 100%; }
 
   /* 푸터 — 세로 스택 · 상 24 / 하 32 */
-  .cs-footer { align-items: stretch; padding: var(--ybm-space-x6) var(--cs-gutter) var(--ybm-space-x8); }
-  .cs-footer__inner { flex-direction: column; align-items: stretch; gap: var(--ybm-space-x4); }
-  .cs-footer__text, .cs-footer__aside { width: 100%; gap: var(--ybm-space-x1); }
+  .cs-footer { align-items: stretch; padding: var(--ds-space-x6) var(--cs-gutter) var(--ds-space-x8); }
+  .cs-footer__inner { flex-direction: column; align-items: stretch; gap: var(--ds-space-x4); }
+  .cs-footer__text, .cs-footer__aside { width: 100%; gap: var(--ds-space-x1); }
   .cs-footer__hours {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--ybm-space-x1);
+    gap: var(--ds-space-x1);
     white-space: normal;
-    font-size: var(--ybm-font-size-t04);
-    line-height: var(--ybm-line-height-t04);
+    font-size: var(--ds-font-size-t04);
+    line-height: var(--ds-line-height-t04);
   }
-  .cs-footer__copyright { font-size: var(--ybm-font-size-t03); line-height: var(--ybm-line-height-t03); }
-  .cs-footer__aside { align-items: stretch; gap: var(--ybm-space-x3); }
-  .cs-footer__links { justify-content: center; gap: var(--ybm-space-x2); }
-  .cs-footer__links a { font-size: var(--ybm-font-size-t04); line-height: var(--ybm-line-height-t04); }
+  .cs-footer__copyright { font-size: var(--ds-font-size-t03); line-height: var(--ds-line-height-t03); }
+  .cs-footer__aside { align-items: stretch; gap: var(--ds-space-x3); }
+  .cs-footer__links { justify-content: center; gap: var(--ds-space-x2); }
+  .cs-footer__links a { font-size: var(--ds-font-size-t04); line-height: var(--ds-line-height-t04); }
   /* 패밀리 사이트 — 모바일은 40 · 좌우 14 · radius sm · 아이콘 16 */
   .cs-family { width: 100%; }
   .cs-family__button {
     width: 100%;
     height: 40px;
-    gap: var(--ybm-space-x2);
-    padding-inline: var(--ybm-space-x3_5);
-    border-radius: var(--ybm-shape-sm);
-    font-size: var(--ybm-font-size-t04);
-    line-height: var(--ybm-line-height-t04);
+    gap: var(--ds-space-x2);
+    padding-inline: var(--ds-space-x3_5);
+    border-radius: var(--ds-shape-sm);
+    font-size: var(--ds-font-size-t04);
+    line-height: var(--ds-line-height-t04);
   }
   .cs-family__button > .ds-icon { --ds-icon-size: 16px; }
 
   /* 문의하기 — 본문 상 24 / 하 56 · 폼 gap 40 · 섹션 제목 t06 · 항목 gap 28
      입력이 여럿인 행은 모두 세로로 쌓고, 하단 버튼은 2등분한다 */
-  .cs-page__inquiry-body { padding-block: var(--ybm-space-x6) var(--ybm-space-x14); }
-  .cs-form { gap: var(--ybm-space-x10); }
-  .cs-page-heading__title { font-size: var(--ybm-font-size-t08); line-height: var(--ybm-line-height-t08); }
-  .cs-form-section { gap: var(--ybm-space-x2); }
-  .cs-form-section__title { font-size: var(--ybm-font-size-t06); line-height: var(--ybm-line-height-t06); }
+  .cs-page__inquiry-body { padding-block: var(--ds-space-x6) var(--ds-space-x14); }
+  .cs-form { gap: var(--ds-space-x10); }
+  .cs-page-heading__title { font-size: var(--ds-font-size-t08); line-height: var(--ds-line-height-t08); }
+  .cs-form-section { gap: var(--ds-space-x2); }
+  .cs-form-section__title { font-size: var(--ds-font-size-t06); line-height: var(--ds-line-height-t06); }
   .cs-form-section__items { gap: 28px; }        /* 28 은 DS space 스케일에 없다 */
-  .cs-form-section__items--row { flex-direction: column; gap: var(--ybm-space-x5); }
-  .cs-form-section__items--consent { gap: var(--ybm-space-x2); padding-top: var(--ybm-space-x4); }
+  .cs-form-section__items--row { flex-direction: column; gap: var(--ds-space-x5); }
+  .cs-form-section__items--consent { gap: var(--ds-space-x2); padding-top: var(--ds-space-x4); }
   /* 세로로 쌓이므로 flex-basis 0 을 풀어야 버튼·필드 높이(52)가 그대로 남는다 */
-  .cs-field-row { flex-direction: column; gap: var(--ybm-space-x2); }
+  .cs-field-row { flex-direction: column; gap: var(--ds-space-x2); }
   .cs-field-row > * { flex: 0 0 auto; width: 100%; }
-  .cs-form-field-group { gap: var(--ybm-space-x3); }
+  .cs-form-field-group { gap: var(--ds-space-x3); }
   .cs-form__textarea { height: 160px; min-height: 160px; }
-  .cs-form-section__items--reinquiry { gap: var(--ybm-space-x8); }
+  .cs-form-section__items--reinquiry { gap: var(--ds-space-x8); }
 
   /* AI 추천 — 패딩 16/20 · 제목 t05 · 칩은 한 줄에 하나씩(글자 길이만큼) */
-  .cs-ai-recommend { padding: var(--ybm-space-x4) var(--ybm-space-x5); }
-  .cs-ai-recommend__title { font-size: var(--ybm-font-size-t05); line-height: var(--ybm-line-height-t05); }
+  .cs-ai-recommend { padding: var(--ds-space-x4) var(--ds-space-x5); }
+  .cs-ai-recommend__title { font-size: var(--ds-font-size-t05); line-height: var(--ds-line-height-t05); }
   .cs-ai-recommend__list { flex-direction: column; align-items: flex-start; }
   .cs-recommend-chip {
-    padding: var(--ybm-space-x2) var(--ybm-space-x4);
-    font-size: var(--ybm-font-size-t04);
-    line-height: var(--ybm-line-height-t04);
+    padding: var(--ds-space-x2) var(--ds-space-x4);
+    font-size: var(--ds-font-size-t04);
+    line-height: var(--ds-line-height-t04);
   }
 
   /* 약관 동의 — 표를 풀어 라벨/값 세로 스택 (Figma 2661:8525) */
   .cs-consent__toggle > .ds-icon { --ds-icon-size: 20px; }
-  .cs-consent__table { display: block; border-radius: var(--ybm-shape-sm); }
-  .cs-consent__cell { display: block; padding: var(--ybm-space-x3_5) var(--ybm-space-x4); }
-  .cs-consent__cell + .cs-consent__cell { border-top: 1px solid var(--ybm-color-stroke-neutral-weak); }
+  .cs-consent__table { display: block; border-radius: var(--ds-shape-sm); }
+  .cs-consent__cell { display: block; padding: var(--ds-space-x3_5) var(--ds-space-x4); }
+  .cs-consent__cell + .cs-consent__cell { border-top: 1px solid var(--ds-color-stroke-neutral-weak); }
   .cs-consent__table dt { padding: 0; background: none; }
-  .cs-consent__table dd { padding: var(--ybm-space-x1) 0 0; border: 0; }
+  .cs-consent__table dd { padding: var(--ds-space-x1) 0 0; border: 0; }
   .cs-consent__cell + .cs-consent__cell > :is(dt, dd) { border-left: 0; }
 
   /* 하단 버튼 — 2등분 · gap 8 */
-  .cs-form-actions { gap: var(--ybm-space-x2); }
+  .cs-form-actions { gap: var(--ds-space-x2); }
   .cs-form-actions > .ds-btn { flex: 1 1 0; width: auto; }
 
   /* 내 문의 내역 — 본문 상 24 / 하 56 · 목록 gap 16 · 상세 gap 24 */
   .cs-page__list-body,
-  .cs-page__detail-body { padding-block: var(--ybm-space-x6) var(--ybm-space-x14); }
-  .cs-list { gap: var(--ybm-space-x4); }
-  .cs-detail { gap: var(--ybm-space-x6); }
+  .cs-page__detail-body { padding-block: var(--ds-space-x6) var(--ds-space-x14); }
+  .cs-list { gap: var(--ds-space-x4); }
+  .cs-detail { gap: var(--ds-space-x6); }
   .cs-page-heading__action {
     --ds-btn-height: 40px;
-    --ds-btn-font-size: var(--ybm-font-size-t05);
-    --ds-btn-line-height: var(--ybm-line-height-t05);
+    --ds-btn-font-size: var(--ds-font-size-t05);
+    --ds-btn-line-height: var(--ds-line-height-t05);
     /* 모바일은 좌우 여백이 16 뿐이라 패딩·당기는 폭도 16 으로 맞춘다(가로 넘침 방지) */
-    --ds-btn-padding-x: var(--ybm-space-x4);
-    margin-right: calc(var(--ybm-space-x4) * -1);
+    --ds-btn-padding-x: var(--ds-space-x4);
+    margin-right: calc(var(--ds-space-x4) * -1);
   }
 
   /* 목록 행 — 세로 스택(배지·유형 / 제목 / 날짜) · 상하 16 */
-  .cs-inquiry-item { flex-direction: column; align-items: stretch; gap: var(--ybm-space-x2); padding-block: var(--ybm-space-x4); }
-  .cs-inquiry-item__content { gap: var(--ybm-space-x2); }
-  .cs-inquiry-item__meta { gap: var(--ybm-space-x2); }
+  .cs-inquiry-item { flex-direction: column; align-items: stretch; gap: var(--ds-space-x2); padding-block: var(--ds-space-x4); }
+  .cs-inquiry-item__content { gap: var(--ds-space-x2); }
+  .cs-inquiry-item__meta { gap: var(--ds-space-x2); }
   .cs-inquiry-item__title {
-    font-size: var(--ybm-font-size-t06);
-    line-height: var(--ybm-line-height-t06);
+    font-size: var(--ds-font-size-t06);
+    line-height: var(--ds-line-height-t06);
     white-space: normal;
   }
   /* 모바일은 Figma 값 그대로 — 날짜 14/21 (PC 만 16/24) */
-  .cs-inquiry-item__date { font-size: var(--ybm-font-size-t04); line-height: var(--ybm-line-height-t04); }
+  .cs-inquiry-item__date { font-size: var(--ds-font-size-t04); line-height: var(--ds-line-height-t04); }
   /* 상세 제목도 모바일에서는 목록과 같은 18/28 (PC 만 24/34) */
   .cs-inquiry-item--static .cs-inquiry-item__title {
-    font-size: var(--ybm-font-size-t06);
-    line-height: var(--ybm-line-height-t06);
+    font-size: var(--ds-font-size-t06);
+    line-height: var(--ds-line-height-t06);
   }
   /* 빈 화면 — 본문이 남는 높이를 채우고 블록을 가운데 둔다 */
   .cs-page--list .cs-page__body { display: flex; flex-direction: column; }
@@ -614,13 +614,13 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
   .cs-inquiry-list--empty { flex: 1 1 auto; align-items: center; padding-top: 0; }
 
   /* 상세 — 본문 t05 · 스레드 패딩 20/16 */
-  .cs-inquiry-body__text { font-size: var(--ybm-font-size-t05); line-height: var(--ybm-line-height-t05); }
-  .cs-thread { padding: var(--ybm-space-x5) var(--ybm-space-x4); }
-  .cs-thread__body { gap: var(--ybm-space-x3); }
-  .cs-thread__title { font-size: var(--ybm-font-size-t06); line-height: var(--ybm-line-height-t06); }
-  .cs-thread__text { font-size: var(--ybm-font-size-t05); line-height: var(--ybm-line-height-t05); }
+  .cs-inquiry-body__text { font-size: var(--ds-font-size-t05); line-height: var(--ds-line-height-t05); }
+  .cs-thread { padding: var(--ds-space-x5) var(--ds-space-x4); }
+  .cs-thread__body { gap: var(--ds-space-x3); }
+  .cs-thread__title { font-size: var(--ds-font-size-t06); line-height: var(--ds-line-height-t06); }
+  .cs-thread__text { font-size: var(--ds-font-size-t05); line-height: var(--ds-line-height-t05); }
   /* 하단 — 목록으로 / 수정·삭제 한 줄 유지, 캡션은 오른쪽 */
-  .cs-detail-actions__edit { gap: var(--ybm-space-x2); }
+  .cs-detail-actions__edit { gap: var(--ds-space-x2); }
 }
 
 
@@ -644,9 +644,9 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
   background: linear-gradient(90deg,
     var(--cs-gradient-brand-start),
     var(--cs-gradient-brand-end));
-  border-radius: var(--ybm-shape-pill);
+  border-radius: var(--ds-shape-pill);
   filter: blur(16px);
-  transition: opacity var(--ybm-duration-slow) var(--ybm-easing-standard);
+  transition: opacity var(--ds-duration-slow) var(--ds-easing-standard);
   animation: cs-glow-intro 1820ms linear 80ms 1;
 }
 /* 검색창에 마우스를 올린 동안만 바탕 글로우 (인트로가 끝난 뒤부터 적용된다) */
@@ -695,12 +695,12 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
    글자·배지는 건드리지 않는다 (카드를 통째로 scale 하면 글자가 뭉개진다) */
 .cs-faq-card::before {
   transition:
-    background-color var(--ybm-duration-normal) var(--ybm-easing-standard),
-    scale var(--ybm-duration-normal) var(--ybm-easing-emphasized);
+    background-color var(--ds-duration-normal) var(--ds-easing-standard),
+    scale var(--ds-duration-normal) var(--ds-easing-emphasized);
 }
 @media (hover: hover) {
   .cs-faq-card:hover::before {
-    background: var(--ybm-color-bg-neutral-weak-pressed);
+    background: var(--ds-color-bg-neutral-weak-pressed);
     scale: 1.02;
   }
 }
@@ -711,7 +711,7 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
 
 /* 5-4) [전체보기] — 누르면 행이 하나 더 나오고 버튼은 접히며 사라진다
    (실제로는 서버가 다음 묶음을 내려준다. 여기서는 동작을 보여주기 위한 더미 행) */
-.cs-service-card--more { animation: cs-reveal var(--ybm-duration-slow) var(--ybm-easing-emphasized) both; }
+.cs-service-card--more { animation: cs-reveal var(--ds-duration-slow) var(--ds-easing-emphasized) both; }
 @keyframes cs-reveal {
   from { opacity: 0; translate: 0 8px; }
   to   { opacity: 1; translate: 0 0; }
@@ -719,54 +719,54 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
 .cs-more {
   overflow: hidden;
   transition:
-    opacity var(--ybm-duration-normal) var(--ybm-easing-standard),
-    height var(--ybm-duration-slow) var(--ybm-easing-emphasized),
-    margin-top var(--ybm-duration-slow) var(--ybm-easing-emphasized);
+    opacity var(--ds-duration-normal) var(--ds-easing-standard),
+    height var(--ds-duration-slow) var(--ds-easing-emphasized),
+    margin-top var(--ds-duration-slow) var(--ds-easing-emphasized);
 }
 .cs-more[data-state="gone"] { opacity: 0; height: 0; margin-top: 0; pointer-events: none; }
 
 /* 5-5) 패밀리 사이트 — 누르면 위로 열리는 목록 (구조는 cs-components.css 01) */
-.cs-family__button[aria-expanded="true"] { border-color: var(--ybm-color-stroke-neutral); }
-.cs-family__button > .ds-icon { transition: rotate var(--ybm-duration-normal) var(--ybm-easing-emphasized); }
+.cs-family__button[aria-expanded="true"] { border-color: var(--ds-color-stroke-neutral); }
+.cs-family__button > .ds-icon { transition: rotate var(--ds-duration-normal) var(--ds-easing-emphasized); }
 .cs-family__button[aria-expanded="true"] > .ds-icon { rotate: 45deg; }   /* + → × */
-.cs-family__menu { animation: cs-menu-in var(--ybm-duration-normal) var(--ybm-easing-emphasized) both; }
+.cs-family__menu { animation: cs-menu-in var(--ds-duration-normal) var(--ds-easing-emphasized) both; }
 @keyframes cs-menu-in {
   from { opacity: 0; translate: 0 6px; }
   to   { opacity: 1; translate: 0 0; }
 }
-.cs-family__menu a { transition: background-color var(--ybm-duration-fast) var(--ybm-easing-standard); }
+.cs-family__menu a { transition: background-color var(--ds-duration-fast) var(--ds-easing-standard); }
 @media (hover: hover) {
-  .cs-family__menu a:hover { background: var(--ybm-color-bg-neutral-muted); }
+  .cs-family__menu a:hover { background: var(--ds-color-bg-neutral-muted); }
 }
 
 /* 5-6) 그 밖의 호버
    · 인기키워드 칩 — 배경은 그대로 두고 테두리만 진해진다
    · 텍스트 링크 — 밑줄 */
-.cs-keywords__item { transition: border-color var(--ybm-duration-fast) var(--ybm-easing-standard); }
-.cs-search__clear { transition: color var(--ybm-duration-fast) var(--ybm-easing-standard); }
+.cs-keywords__item { transition: border-color var(--ds-duration-fast) var(--ds-easing-standard); }
+.cs-search__clear { transition: color var(--ds-duration-fast) var(--ds-easing-standard); }
 .cs-notice-bar__title,
 .cs-header__links a,
 .cs-footer__links a {
   transition:
-    background-color var(--ybm-duration-fast) var(--ybm-easing-standard),
-    color var(--ybm-duration-fast) var(--ybm-easing-standard);
+    background-color var(--ds-duration-fast) var(--ds-easing-standard),
+    color var(--ds-duration-fast) var(--ds-easing-standard);
 }
 @media (hover: hover) {
-  .cs-keywords__item:hover { border-color: var(--ybm-color-stroke-neutral); }
-  .cs-search__clear:hover { color: var(--ybm-color-fg-neutral); }
+  .cs-keywords__item:hover { border-color: var(--ds-color-stroke-neutral); }
+  .cs-search__clear:hover { color: var(--ds-color-fg-neutral); }
   .cs-notice-bar__title:hover,
   .cs-header__links a:hover,
   .cs-footer__links a:hover { text-decoration: underline; }
-  .cs-family__button:hover { background: var(--ybm-color-bg-neutral-muted); }
+  .cs-family__button:hover { background: var(--ds-color-bg-neutral-muted); }
 }
 
 /* 5-7) 터치 기기 — 프레스(:active)만. 호버로 생기는 이동·확대는 쓰지 않는다 */
 @media (hover: none) {
-  .cs-faq-card:active::before { background: var(--ybm-color-bg-neutral-weak-pressed); }
-  .cs-keywords__item:active { border-color: var(--ybm-color-stroke-neutral); }
+  .cs-faq-card:active::before { background: var(--ds-color-bg-neutral-weak-pressed); }
+  .cs-keywords__item:active { border-color: var(--ds-color-stroke-neutral); }
   .cs-keywords__rolling:active,
   .cs-family__button:active,
-  .cs-family__menu a:active { background: var(--ybm-color-bg-neutral-weak-pressed); }
+  .cs-family__menu a:active { background: var(--ds-color-bg-neutral-weak-pressed); }
   .cs-notice-bar__title:active { opacity: 0.6; }
   .cs-search__submit:active,
   .cs-search__clear:active,
@@ -782,31 +782,31 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
 
 /* 5-9) 아코디언 — 답변이 높이로 열리고 화살표가 반 바퀴 돈다
    모션은 DS 토큰(320ms slow · emphasized). */
-.cs-faq-item__a { transition: grid-template-rows var(--ybm-duration-slow) var(--ybm-easing-emphasized); }
+.cs-faq-item__a { transition: grid-template-rows var(--ds-duration-slow) var(--ds-easing-emphasized); }
 /* 닫히는 동안에는 내용이 읽히지 않게(접근성) — 다 닫힌 뒤 숨긴다 */
-.cs-faq-item__a-inner { visibility: hidden; transition: visibility 0s var(--ybm-duration-slow); }
+.cs-faq-item__a-inner { visibility: hidden; transition: visibility 0s var(--ds-duration-slow); }
 .cs-faq-item[data-state="open"] .cs-faq-item__a-inner { visibility: visible; transition-delay: 0s; }
 /* 답변 글자는 조금 늦게 또렷해진다 */
 .cs-faq-item__a-inner > * {
   opacity: 0;
-  transition: opacity var(--ybm-duration-normal) var(--ybm-easing-standard);
+  transition: opacity var(--ds-duration-normal) var(--ds-easing-standard);
 }
 .cs-faq-item[data-state="open"] .cs-faq-item__a-inner > * { opacity: 1; transition-delay: 80ms; }
 /* 화살표 — 누르면 반 바퀴 */
-.cs-faq-item__q > .ds-icon { transition: rotate var(--ybm-duration-slow) var(--ybm-easing-emphasized); }
+.cs-faq-item__q > .ds-icon { transition: rotate var(--ds-duration-slow) var(--ds-easing-emphasized); }
 .cs-faq-item[data-state="open"] .cs-faq-item__q > .ds-icon { rotate: 180deg; }
 
 
 /* 5-9-1) 검색 결과 항목 — 화살표만 반 바퀴 (요약은 말줄임이 풀린다) */
-.cs-result-item__q > .ds-icon { transition: rotate var(--ybm-duration-slow) var(--ybm-easing-emphasized); }
+.cs-result-item__q > .ds-icon { transition: rotate var(--ds-duration-slow) var(--ds-easing-emphasized); }
 .cs-result-item[data-state="open"] .cs-result-item__q > .ds-icon { rotate: 180deg; }
 
 
 /* 5-9-2) 약관 동의 펼침 — 아코디언과 같은 높이 전환 + 화살표 반 바퀴 */
-.cs-consent__body { transition: grid-template-rows var(--ybm-duration-slow) var(--ybm-easing-emphasized); }
-.cs-consent__body-inner { visibility: hidden; transition: visibility 0s var(--ybm-duration-slow); }
+.cs-consent__body { transition: grid-template-rows var(--ds-duration-slow) var(--ds-easing-emphasized); }
+.cs-consent__body-inner { visibility: hidden; transition: visibility 0s var(--ds-duration-slow); }
 .cs-consent[data-state="open"] .cs-consent__body-inner { visibility: visible; transition-delay: 0s; }
-.cs-consent__toggle > .ds-icon { transition: rotate var(--ybm-duration-slow) var(--ybm-easing-emphasized); }
+.cs-consent__toggle > .ds-icon { transition: rotate var(--ds-duration-slow) var(--ds-easing-emphasized); }
 .cs-consent[data-state="open"] .cs-consent__toggle > .ds-icon { rotate: 180deg; }
 
 
@@ -825,7 +825,7 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
   to   { opacity: 1; transform: translateY(0); }
 }
 .cs-ai-notice {
-  animation: cs-ai-notice-in var(--ybm-duration-slow) var(--cs-easing-spring) both;
+  animation: cs-ai-notice-in var(--ds-duration-slow) var(--cs-easing-spring) both;
 }
 
 /* 5-12) 모션 줄이기 — 위 전환·애니메이션을 전부 끈다 */
@@ -851,12 +851,12 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
    ========================================================================== */
 @media (max-width: 767px) {
   /* 페이지 타이틀 아래로 검색 전체폭 */
-  .cs-page--notice .cs-page-heading { flex-direction: column; align-items: stretch; gap: var(--ybm-space-x4); }
+  .cs-page--notice .cs-page-heading { flex-direction: column; align-items: stretch; gap: var(--ds-space-x4); }
   .cs-notice-search { width: 100%; }
 
   /* 목록 행 — 세로 스택(제목 영역 / 게시일) · 패딩 16 (PC 처럼 좌우에도 준다)
      [중요] 행은 bg 가 깔려 있어 좌우 여백이 없으면 글자가 면에 붙는다 */
-  .cs-notice-item { flex-direction: column; align-items: stretch; gap: var(--ybm-space-x2); padding: var(--ybm-space-x4); }
+  .cs-notice-item { flex-direction: column; align-items: stretch; gap: var(--ds-space-x2); padding: var(--ds-space-x4); }
   /* 제목 영역은 글자 흐름(인라인)으로 둔다 — [중요] 배지·N 배지·첨부 아이콘이 PC 처럼
      제목과 '같은 줄'에 붙고, 제목이 길면 그 뒤로 자연스럽게 줄바꿈된다.
      flex + wrap 으로 두면 배지가 제목 윗줄로 떨어진다.
@@ -865,21 +865,21 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
     display: block;
     flex: 0 0 auto;
     overflow: visible;
-    font-size: var(--ybm-font-size-t05);
-    line-height: var(--ybm-line-height-t05);
+    font-size: var(--ds-font-size-t05);
+    line-height: var(--ds-line-height-t05);
   }
-  .cs-notice-item__badge { margin-right: var(--ybm-space-x2); vertical-align: middle; }
+  .cs-notice-item__badge { margin-right: var(--ds-space-x2); vertical-align: middle; }
   .cs-notice-item__n,
-  .cs-notice-item__clip { margin-left: var(--ybm-space-x2); vertical-align: middle; }
+  .cs-notice-item__clip { margin-left: var(--ds-space-x2); vertical-align: middle; }
   .cs-notice-item__title {
     display: inline;
     overflow: visible;
     white-space: normal;
     text-overflow: clip;
-    font-size: var(--ybm-font-size-t05);
-    line-height: var(--ybm-line-height-t05);
+    font-size: var(--ds-font-size-t05);
+    line-height: var(--ds-line-height-t05);
   }
-  .cs-notice-item__date { font-size: var(--ybm-font-size-t04); line-height: var(--ybm-line-height-t04); }
+  .cs-notice-item__date { font-size: var(--ds-font-size-t04); line-height: var(--ds-line-height-t04); }
 
   /* 페이징 — 1~4 페이지만 노출 */
   .cs-pageno--wide { display: none; }
@@ -888,21 +888,21 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
      제목 영역도 목록 행과 같이 글자 흐름(인라인)으로 둔다 — N 배지·첨부 아이콘이 PC 처럼
      제목 '마지막 줄 뒤'에 붙는다. flex + wrap 이면 제목이 한 줄을 다 쓸 때 아랫줄로 떨어진다.
      (margin·vertical-align 은 위 목록 행 규칙에서 함께 적용된다) */
-  .cs-notice-header { flex-direction: column; align-items: stretch; gap: var(--ybm-space-x2); }
+  .cs-notice-header { flex-direction: column; align-items: stretch; gap: var(--ds-space-x2); }
   .cs-notice-header__title-area {
     display: block;
     flex: 0 0 auto;
     overflow: visible;
-    font-size: var(--ybm-font-size-t07);
-    line-height: var(--ybm-line-height-t07);
+    font-size: var(--ds-font-size-t07);
+    line-height: var(--ds-line-height-t07);
   }
   .cs-notice-header__title {
     display: inline;
-    font-size: var(--ybm-font-size-t07);
-    line-height: var(--ybm-line-height-t07);
+    font-size: var(--ds-font-size-t07);
+    line-height: var(--ds-line-height-t07);
   }
   /* 공지 본문 — 모바일 t05 */
-  .cs-notice-body__text { font-size: var(--ybm-font-size-t05); line-height: var(--ybm-line-height-t05); }
+  .cs-notice-body__text { font-size: var(--ds-font-size-t05); line-height: var(--ds-line-height-t05); }
   /* 첨부 세로 스택 */
   .cs-notice-body .cs-attachments { flex-direction: column; align-items: flex-start; }
   /* 이전·다음 글 — 게시일 숨김(라벨 + 제목 1줄) */
