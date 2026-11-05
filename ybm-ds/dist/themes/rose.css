@@ -1,0 +1,52 @@
+/* ==========================================================================
+   yds 테마 예시 (테스트용) - 장미 (rose)
+   --------------------------------------------------------------------------
+   연분홍 바탕에 분홍 하나와 아주 둥근 모서리를 쓴 테마입니다. 어린이 학습, 놀이처럼 친근하고 밝은 화면에 어울립니다.
+
+   쓰는 법
+     <html lang="ko" data-ds-theme="rose">
+     <link rel="stylesheet" href="…/yds/dist/ybm-ds.css">
+     <link rel="stylesheet" href="…/yds/dist/themes/rose.css">      ← DS 다음에
+
+   테마가 바꾸는 것은 세 가지뿐이다. 컴포넌트는 모두 시맨틱 토큰을 거치므로 따로 고치지 않는다.
+     1) palette/brand-100~1000  브랜드 색 (다크는 같은 단계를 뒤집어 넣는다)
+     2) bg/canvas, bg/layer-*   바탕과 면 색
+     3) --ds-shape-scale        모서리 곡률 노브 1.75
+   이 파일은 site/themes/gen.mjs 가 만든다. 직접 고치지 말고 생성기를 고친다.
+   ========================================================================== */
+
+:root[data-ds-theme="rose"] {
+  --ds-color-palette-brand-100: #fff1f6;
+  --ds-color-palette-brand-200: #ffe3ec;
+  --ds-color-palette-brand-300: #ffcadc;
+  --ds-color-palette-brand-400: #ffa7c5;
+  --ds-color-palette-brand-500: #ff7da9;
+  --ds-color-palette-brand-600: #ff4f8b;
+  --ds-color-palette-brand-700: #d64275;
+  --ds-color-palette-brand-800: #ad365f;
+  --ds-color-palette-brand-900: #802846;
+  --ds-color-palette-brand-1000: #52192c;
+
+  --ds-color-bg-canvas: #fff8fa;
+  --ds-color-bg-layer-default: #ffffff;
+  --ds-color-bg-layer-floating: #ffffff;
+
+  --ds-shape-scale: 1.75;
+}
+
+:root[data-ds-theme="rose"][data-theme="dark"] {
+  --ds-color-palette-brand-100: #52192c;
+  --ds-color-palette-brand-200: #802846;
+  --ds-color-palette-brand-300: #ad365f;
+  --ds-color-palette-brand-400: #d64275;
+  --ds-color-palette-brand-500: #ff4f8b;
+  --ds-color-palette-brand-600: #ff7da9;
+  --ds-color-palette-brand-700: #ffa7c5;
+  --ds-color-palette-brand-800: #ffcadc;
+  --ds-color-palette-brand-900: #ffe3ec;
+  --ds-color-palette-brand-1000: #fff1f6;
+
+  --ds-color-bg-canvas: #171013;
+  --ds-color-bg-layer-default: #171013;
+  --ds-color-bg-layer-floating: #22171c;
+}

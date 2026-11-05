@@ -1,0 +1,52 @@
+/* ==========================================================================
+   yds 테마 예시 (테스트용) - 보라 (violet)
+   --------------------------------------------------------------------------
+   연보라 바탕에 보라 하나와 알약처럼 둥근 모서리를 쓴 테마입니다. AI 튜터, 새로운 기능을 소개하는 화면에 어울립니다.
+
+   쓰는 법
+     <html lang="ko" data-ds-theme="violet">
+     <link rel="stylesheet" href="…/yds/dist/ybm-ds.css">
+     <link rel="stylesheet" href="…/yds/dist/themes/violet.css">      ← DS 다음에
+
+   테마가 바꾸는 것은 세 가지뿐이다. 컴포넌트는 모두 시맨틱 토큰을 거치므로 따로 고치지 않는다.
+     1) palette/brand-100~1000  브랜드 색 (다크는 같은 단계를 뒤집어 넣는다)
+     2) bg/canvas, bg/layer-*   바탕과 면 색
+     3) --ds-shape-scale        모서리 곡률 노브 1.5
+   이 파일은 site/themes/gen.mjs 가 만든다. 직접 고치지 말고 생성기를 고친다.
+   ========================================================================== */
+
+:root[data-ds-theme="violet"] {
+  --ds-color-palette-brand-100: #f3f1ff;
+  --ds-color-palette-brand-200: #e8e2ff;
+  --ds-color-palette-brand-300: #d3c9ff;
+  --ds-color-palette-brand-400: #b6a5ff;
+  --ds-color-palette-brand-500: #9379ff;
+  --ds-color-palette-brand-600: #6d4aff;
+  --ds-color-palette-brand-700: #5c3ed6;
+  --ds-color-palette-brand-800: #4a32ad;
+  --ds-color-palette-brand-900: #372580;
+  --ds-color-palette-brand-1000: #231852;
+
+  --ds-color-bg-canvas: #f6f5fc;
+  --ds-color-bg-layer-default: #ffffff;
+  --ds-color-bg-layer-floating: #ffffff;
+
+  --ds-shape-scale: 1.5;
+}
+
+:root[data-ds-theme="violet"][data-theme="dark"] {
+  --ds-color-palette-brand-100: #231852;
+  --ds-color-palette-brand-200: #372580;
+  --ds-color-palette-brand-300: #4a32ad;
+  --ds-color-palette-brand-400: #5c3ed6;
+  --ds-color-palette-brand-500: #6d4aff;
+  --ds-color-palette-brand-600: #9379ff;
+  --ds-color-palette-brand-700: #b6a5ff;
+  --ds-color-palette-brand-800: #d3c9ff;
+  --ds-color-palette-brand-900: #e8e2ff;
+  --ds-color-palette-brand-1000: #f3f1ff;
+
+  --ds-color-bg-canvas: #100f17;
+  --ds-color-bg-layer-default: #100f17;
+  --ds-color-bg-layer-floating: #19172a;
+}
