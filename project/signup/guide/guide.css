@@ -292,7 +292,7 @@ body.guide {
    ========================================================================== */
 body.guide .ds-badge,
 body.guide .ds-badge[data-size="large"] { font-size: var(--ds-font-size-t04); line-height: var(--ds-line-height-t04); }
-body.guide .ds-segmented { --ds-seg-font-size: var(--ds-font-size-t05); --ds-seg-line-height: var(--ds-line-height-t05); }
+body.guide .ds-segmented { --ds-seg-font-size: var(--ds-font-size-t04); --ds-seg-line-height: var(--ds-line-height-t04); }
 body.guide .ds-btn { --ds-btn-font-size: var(--ds-font-size-t05); --ds-btn-line-height: var(--ds-line-height-t05); }
 body.guide .ds-btn[data-size="xsmall"] { --ds-btn-font-size: var(--ds-font-size-t04); --ds-btn-line-height: var(--ds-line-height-t04); }
 body.guide .ds-input { --ds-input-font-size: var(--ds-font-size-t05); --ds-input-line-height: var(--ds-line-height-t05); }
