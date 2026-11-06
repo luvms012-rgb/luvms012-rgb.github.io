@@ -226,6 +226,7 @@
   /* ---- 상태 바로가기 --------------------------------------------------------- */
   function fill(on) {
     if (on) {
+      $("applicant-phone").value = "010-1234-5678";
       service.set("YBM 인강");
       category.set("결제/취소/환불");
       title.value = "수강 중인 강의 환불을 요청합니다.";
@@ -236,6 +237,7 @@
       all.checked = true;
       all.indeterminate = false;
     } else {
+      $("applicant-phone").value = "";
       service.replace(CS.services);
       category.replace(CATEGORIES);
       title.value = "";

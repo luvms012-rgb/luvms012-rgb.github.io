@@ -52,7 +52,7 @@
           <p class="cs-form-required"><span class="cs-form-required__dot" aria-hidden="true"></span>필수 입력 항목입니다.</p>
         </div>
 
-        <!-- 접수자 정보 — 이름은 계정 값(읽기 전용), 이메일은 수정 가능 -->
+        <!-- 접수자 정보 — 이름은 계정 값(읽기 전용), 이메일은 수정 가능, 휴대폰은 선택 -->
         <section class="cs-form-section">
           <h2 class="cs-form-section__title">접수자 정보</h2>
           <div class="cs-form-section__items cs-form-section__items--row">
@@ -77,6 +77,16 @@
               <p class="cs-info-caption" id="email-note">
                 <i class="ds-icon ds-icon--info" aria-hidden="true"></i>답변이 등록되면 입력하신 이메일로 안내가 발송됩니다.
               </p>
+            </div>
+
+            <!-- 휴대폰 번호 (선택) -->
+            <div class="ds-field">
+              <div class="ds-field__header">
+                <label class="ds-field__label" for="applicant-phone">답변 받을 휴대폰 번호</label>
+              </div>
+              <div class="ds-input" data-variant="outline">
+                <input class="ds-input__control" type="tel" id="applicant-phone" inputmode="numeric" autocomplete="tel-national" maxlength="13" placeholder="휴대폰 번호를 입력하세요.">
+              </div>
             </div>
 
           </div>

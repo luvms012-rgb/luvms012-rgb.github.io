@@ -546,7 +546,7 @@ body.cs :is(h1, h2, h3, h4, p, li, dt, dd, button, a, span) { word-break: keep-a
   .cs-form-section { gap: var(--ds-space-x2); }
   .cs-form-section__title { font-size: var(--ds-font-size-t06); line-height: var(--ds-line-height-t06); }
   .cs-form-section__items { gap: 28px; }        /* 28 은 DS space 스케일에 없다 */
-  .cs-form-section__items--row { flex-direction: column; gap: var(--ds-space-x5); }
+  .cs-form-section__items--row { grid-template-columns: minmax(0, 1fr); gap: var(--ds-space-x5); }
   .cs-form-section__items--consent { gap: var(--ds-space-x2); padding-top: var(--ds-space-x4); }
   /* 세로로 쌓이므로 flex-basis 0 을 풀어야 버튼·필드 높이(52)가 그대로 남는다 */
   .cs-field-row { flex-direction: column; gap: var(--ds-space-x2); }

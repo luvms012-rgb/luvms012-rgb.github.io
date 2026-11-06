@@ -1072,9 +1072,8 @@
   padding-top: var(--ds-space-x4);
   border-top: 1px solid var(--ds-color-stroke-neutral-solid);
 }
-/* 접수자 정보 — 2열 (모바일은 세로) */
-.cs-form-section__items--row { flex-direction: row; gap: var(--ds-space-x2_5); }
-.cs-form-section__items--row > .ds-field { flex: 1 1 0; min-width: 0; }
+/* 접수자 정보 — 2열, 세 번째 항목(휴대폰)은 다음 줄 왼쪽 (모바일은 세로) */
+.cs-form-section__items--row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--ds-space-x8) var(--ds-space-x2_5); }
 /* 약관 동의 — 체크 행만 들어가므로 간격이 좁다 */
 .cs-form-section__items--consent { gap: var(--ds-space-x2); padding-top: var(--ds-space-x3); }
 
