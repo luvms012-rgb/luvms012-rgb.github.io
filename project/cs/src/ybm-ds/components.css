@@ -1,5 +1,5 @@
 /* ==========================================================================
-   yds — COMPONENTS (.ds-*)
+   YDS — COMPONENTS (.ds-*)
    --------------------------------------------------------------------------
    Figma DS 컴포넌트와 1:1 대응. 이름·베리언트는 Figma 프로퍼티를 그대로 따른다.
      <button class="ds-btn" data-variant="brandSolid" data-size="large">
@@ -88,6 +88,19 @@
      70 Citation             .ds-citation
      71 Multi Select         .ds-multiselect
      72 Rating               .ds-rating
+     73 Code Input           .ds-codeinput
+     74 Chart                .ds-chart
+     75 Description List     .ds-desclist
+     76 Toolbar              .ds-toolbar
+     77 Tree                 .ds-tree
+     78 Wheel Picker         .ds-wheelpicker
+     79 Search Field         .ds-searchfield
+     80 Date Field           .ds-datefield
+     81 Lightbox             .ds-lightbox
+     83 Mega Menu            .ds-megamenu
+     84 Command Palette      .ds-command
+     85 Segmented Text Input .ds-segmentinput
+     87 Price                .ds-price
    ========================================================================== */
 
 
@@ -100,7 +113,7 @@
        [<i class="ds-icon ds-icon--plus" aria-hidden="true"></i>] 라벨 [<i class="ds-icon …">]
      </button>
    Figma: xsmall px14 gap4 t02 Medium shape/xs (iconOnly pill) · icon 16
-          small  px14 gap4 t04 SemiBold shape/sm · icon 18
+          small  px14 gap4 t04 SemiBold shape/sm · icon 16 (iconOnly 18)
           medium px16 gap6 t04 SemiBold shape/sm · icon 18 (iconOnly 20)
           large  px20 gap8 t06 SemiBold shape/md · icon 24
    -------------------------------------------------------------------------- */
@@ -154,7 +167,7 @@
 
 /* variant */
 .ds-btn[data-variant="neutralSolid"]   { --ds-btn-bg: var(--ds-color-bg-neutral-solid); --ds-btn-bg-pressed: var(--ds-color-bg-neutral-solid-pressed); --ds-btn-fg: var(--ds-color-fg-on-neutral-solid); }
-.ds-btn[data-variant="neutralWeak"]    { --ds-btn-bg: var(--ds-color-bg-neutral); --ds-btn-bg-pressed: var(--ds-color-bg-neutral-weak-pressed); --ds-btn-fg: var(--ds-color-fg-neutral); }
+.ds-btn[data-variant="neutralWeak"]    { --ds-btn-bg: var(--ds-color-bg-neutral-weak-alpha); --ds-btn-bg-pressed: var(--ds-color-bg-neutral-weak-alpha-pressed); --ds-btn-fg: var(--ds-color-fg-neutral); }
 .ds-btn[data-variant="criticalSolid"]  { --ds-btn-bg: var(--ds-color-bg-critical-solid); --ds-btn-bg-pressed: var(--ds-color-bg-critical-solid-pressed); --ds-btn-fg: var(--ds-color-fg-on-critical-solid); }
 .ds-btn[data-variant="brandOutline"]   { --ds-btn-bg: var(--ds-color-bg-transparent); --ds-btn-bg-pressed: var(--ds-color-bg-transparent-pressed); --ds-btn-fg: var(--ds-color-fg-brand); --ds-btn-border: var(--ds-color-stroke-neutral-weak); }
 .ds-btn[data-variant="neutralOutline"] { --ds-btn-bg: var(--ds-color-bg-transparent); --ds-btn-bg-pressed: var(--ds-color-bg-transparent-pressed); --ds-btn-fg: var(--ds-color-fg-neutral); --ds-btn-border: var(--ds-color-stroke-neutral-weak); }
@@ -168,7 +181,10 @@
 /* --------------------------------------------------------------------------
    02 Text Link — CTA 위/아래 보조 링크 (Figma Text Link 2493:324, state enabled/hover)
    size: medium(기본, t05) · small(t03, 본문 옆이나 표, 칸 머리처럼 보조 자리) (2026-11-03 추가)
+   문장 안(p, li): size와 상관없이 주변 글자 크기를 따릅니다 (2026-11-09)
+   화살표 링크: 끝에 chevron-right 아이콘을 넣으면 밑줄 없이 표시합니다. 화살표가 이동을 알립니다 (2026-11-12)
      <a class="ds-link" href="…" [data-size="small"]>비밀번호를 잊으셨나요?</a>
+     <a class="ds-link" href="…" data-size="small">전체 보기<i class="ds-icon ds-icon--chevron-right" aria-hidden="true"></i></a>
    -------------------------------------------------------------------------- */
 .ds-link {
   --ds-link-color: var(--ds-color-fg-neutral-subtle);
@@ -183,6 +199,13 @@
 }
 .ds-link:hover { color: var(--ds-link-color-hover); }
 .ds-link[data-size="small"] { font-size: var(--ds-font-size-t03); line-height: var(--ds-line-height-t03); text-underline-offset: 2px; }
+/* 문장 안(p, li)의 링크는 size 와 상관없이 주변 글자 크기를 따른다 (2026-11-09) */
+:is(p, li) .ds-link,
+:is(p, li) .ds-link[data-size] { font-size: inherit; line-height: inherit; }
+/* 아이콘이 붙은 링크(전체 보기 화살표, 이전 화살표)는 아이콘이 이동을 알리므로 밑줄을 쓰지 않는다 (2026-11-12) */
+.ds-link:has(> .ds-icon) { display: inline-flex; align-items: center; gap: var(--ds-space-x1); text-decoration: none; }
+.ds-link > .ds-icon { --ds-icon-size: 16px; }
+.ds-link[data-size="small"] > .ds-icon { --ds-icon-size: 14px; }
 
 
 /* --------------------------------------------------------------------------
@@ -201,7 +224,7 @@
      </div>
    Figma: 세로 gap x2 · label t05 Medium(bold 변형 t05 Bold) fg/neutral · indicator t04 fg/neutral-subtle(좌 4)
           required 점 4×4 fg/critical · footer 좌우 x0_5 · 안내 t04 fg/neutral-subtle · 오류 t04 fg/critical
-   오류: 입력 요소에 aria-invalid="true" → help 대신 error 를 보이고 critical 색.
+   오류: 입력 요소에 aria-invalid="true"를 붙이면 help 대신 error를 critical 색으로 표시합니다.
    -------------------------------------------------------------------------- */
 .ds-field {
   --ds-field-gap: var(--ds-space-x2);
@@ -468,7 +491,7 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
    Figma large : h52 · px16 · gap10 · shape/lg · t05 · icon 20 / medium: h40 · px14 · gap8 · shape/sm · t04 · icon 16
           1px stroke/neutral-weak · invalid 1px stroke/critical-solid · disabled·readOnly bg/disabled
           affix·아이콘 fg/neutral-subtle · placeholder fg/placeholder · 값 fg/neutral
-   readOnly: aria-readonly="true" (폼 제출이 필요하면 disabled 대신 readOnly — DS §6.4)
+   readOnly: aria-readonly="true" (폼 제출이 필요하면 disabled 대신 readOnly, DS §6.4)
    -------------------------------------------------------------------------- */
 .ds-fieldbutton {
   --ds-fb-height: 52px;
@@ -616,7 +639,7 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
          </ul>
        </div>
      </div>
-   Dialog / Bottom Sheet 안에서는 .ds-select-list 만 단독으로 쓴다.
+   Dialog / Bottom Sheet 안에서는 .ds-select-list만 단독으로 사용합니다.
    Figma Content: shape/2xl · bg/layer-floating · elevation overlay(+헤어라인) · 위아래 x2 · 그룹 사이 x2
           group label large px16 py10 t04 Medium / medium py8 t03 Regular · fg/neutral-subtle
           둘째 그룹부터 1px stroke/neutral-muted 구분선(좌우 x4, 아래 x2)
@@ -896,6 +919,7 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
   transition: left var(--ds-duration-normal) var(--ds-easing-emphasized), width var(--ds-duration-normal) var(--ds-easing-emphasized), height var(--ds-duration-normal) var(--ds-easing-emphasized);
 }
 .ds-switch__control:checked { background: var(--ds-switch-on); }
+.ds-switch:not([data-tone="neutral"]) .ds-switch__control:checked { --ds-switch-thumb-color: var(--ds-color-fg-on-brand-solid); }
 .ds-switch__control:checked::before { --ds-switch-t: var(--ds-switch-thumb-on); left: calc(var(--ds-switch-w) - var(--ds-switch-t) - (var(--ds-switch-h) - var(--ds-switch-t)) / 2); }
 .ds-switch:has(:disabled) { cursor: not-allowed; }
 .ds-switch__control:disabled { opacity: 0.38; }
@@ -977,7 +1001,7 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
    Figma: shape/pill · t04 Regular(large t05) · 좌우 12/14/16 · min-w 44/48/52 · 아이콘 14/16/16 · 아이콘↔라벨 x1_5
      solid bg/neutral-weak-alpha · outlineStrong bg/layer-default + stroke/neutral-weak · outlineWeak + stroke/neutral-muted
      checked(solid·outlineStrong) bg/neutral-solid + fg/on-neutral-solid SemiBold
-     checked(outlineWeak) bg/neutral + stroke/neutral-contrast + fg/neutral Medium · disabled opacity .5
+     checked(outlineWeak) bg/neutral-weak-alpha + stroke/neutral-contrast + fg/neutral Medium · disabled opacity .5
    -------------------------------------------------------------------------- */
 .ds-chip {
   --ds-chip-height: 36px;
@@ -1011,14 +1035,14 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
 .ds-chip[data-variant="outlineStrong"] { --ds-chip-bg: var(--ds-color-bg-layer-default); --ds-chip-line: var(--ds-color-stroke-neutral-weak); }
 .ds-chip[data-variant="outlineWeak"]   { --ds-chip-bg: var(--ds-color-bg-layer-default); --ds-chip-line: var(--ds-color-stroke-neutral-muted); }
 .ds-chip[aria-pressed="true"] { --ds-chip-bg: var(--ds-color-bg-neutral-solid); --ds-chip-fg: var(--ds-color-fg-on-neutral-solid); --ds-chip-line: var(--ds-color-bg-neutral-solid); font-weight: var(--ds-font-weight-semibold); } /* 선택되면 선도 같은 색: 고리처럼 안 보이게 */
-.ds-chip[data-variant="outlineWeak"][aria-pressed="true"] { --ds-chip-bg: var(--ds-color-bg-neutral); --ds-chip-fg: var(--ds-color-fg-neutral); --ds-chip-line: var(--ds-color-stroke-neutral-contrast); font-weight: var(--ds-font-weight-medium); }
+.ds-chip[data-variant="outlineWeak"][aria-pressed="true"] { --ds-chip-bg: var(--ds-color-bg-neutral-weak-alpha); --ds-chip-fg: var(--ds-color-fg-neutral); --ds-chip-line: var(--ds-color-stroke-neutral-contrast); font-weight: var(--ds-font-weight-medium); }
 .ds-chip:disabled { opacity: 0.5; cursor: not-allowed; }
 /* 호버 — 마우스 환경에서만, Figma 의 pressed 색을 쓴다 (DS 공통 규칙) */
 @media (hover: hover) {
   .ds-chip:hover:not(:disabled) { --ds-chip-bg: var(--ds-color-bg-neutral-weak-alpha-pressed); }
   .ds-chip:is([data-variant="outlineStrong"], [data-variant="outlineWeak"]):hover:not(:disabled) { --ds-chip-bg: var(--ds-color-bg-transparent-pressed); }
   .ds-chip[aria-pressed="true"]:hover:not(:disabled) { --ds-chip-bg: var(--ds-color-bg-neutral-solid-pressed); }
-  .ds-chip[data-variant="outlineWeak"][aria-pressed="true"]:hover:not(:disabled) { --ds-chip-bg: var(--ds-color-bg-neutral-weak-pressed); }
+  .ds-chip[data-variant="outlineWeak"][aria-pressed="true"]:hover:not(:disabled) { --ds-chip-bg: var(--ds-color-bg-neutral-weak-alpha-pressed); }
 }
 .ds-chip:active:not(:disabled) { --ds-chip-bg: var(--ds-color-bg-neutral-weak-alpha-pressed); }
 .ds-chip-group { display: flex; flex-wrap: wrap; gap: var(--ds-space-x2); }
@@ -1087,16 +1111,19 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
 
 /* --------------------------------------------------------------------------
    17 Tabs — 화면 안 콘텐츠 영역 전환(주요 내비게이션)
-   size: small(기본 40) · medium 44   triggerLayout: fill(기본) · hug
+   size: small(기본 40, 글자 14) · medium 48, 글자 16(2026-11-11: 크기마다 글자도 달라진다)   triggerLayout: fill(기본) · hug
      <div class="ds-tabs" role="tablist" [data-size="medium"] [data-layout="hug"]>
        <button class="ds-tabs__trigger" role="tab" aria-selected="true">탭</button>
      </div>
-   Figma: bg/layer-default · 하단 1px stroke/neutral-muted · trigger padding x2_5 · t04 Medium fg/neutral-subtle(2026-11-03, placeholder 에서 진하게)
-     selected t04 SemiBold fg/neutral + 하단 2px fg/neutral 인디케이터(트리거 폭) · disabled fg/disabled
+   Figma: bg/layer-default · 하단 1px stroke/neutral-muted · trigger padding x2_5(medium x3) · t04 Medium(medium t05) fg/neutral-subtle(2026-11-03, placeholder 에서 진하게)
+     selected SemiBold fg/neutral + 하단 2px fg/neutral 인디케이터(트리거 폭) · disabled fg/disabled
      hug: 좌우 x4 · 트리거는 내용 폭
    -------------------------------------------------------------------------- */
 .ds-tabs {
   --ds-tabs-height: 40px;
+  --ds-tabs-padding-x: var(--ds-space-x2_5);
+  --ds-tabs-font-size: var(--ds-font-size-t04);
+  --ds-tabs-line-height: var(--ds-line-height-t04);
   position: relative;
   display: flex;
   min-height: var(--ds-tabs-height);
@@ -1106,7 +1133,7 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
   scrollbar-width: none;
 }
 .ds-tabs::-webkit-scrollbar { display: none; }
-.ds-tabs[data-size="medium"] { --ds-tabs-height: 44px; }
+.ds-tabs[data-size="medium"] { --ds-tabs-height: 48px; --ds-tabs-padding-x: var(--ds-space-x3); --ds-tabs-font-size: var(--ds-font-size-t05); --ds-tabs-line-height: var(--ds-line-height-t05); }
 .ds-tabs[data-layout="hug"] { padding-inline: var(--ds-space-x4); }
 .ds-tabs[data-layout="hug"][data-inset="none"] { padding-inline: 0; }  /* 2026-11-03: 콘텐츠 칸 안에서 제목과 왼쪽 끝을 맞출 때 */
 .ds-tabs__trigger {
@@ -1116,10 +1143,10 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
   justify-content: center;
   flex: 1 1 0;
   min-height: var(--ds-tabs-height);
-  padding: var(--ds-space-x2_5);
+  padding: 0 var(--ds-tabs-padding-x);  /* 2026-11-05: 위아래 여백 대신 높이로 가운데 (여백 10 + 줄 21 이 41 이 되어 40 을 넘었다) */
   color: var(--ds-color-fg-neutral-subtle);  /* 2026-11-03: placeholder 색은 흰 바탕에서 대비 2.1 이라 한 단계 진하게 */
-  font-size: var(--ds-font-size-t04);
-  line-height: var(--ds-line-height-t04);
+  font-size: var(--ds-tabs-font-size);
+  line-height: var(--ds-tabs-line-height);
   font-weight: var(--ds-font-weight-medium);
   white-space: nowrap;
   transition: color var(--ds-duration-fast) var(--ds-easing-standard);
@@ -1145,9 +1172,10 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
      <div class="ds-segmented" role="group" aria-label="보기 방식" [data-size="medium"] [data-layout="fill"]>
        <button type="button" class="ds-segmented__item" aria-pressed="true">목록</button>
      </div>
-   모션: 선택 배경이 고른 항목으로 미끄러져 이동한다(필수, ybm-ds.js). 누르면 aria-pressed 가 바뀌고 change 이벤트가 난다.
-   Figma small : 트랙 bg/neutral · padding 2 · shape/sm / item py6 px12 · shape/xs · t03 Medium fg/neutral-subtle (고른 칸 SemiBold)
-         medium: 트랙 shape/lg / item py8 px16 · shape/sm · t04 Medium (고른 칸 SemiBold)
+   모션: 선택 배경이 선택한 항목으로 미끄러지듯 이동합니다(필수, ybm-ds.js). 누르면 aria-pressed가 바뀌고 change 이벤트가 발생합니다.
+   Figma small : 트랙 bg/neutral-weak-alpha · padding 2 · shape/sm / item py6 px12 · shape/xs · t03 Medium fg/neutral-subtle (고른 칸 SemiBold)
+         medium: 트랙 shape/sm / item py8 px16 · shape/xs · t04 Medium (고른 칸 SemiBold)
+   모서리(2026-11-10): 바깥 모서리는 같은 높이의 Button과 맞춥니다. 안쪽 = 바깥 - 트랙 여백 2 (small, medium 모두 8 / 6)
          selected bg/layer-default + elevation raised + fg/neutral · disabled fg/disabled
    높이(2026-11-03): small 32(Button xsmall 과 같음) · medium 40(Button medium, Select medium 과 같음). 글자와 아이콘 모두 같은 높이
    -------------------------------------------------------------------------- */
@@ -1163,12 +1191,12 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
   height: var(--ds-seg-height);
   padding: var(--ds-space-x0_5);
   border-radius: var(--ds-seg-track-radius);
-  background: var(--ds-color-bg-neutral);
+  background: var(--ds-color-bg-neutral-weak-alpha);
 }
 .ds-segmented[data-size="medium"] {
   --ds-seg-height: 40px;
-  --ds-seg-track-radius: var(--ds-shape-lg);
-  --ds-seg-item-radius: var(--ds-shape-sm);
+  --ds-seg-track-radius: var(--ds-shape-sm);
+  --ds-seg-item-radius: var(--ds-shape-xs);
   --ds-seg-item-padding: var(--ds-space-x2) var(--ds-space-x4);
   --ds-seg-font-size: var(--ds-font-size-t04);
   --ds-seg-line-height: var(--ds-line-height-t04);
@@ -1256,10 +1284,10 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
    Figma medium: py2 px6 · min-h20 · shape/2xs · t01 Medium · 아이콘 12
          large : py4 px8 · min-h24 · shape/xs  · t02 Medium · 아이콘 14
    공통: gap x0_5 · solid 라벨 fg/on-{tone}-solid
-   기본 최대 너비 없음 — 말줄임이 필요하면 사용처에서 max-width 지정
+   기본 최대 너비는 없습니다. 말줄임이 필요하면 사용하는 곳에서 max-width를 지정하세요.
    -------------------------------------------------------------------------- */
 .ds-badge {
-  --ds-badge-bg: var(--ds-color-bg-neutral);
+  --ds-badge-bg: var(--ds-color-bg-neutral-weak-alpha);  /* 2026-11-10 알파: 회색 박스(선택 행, 카드 면, 강조 상자) 안에서도 배지 바탕이 보이게 */
   --ds-badge-fg: var(--ds-color-fg-neutral-muted);
   --ds-badge-line: transparent;
   display: inline-flex;
@@ -1269,7 +1297,7 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
   flex: none;
   gap: var(--ds-space-x0_5);
   min-height: var(--ds-space-x5);
-  padding: var(--ds-space-x0_5) var(--ds-space-x1_5);
+  padding: 0 var(--ds-space-x1_5);  /* 2026-11-05: 위아래 여백 대신 높이로 가운데 (여백 2 + 줄 17 이 21 이 되어 20 을 넘었다) */
   border-radius: var(--ds-shape-2xs);
   background: var(--ds-badge-bg);
   box-shadow: inset 0 0 0 1px var(--ds-badge-line);
@@ -1282,7 +1310,7 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.ds-badge[data-size="large"] { min-height: var(--ds-space-x6); padding: var(--ds-space-x1) var(--ds-space-x2); border-radius: var(--ds-shape-xs); font-size: var(--ds-font-size-t02); line-height: var(--ds-line-height-t02); }
+.ds-badge[data-size="large"] { min-height: var(--ds-space-x6); padding: 0 var(--ds-space-x2); border-radius: var(--ds-shape-xs); font-size: var(--ds-font-size-t02); line-height: var(--ds-line-height-t02); }
 /* slots — prefix · label · action. 기본 최대 너비 없음: 말줄임이 필요하면 사용처에서 max-width 지정 */
 .ds-badge__label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .ds-badge__prefix, .ds-badge__action { flex: none; --ds-icon-size: 12px; color: inherit; }
@@ -1344,10 +1372,10 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
      배지   … <span class="ds-avatar__badge"><img src="…" alt=""></span></span>   ← 소속·서비스 로고 등 작은 이미지
      링크   <a class="ds-avatar" href="…" aria-label="김민수 프로필">…</a>  /  <button type="button" class="ds-avatar" aria-label="…">
 
-   ※ 이니셜은 반드시 .ds-avatar__initials 로 감싼다(맨 글자만 넣으면 실루엣과 겹친다).
-   ※ 사진 로드 실패 시 이니셜로 바꾸는 처리는 개발 영역.
+   ※ 이니셜은 반드시 .ds-avatar__initials로 감쌉니다(글자만 바로 넣으면 실루엣과 겹칩니다).
+   ※ 사진을 불러오지 못했을 때 이니셜로 바꾸는 처리는 개발에서 담당합니다.
 
-   상태 점(.ds-avatar__status) — 색 + 모양을 함께 써서 색만으로 구분하지 않는다 (WCAG 1.4.1)
+   상태 점(.ds-avatar__status): 색과 모양을 함께 사용해 색만으로 구분하지 않습니다 (WCAG 1.4.1)
      positive(기본) 온라인   = 초록 꽉 찬 점
      neutral        자리 비움 = 회색 링
      critical       방해 금지 = 빨강 점 + 흰 가로줄
@@ -1472,9 +1500,9 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
        <span class="ds-avatar-group__overflow" role="img" aria-label="외 5명">+5</span>
        또는 <button type="button" class="ds-avatar-group__overflow" aria-label="참여자 5명 더 보기">+5</button>
      </div>
-   - 크기·모양은 그룹에만 준다 (자식 아바타의 data-size 는 무시된다)
-   - 보여줄 개수는 직접 잘라서 넣는다(보통 3~5). +N 은 숫자가 길어지면 알약 모양으로 늘어난다
-   - 겹침 = 크기의 25% · 아바타 사이 배경색 링 · 뒤에 온 아바타가 위로 겹친다
+   - 크기와 모양은 그룹에만 지정합니다 (자식 아바타의 data-size는 무시됩니다)
+   - 표시할 개수만큼 직접 잘라서 넣습니다(보통 3~5). +N은 숫자가 길어지면 알약 모양으로 늘어납니다
+   - 겹침 = 크기의 25% · 아바타 사이 배경색 링 · 뒤에 오는 아바타가 위에 겹칩니다
    -------------------------------------------------------------------------- */
 .ds-avatar-group {
   --ds-avatar-group-size: 36px;
@@ -1543,13 +1571,13 @@ button.ds-avatar-group__overflow:active::after { background: var(--ds-color-bg-n
        [<button class="ds-callout__suffix" aria-label="닫기"><i class="ds-icon ds-icon--x"></i></button>]
      </div>
    Figma: padding x3_5 · gap x2 · min-h50 · shape/md · t04 · 아이콘 Solid 16
-     neutral bg/neutral + fg/neutral(info) · informative bg/informative-weak + fg/brand-contrast(info)
+     neutral bg/neutral-weak-alpha + fg/neutral(info) · informative bg/informative-weak + fg/brand-contrast(info)
      positive bg/positive-weak + fg/positive(circle-check) · warning bg/warning-weak + fg/warning(triangle-alert)
      critical bg/critical-weak + fg/critical(circle-alert)
    제목·링크는 본문과 같은 줄(inline), 구분은 띄어쓰기 두 칸. 제목 Bold · 링크 밑줄.
    -------------------------------------------------------------------------- */
 .ds-callout {
-  --ds-callout-bg: var(--ds-color-bg-neutral);
+  --ds-callout-bg: var(--ds-color-bg-neutral-weak-alpha);
   --ds-callout-fg: var(--ds-color-fg-neutral);
   display: flex;
   align-items: center;
@@ -1679,6 +1707,18 @@ a.ds-callout:active, button.ds-callout:active { filter: brightness(0.97); }
        <div class="ds-menu__divider" role="separator"></div>
        <button class="ds-menu-item" role="menuitem" data-tone="critical">삭제하기</button>
      </div>
+   선택지 (2026-11-05 추가)
+     <!-- 묶음 제목: 바로 다음에 그 묶음 항목을 둔다 -->
+     <div class="ds-menu__label" role="presentation">정렬</div>
+     <!-- 켜고 끄기 -->
+     <button class="ds-menu-item" role="menuitemcheckbox" aria-checked="true">사진만 보기</button>
+     <!-- 하나 고르기 -->
+     <div role="group" aria-label="정렬"><button class="ds-menu-item" role="menuitemradio" aria-checked="true">최신순</button> …</div>
+     <!-- 하위 메뉴 -->
+     <div class="ds-menu__sub"><button class="ds-menu-item" role="menuitem" aria-haspopup="menu" aria-expanded="false">옮기기</button><div class="ds-menu" role="menu">…</div></div>
+     고른 표시는 끝에 check 18 fg/neutral(Select 와 같다), 하위 메뉴 표시는 끝에 chevron-right 16 fg/neutral-subtle
+     묶음 제목 t02 Medium fg/neutral-subtle, 위 x2 아래 x1 좌우 x3 / 하위 메뉴는 마우스를 올리거나 누르면 오른쪽에 붙어 열립니다
+     ybm-ds.js: checkbox 항목은 누를 때마다 켜지고 꺼지며, radio 항목은 같은 묶음에서 하나만 켜집니다. 하위 메뉴 버튼을 누르면 하위 메뉴가 열리고 닫힙니다
    Figma Menu: 폭 220 · padding x1 · shape/2xl · bg/layer-floating · elevation overlay(+헤어라인)
               divider 1px stroke/neutral-subtle · 위아래 4
    Figma Item: py10 px12 · gap x2 · shape/sm · 아이콘 18 · t04 fg/neutral
@@ -1713,6 +1753,24 @@ a.ds-callout:active, button.ds-callout:active { filter: brightness(0.97); }
 @media (hover: hover) { .ds-menu-item:hover:not(:disabled) { background: var(--ds-color-bg-neutral-weak-alpha); } }
 .ds-menu-item[data-tone="critical"] { --ds-menu-item-fg: var(--ds-color-fg-critical); }
 .ds-menu-item:disabled { --ds-menu-item-fg: var(--ds-color-fg-disabled); cursor: not-allowed; }
+.ds-menu__label { padding: var(--ds-space-x2) var(--ds-space-x3) var(--ds-space-x1); color: var(--ds-color-fg-neutral-subtle); font-size: var(--ds-font-size-t02); line-height: var(--ds-line-height-t02); font-weight: var(--ds-font-weight-medium); }
+.ds-menu-item:is([role="menuitemcheckbox"], [role="menuitemradio"])[aria-checked="true"]::after,
+.ds-menu-item[aria-haspopup="menu"]::after {
+  content: "";
+  flex: none;
+  margin-inline-start: auto;
+  width: 18px;
+  height: 18px;
+  background: currentColor;
+  -webkit-mask: var(--ds-icon-check) center / contain no-repeat;
+          mask: var(--ds-icon-check) center / contain no-repeat;
+}
+.ds-menu-item[aria-haspopup="menu"]::after { width: 16px; height: 16px; background: var(--ds-color-fg-neutral-subtle); -webkit-mask-image: var(--ds-icon-chevron-right); mask-image: var(--ds-icon-chevron-right); }
+.ds-menu__sub { position: relative; display: flex; flex-direction: column; }
+.ds-menu__sub > .ds-menu { position: absolute; top: calc(var(--ds-space-x1) * -1); left: calc(100% + var(--ds-space-x1)); z-index: 1; display: none; }
+.ds-menu__sub:has(> [aria-expanded="true"]) > .ds-menu { display: flex; }
+@media (hover: hover) { .ds-menu__sub:hover > .ds-menu, .ds-menu__sub:focus-within > .ds-menu { display: flex; } }
+.ds-menu__sub:has(> [aria-expanded="true"]) > .ds-menu-item, .ds-menu__sub:hover > .ds-menu-item { background: var(--ds-color-bg-neutral-weak-alpha); }
 
 
 /* --------------------------------------------------------------------------
@@ -1729,7 +1787,7 @@ a.ds-callout:active, button.ds-callout:active { filter: brightness(0.97); }
    Figma: 폭 480(large 800) · shape/2xl · bg/layer-floating · 그림자 없음(2026-10-01 결정)
      header 24/20/16/20 · gap x4 · title t07 Bold(Alert Dialog 와 같게, 2026-11-02) fg/neutral · desc t05 fg/neutral-muted
      body 12/20/16/20(아래쪽 버튼이 없으면 아래 24) · min-h64 · footer 24/20 · Action Button large
-     버튼 둘은 가로 2등분(취소 왼쪽, 주 동작 오른쪽). 글이 길어 한 줄에 안 들어가면 footer 에 data-action="stacked" 로 세로
+     버튼이 둘이면 가로로 2등분합니다(취소 왼쪽, 주요 동작 오른쪽). 글이 길어 한 줄에 들어가지 않으면 footer에 data-action="stacked"를 붙여 세로로 쌓습니다
      닫기 40×40 · 위 18 · 오른쪽 10 · Lucide/x 24 fg/neutral
    -------------------------------------------------------------------------- */
 .ds-dialog {
@@ -1798,7 +1856,7 @@ a.ds-callout:active, button.ds-callout:active { filter: brightness(0.97); }
 .ds-dialog__footer > .ds-btn { flex: 1 1 0; min-width: 0; }  /* 버튼 둘은 가로 2등분(취소 왼쪽, 주 동작 오른쪽) */
 .ds-dialog__footer[data-action="stacked"] { flex-direction: column; }  /* 버튼 글이 길어 한 줄에 안 들어가면 세로 */
 .ds-dialog__footer[data-action="stacked"] > .ds-btn { flex: none; width: 100%; }
-html:has(:is(.ds-dialog, .ds-bottomsheet)[open]) { overflow: hidden; }
+html:has(:is(.ds-dialog, .ds-bottomsheet):modal) { overflow: hidden; }  /* 2026-11-11: 모달로 연 창만 뒤 스크롤을 막음(문서에 펼쳐 둔 예시는 제외) */
 
 
 /* --------------------------------------------------------------------------
@@ -1901,7 +1959,7 @@ html:has(:is(.ds-dialog, .ds-bottomsheet)[open]) { overflow: hidden; }
 /* --------------------------------------------------------------------------
    30 Accordion — 펼쳐 보는 목록(<details> 사용)
    variant: inline(기본) · separated   size: medium(기본) · large
-   모션: 열고 닫을 때 높이가 부드럽게 바뀐다(ybm-ds.js, 2026-11-04). 움직임 줄이기 설정이면 바로 바뀐다. 같은 name 묶음은 함께 움직인다.
+   모션: 열고 닫을 때 높이가 부드럽게 바뀝니다(ybm-ds.js, 2026-11-04). 움직임 줄이기 설정을 켜면 바로 바뀝니다. name이 같은 묶음은 함께 움직입니다.
      <details class="ds-accordion" [data-variant="separated"] [data-size="large"]>
        <summary class="ds-accordion__trigger">
          [<i class="ds-icon ds-icon--… " aria-hidden="true"></i>]
@@ -1973,13 +2031,13 @@ html:has(:is(.ds-dialog, .ds-bottomsheet)[open]) { overflow: hidden; }
    shape: rectangle(기본) · circle · text
      <span class="ds-skeleton" style="width:220px;height:16px"></span>
      <span class="ds-skeleton" data-shape="circle" style="--ds-skeleton-size:48px"></span>
-     <span class="ds-skeleton" data-shape="text" data-lines="3"></span>
-   Figma: palette/gray-200 · rectangle shape/sm · circle pill · text 줄 높이 14 · 줄 사이 x2 · 마지막 줄 64%
-   모서리(2026-11-03): --ds-skeleton-radius 로 나중에 들어올 콘텐츠와 같게 맞춘다
-   움직임 줄이기(2026-11-03): 설정을 켠 사람에게는 깜빡이지 않는다
+     <span class="ds-skeleton" data-shape="text"></span>
+   Figma: bg/neutral-weak-alpha(2026-11-11 반투명) · rectangle shape/sm · circle pill · text 늘 3줄, 줄 높이 14 · 줄 사이 x2 · 마지막 줄 64%
+   모서리(2026-11-03): --ds-skeleton-radius로 나중에 표시될 콘텐츠와 모서리를 맞춥니다
+   움직임 줄이기(2026-11-03): 설정을 켠 사용자에게는 깜빡임을 표시하지 않습니다
    -------------------------------------------------------------------------- */
 .ds-skeleton {
-  --ds-skeleton-color: var(--ds-color-palette-gray-200);
+  --ds-skeleton-color: var(--ds-color-bg-neutral-weak-alpha);
   --ds-skeleton-radius: var(--ds-shape-sm);
   display: block;
   height: 16px;
@@ -2005,8 +2063,8 @@ html:has(:is(.ds-dialog, .ds-bottomsheet)[open]) { overflow: hidden; }
    32 Slider — 범위 안의 값 고르기 (<input type="range">)
    tone: neutral(기본) · brand
      <input type="range" class="ds-slider" min="0" max="100" value="45" [data-tone="brand"]>
-   채움 길이는 --ds-slider-value(0~100%) — ybm-ds.js 가 input 마다 자동으로 갱신한다.
-   Figma: 높이 20 · 트랙 4 pill palette/gray-200 · 채움 bg/neutral-solid(brand bg/brand-solid)
+   채움 길이는 --ds-slider-value(0~100%)이며, ybm-ds.js가 input마다 자동으로 갱신합니다.
+   Figma: 높이 20 · 트랙 4 pill bg/neutral-weak-alpha · 채움 bg/neutral-solid(brand bg/brand-solid)
           썸 20 static-white + 1px 테두리(채움 색) + elevation raised
           disabled opacity .7 · 채움 bg/disabled · 썸 테두리 stroke/neutral-weak
    -------------------------------------------------------------------------- */
@@ -2023,8 +2081,8 @@ html:has(:is(.ds-dialog, .ds-bottomsheet)[open]) { overflow: hidden; }
   cursor: pointer;
 }
 .ds-slider[data-tone="brand"] { --ds-slider-active: var(--ds-color-bg-brand-solid); --ds-slider-thumb-line: var(--ds-color-bg-brand-solid); }
-.ds-slider::-webkit-slider-runnable-track { height: 4px; border-radius: var(--ds-shape-pill); background: linear-gradient(var(--ds-slider-active), var(--ds-slider-active)) 0 0 / var(--ds-slider-value) 100% no-repeat, var(--ds-color-palette-gray-200); }
-.ds-slider::-moz-range-track { height: 4px; border-radius: var(--ds-shape-pill); background: var(--ds-color-palette-gray-200); }
+.ds-slider::-webkit-slider-runnable-track { height: 4px; border-radius: var(--ds-shape-pill); background: linear-gradient(var(--ds-slider-active), var(--ds-slider-active)) 0 0 / var(--ds-slider-value) 100% no-repeat, var(--ds-color-bg-neutral-weak-alpha); }
+.ds-slider::-moz-range-track { height: 4px; border-radius: var(--ds-shape-pill); background: var(--ds-color-bg-neutral-weak-alpha); }
 .ds-slider::-moz-range-progress { height: 4px; border-radius: var(--ds-shape-pill); background: var(--ds-slider-active); }
 .ds-slider::-webkit-slider-thumb { appearance: none; width: 20px; height: 20px; margin-top: -8px; border-radius: var(--ds-shape-pill); background: var(--ds-color-palette-static-white); box-shadow: inset 0 0 0 1px var(--ds-slider-thumb-line), var(--ds-elevation-raised); }
 .ds-slider::-moz-range-thumb { width: 20px; height: 20px; border: 0; border-radius: var(--ds-shape-pill); background: var(--ds-color-palette-static-white); box-shadow: inset 0 0 0 1px var(--ds-slider-thumb-line), var(--ds-elevation-raised); }
@@ -2036,11 +2094,11 @@ html:has(:is(.ds-dialog, .ds-bottomsheet)[open]) { overflow: hidden; }
    tone: brand(기본) · neutral   size: medium(기본 8) · small 4
      <div class="ds-progress" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
           style="--ds-progress-value: 40%" [data-tone="neutral"] [data-size="small"]></div>
-   Figma: 트랙 palette/brand-200(neutral palette/gray-200) · 채움 bg/brand-solid(neutral bg/neutral-solid) · pill
+   Figma: 트랙 bg/neutral-weak-alpha(2026-11-11 모든 색 같음, 회색 박스 안에서도 보이게) · 채움 bg/brand-solid(neutral bg/neutral-solid) · pill
    -------------------------------------------------------------------------- */
 .ds-progress {
   --ds-progress-value: 0%;
-  --ds-progress-track: var(--ds-color-palette-brand-200);
+  --ds-progress-track: var(--ds-color-bg-neutral-weak-alpha);
   --ds-progress-range: var(--ds-color-bg-brand-solid);
   position: relative;
   display: block;
@@ -2051,7 +2109,7 @@ html:has(:is(.ds-dialog, .ds-bottomsheet)[open]) { overflow: hidden; }
   overflow: hidden;
 }
 .ds-progress[data-size="small"] { height: 4px; }
-.ds-progress[data-tone="neutral"] { --ds-progress-track: var(--ds-color-palette-gray-200); --ds-progress-range: var(--ds-color-bg-neutral-solid); }
+.ds-progress[data-tone="neutral"] { --ds-progress-track: var(--ds-color-bg-neutral-weak-alpha); --ds-progress-range: var(--ds-color-bg-neutral-solid); }
 .ds-progress::before {
   content: "";
   position: absolute;
@@ -2071,14 +2129,14 @@ html:has(:is(.ds-dialog, .ds-bottomsheet)[open]) { overflow: hidden; }
      </span>
      indeterminate: data-type="indeterminate" (회전하는 25% 호)
    Figma: 두께 24→3 · 40→5 · 56→7 · 둥근 끝 · 12시 시작
-     neutral 트랙 palette/gray-200 + 호 palette/gray-500 · brand palette/brand-200 + bg/brand-solid
-     staticWhite palette/static-white-alpha-300 + palette/static-white (팔레트 직참은 의도된 예외)
+     트랙 bg/neutral-weak-alpha(2026-11-11 모든 색 같음) · neutral 호 palette/gray-500 · brand 호 bg/brand-solid
+     staticWhite palette/static-white-alpha-300 + palette/static-white (팔레트를 직접 참조하는 것은 의도된 예외)
    -------------------------------------------------------------------------- */
 .ds-progress-circle {
   --ds-progress-value: 40;
   --ds-pc-size: 24px;
   --ds-pc-stroke: 3px;
-  --ds-pc-track: var(--ds-color-palette-gray-200);
+  --ds-pc-track: var(--ds-color-bg-neutral-weak-alpha);
   --ds-pc-range: var(--ds-color-palette-gray-500);
   display: inline-block;
   flex: none;
@@ -2087,7 +2145,7 @@ html:has(:is(.ds-dialog, .ds-bottomsheet)[open]) { overflow: hidden; }
 }
 .ds-progress-circle[data-size="40"] { --ds-pc-size: 40px; --ds-pc-stroke: 5px; }
 .ds-progress-circle[data-size="56"] { --ds-pc-size: 56px; --ds-pc-stroke: 7px; }
-.ds-progress-circle[data-tone="brand"]       { --ds-pc-track: var(--ds-color-palette-brand-200); --ds-pc-range: var(--ds-color-bg-brand-solid); }
+.ds-progress-circle[data-tone="brand"]       { --ds-pc-track: var(--ds-color-bg-neutral-weak-alpha); --ds-pc-range: var(--ds-color-bg-brand-solid); }
 .ds-progress-circle[data-tone="staticWhite"] { --ds-pc-track: var(--ds-color-palette-static-white-alpha-300); --ds-pc-range: var(--ds-color-palette-static-white); }
 .ds-progress-circle > svg { width: 100%; height: 100%; rotate: -90deg; overflow: visible; }
 .ds-progress-circle circle { cx: 50%; cy: 50%; r: calc(50% - var(--ds-pc-stroke) / 2); fill: none; stroke-width: var(--ds-pc-stroke); stroke-linecap: round; }
@@ -2319,7 +2377,7 @@ html:has(:is(.ds-dialog, .ds-bottomsheet)[open]) { overflow: hidden; }
 
 /* --------------------------------------------------------------------------
    39 Card — 관련 정보를 한 덩어리로 묶는 컨테이너
-   variant: outline(기본) · subtle(옅은 선, 화면 안에 여러 개 늘어놓을 때) · elevated   size: medium(기본) · small(모서리 lg)
+   variant: outline(기본) · elevated (subtle 은 예전 화면용 이름, 2026-11-04 부터 기본과 같은 모양)   size: medium(기본) · small(모서리 lg)
      <article class="ds-card" [data-variant="elevated"] [data-size="small"]>
        <header class="ds-card__header"><h3 class="ds-card__title">카드 제목</h3>[<p class="ds-card__desc">설명</p>]</header>
        <div class="ds-card__content">…</div>
@@ -2327,9 +2385,9 @@ html:has(:is(.ds-dialog, .ds-bottomsheet)[open]) { overflow: hidden; }
      </article>
    Figma: bg/layer-default · shape/xl · padding medium x5 / small x4 · 영역 gap x4 / x3
      header gap x1 · title t06 Bold(small t05 Bold, 2026-11-03 한 단계 올림: Empty 제목과 같은 단계) fg/neutral · desc t04(small t03) fg/neutral-subtle
-     outline 1px stroke/neutral-weak · subtle 1px stroke/neutral-muted · elevated elevation raised · footer 버튼 neutralWeak medium(small) gap x2
+     outline 1px stroke/neutral-weak · elevated elevation raised · footer 버튼 neutralWeak medium(small) gap x2
      모서리 medium shape/xl · small shape/lg (2026-11-03) · 화면 폭에 따라 안쪽 여백을 바꿀 때는 --ds-card-padding / --ds-card-gap
-   전체가 눌리는 카드: <a class="ds-card" href> → pressed 시 bg/transparent-pressed 를 덧씌움
+   전체가 눌리는 카드: <a class="ds-card" href>로 만들면 누를 때 bg/transparent-pressed를 덧씌웁니다
    -------------------------------------------------------------------------- */
 .ds-card {
   --ds-card-padding: var(--ds-space-x5);
@@ -2350,7 +2408,7 @@ html:has(:is(.ds-dialog, .ds-bottomsheet)[open]) { overflow: hidden; }
 .ds-card[data-variant="elevated"] { box-shadow: var(--ds-elevation-raised); }
 .ds-card[data-size="small"] { --ds-card-padding: var(--ds-space-x4); --ds-card-gap: var(--ds-space-x3); --ds-card-radius: var(--ds-shape-lg); }
 .ds-card__header { display: flex; flex-direction: column; gap: var(--ds-space-x1); }
-.ds-card__title { font-size: var(--ds-font-size-t06); line-height: var(--ds-line-height-t06); font-weight: var(--ds-font-weight-bold); letter-spacing: -0.01em; }
+.ds-card__title { font-size: var(--ds-font-size-t06); line-height: var(--ds-line-height-t06); font-weight: var(--ds-font-weight-bold); }
 .ds-card__desc { color: var(--ds-color-fg-neutral-subtle); font-size: var(--ds-font-size-t04); line-height: var(--ds-line-height-t04); }
 .ds-card[data-size="small"] .ds-card__title { font-size: var(--ds-font-size-t05); line-height: var(--ds-line-height-t05); }
 .ds-card[data-size="small"] .ds-card__desc { font-size: var(--ds-font-size-t03); line-height: var(--ds-line-height-t03); }
@@ -2396,7 +2454,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 
 /* --------------------------------------------------------------------------
    41 Pagination — 목록 페이지 이동
-   type: full(기본) · simple
+   type: full(기본) · simple   variant: solid(기본, 고른 쪽 진한 면) · ghost(고른 쪽만 옅은 회색 면, 숫자는 진한 글자)
      <nav class="ds-pagination" aria-label="페이지">
        <a class="ds-pagination__item" data-type="first" aria-label="첫 페이지" aria-disabled="true"></a>
        <a class="ds-pagination__item" data-type="prev"  aria-label="이전 페이지" aria-disabled="true"></a>
@@ -2407,7 +2465,12 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
        <a class="ds-pagination__item" data-type="next" href="?p=2" aria-label="다음 페이지"></a>
        <a class="ds-pagination__item" data-type="last" href="?p=10" aria-label="마지막 페이지"></a>
      </nav>
-     simple: <nav class="ds-pagination" data-type="simple"> prev · <span class="ds-pagination__indicator"><b>3</b> / 10</span> · next
+     <!-- simple: 이전, 지금 위치, 다음만 -->
+     <nav class="ds-pagination" data-type="simple" aria-label="페이지">
+       <a class="ds-pagination__item" data-type="prev" href="?p=2" aria-label="이전 페이지"></a>
+       <span class="ds-pagination__indicator"><b>3</b> / 10</span>
+       <a class="ds-pagination__item" data-type="next" href="?p=4" aria-label="다음 페이지"></a>
+     </nav>
    Figma item: 36(높이·최소 폭) · px x2 · shape/sm · 숫자 t04 Medium fg/neutral-muted · 화살표 20 fg/neutral · ellipsis 16 fg/neutral-subtle
      pressed bg/transparent-pressed · current bg/neutral-solid + fg/on-neutral-solid t04 Bold · disabled 화살표 fg/disabled
      full gap x1 · simple gap x3 · indicator 현재 t04 Bold fg/neutral + "/ 전체" t04 fg/neutral-subtle
@@ -2444,6 +2507,10 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 .ds-pagination__item[data-type="ellipsis"] { --ds-pg-icon: var(--ds-icon-ellipsis); color: var(--ds-color-fg-neutral-subtle); pointer-events: none; }
 .ds-pagination__item[data-type="ellipsis"]::before { width: 16px; height: 16px; }
 .ds-pagination__item[aria-disabled="true"], .ds-pagination__item:disabled { color: var(--ds-color-fg-disabled); pointer-events: none; }
+.ds-pagination[data-variant="ghost"] .ds-pagination__item { color: var(--ds-color-fg-neutral); font-weight: var(--ds-font-weight-regular); border-radius: var(--ds-shape-lg); }
+.ds-pagination[data-variant="ghost"] .ds-pagination__item[aria-current="page"] { background: var(--ds-color-bg-neutral-weak-alpha); color: var(--ds-color-fg-neutral); font-weight: var(--ds-font-weight-medium); }
+.ds-pagination[data-variant="ghost"] .ds-pagination__item[aria-disabled="true"] { color: var(--ds-color-fg-disabled); }
+.ds-pagination[data-variant="ghost"] .ds-pagination__item[data-type="ellipsis"] { color: var(--ds-color-fg-neutral-subtle); }
 .ds-pagination__indicator { display: inline-flex; gap: var(--ds-space-x1); color: var(--ds-color-fg-neutral-subtle); font-size: var(--ds-font-size-t04); line-height: var(--ds-line-height-t04); font-variant-numeric: tabular-nums; }
 .ds-pagination__indicator > b, .ds-pagination__indicator > strong { color: var(--ds-color-fg-neutral); font-weight: var(--ds-font-weight-bold); }
 
@@ -2464,30 +2531,31 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
          </tbody>
        </table>
      </div>
-   2026-11-03 개편(템플릿 표 기준과 같게): 위 진한 선 하나 + 머리줄 바탕 없음 + 행 사이 옅은 선
-   Figma: 표 위 1px stroke/neutral-solid · 칸 아래 1px stroke/neutral-muted · header 바탕 없음
-     높이 header 44 / body 56 (compact 44 / 48) · 칸 좌우 x3, 양 끝 칸 x4 · 한 줄 말줄임
-     header t03 Regular fg/neutral-subtle · body t04 fg/neutral · 두 줄 칸 아래 줄 t02 fg/neutral-subtle
+   2026-11-03 개편(템플릿 표 기준과 같게), 2026-11-11 표 맨 위와 맨 아래 선은 바깥 테두리 색(한 단계 짙게), 행 사이는 옅은 선
+   Figma: 표 위 1px stroke/neutral-weak · 마지막 줄 아래 1px stroke/neutral-weak · 그 밖의 칸 아래 1px stroke/neutral-muted · header 바탕 없음
+     높이 header 40 / body 56 (compact 40 / 48) · 칸 좌우 x3, 양 끝 칸 x4 · 한 줄 말줄임
+     header t04 Medium fg/neutral · body t04 fg/neutral · 두 줄 칸 아래 줄 t02 fg/neutral-subtle
      묶음 행 44 bg/neutral-weak-alpha + SemiBold · hover(data-interactive 행만) bg/neutral-weak-alpha · selected bg/brand-weak
      정렬: 글 start(기본) · 숫자 end · 짧은 고정 길이 값(번호·날짜·상태) center → data-align (right 는 end 와 같음)
-     선은 칸 border 로 그린다(행 그림자는 칸에 바탕을 넣으면 가려지고, 표 양 끝에 세로 선이 생긴다)
-     Card 안에 넣으면 카드 테두리가 틀이 되므로 위 진한 선과 마지막 줄 선을 뺀다 (2026-11-03)
+     선은 칸의 border로 그립니다(행 그림자는 칸에 바탕을 넣으면 가려지고, 표 양 끝에 세로 선이 생깁니다)
+     Card 안에 넣으면 카드 테두리가 틀이 되므로 위 선과 마지막 줄 선을 표시하지 않습니다 (2026-11-03)
    -------------------------------------------------------------------------- */
 .ds-table-wrap { width: 100%; overflow-x: auto; }
 .ds-table {
-  --ds-table-head-h: 44px;
+  --ds-table-head-h: 40px;
   --ds-table-row-h: 56px;
   --ds-table-line: var(--ds-color-stroke-neutral-muted);
+  --ds-table-edge: var(--ds-color-stroke-neutral-weak);  /* 맨 위, 맨 아래 선 (2026-11-11) */
   width: 100%;
   table-layout: fixed;              /* 고정 폭 열은 <th style="width:…"> 또는 <col>, 나머지 열이 남은 폭을 나눈다 */
   border-collapse: collapse;
-  border-top: 1px solid var(--ds-color-stroke-neutral-solid);
+  border-top: 1px solid var(--ds-table-edge);
   color: var(--ds-color-fg-neutral);
   font-size: var(--ds-font-size-t04);
   line-height: var(--ds-line-height-t04);
   font-variant-numeric: tabular-nums;
 }
-.ds-table[data-density="compact"] { --ds-table-head-h: 44px; --ds-table-row-h: 48px; }
+.ds-table[data-density="compact"] { --ds-table-head-h: 40px; --ds-table-row-h: 48px; }
 .ds-table :is(th, td) {
   padding: var(--ds-space-x2) var(--ds-space-x3);
   overflow: hidden;
@@ -2497,10 +2565,12 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
   white-space: nowrap;
   vertical-align: middle;
 }
+.ds-table > :last-child > tr:last-child > * { border-bottom-color: var(--ds-table-edge); }
 .ds-table :is(th, td):first-child { padding-inline-start: var(--ds-space-x4); }
 .ds-table :is(th, td):last-child { padding-inline-end: var(--ds-space-x4); }
 .ds-table thead tr { height: var(--ds-table-head-h); }
-.ds-table thead th { color: var(--ds-color-fg-neutral-subtle); font-size: var(--ds-font-size-t03); line-height: var(--ds-line-height-t03); font-weight: var(--ds-font-weight-regular); }
+.ds-table thead th { padding-block: 0; }  /* 머리줄은 체크박스가 있어도 높이 40 그대로 (2026-11-10) */
+.ds-table thead th { color: var(--ds-color-fg-neutral); font-size: var(--ds-font-size-t04); line-height: var(--ds-line-height-t04); font-weight: var(--ds-font-weight-medium); }
 .ds-table tbody tr { height: var(--ds-table-row-h); }
 .ds-table td { font-weight: var(--ds-font-weight-regular); }
 .ds-table [data-align="center"] { text-align: center; }
@@ -2532,7 +2602,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
      <div class="ds-divider" role="separator" data-label><span>또는</span></div>
    Figma: thin 1px stroke/neutral-weak · thick 8 bg/neutral-muted · vertical 1×16(--ds-divider-length)
      inset 좌우 x4 · label t03 fg/neutral-subtle, 선과 간격 x3
-   마지막 섹션 아래에는 두지 않는다.
+   마지막 섹션 아래에는 사용하지 않습니다.
    -------------------------------------------------------------------------- */
 .ds-divider {
   --ds-divider-color: var(--ds-color-stroke-neutral-muted);  /* 2026-11-04: 안쪽 구분선은 모든 부품이 stroke/neutral-muted 하나 */
@@ -2570,8 +2640,8 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
      </span>
    Figma: padding x1 x2 · shape/xs · bg/neutral-solid · t02 Medium fg/on-neutral-solid · 최대 폭 240
           대상과 간격 x1_5 · elevation overlay · 꼬리 없음
-   Help Bubble 과 차이: Tooltip 은 짧은 라벨(아이콘 버튼 이름 등)을 hover/focus 로만 보여 준다.
-   터치 화면에서는 보이지 않으므로 꼭 필요한 정보를 넣지 않는다. 닫기 버튼·여러 줄 설명은 Help Bubble.
+   Help Bubble과의 차이: Tooltip은 짧은 라벨(아이콘 버튼 이름 등)을 hover나 focus 때만 표시합니다.
+   터치 화면에서는 보이지 않으므로 꼭 필요한 정보는 넣지 않습니다. 닫기 버튼이나 여러 줄 설명이 필요하면 Help Bubble을 사용하세요.
    -------------------------------------------------------------------------- */
 .ds-tooltip-anchor { position: relative; display: inline-flex; }
 .ds-tooltip {
@@ -2632,7 +2702,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
      prefix 24(아이콘 fg/neutral-subtle, Avatar 36 가능) · suffix t04 fg/neutral-subtle · chevron 20 fg/neutral-subtle
      pressed bg/transparent-pressed · disabled 글자 fg/disabled · divider 1px stroke/neutral-muted(본문 시작점부터, inset 은 좌우 x4, 2026-11-04)
      inset: bg/layer-default · 1px stroke/neutral(2026-11-04) · shape/xl · 바깥 여백 없음
-   상호작용 요소(링크·스위치 등)는 한 줄에 4개 미만. 행 전체가 링크이면 안에 다른 버튼을 넣지 않는다.
+   상호작용 요소(링크, 스위치 등)는 한 줄에 4개 미만으로 배치합니다. 행 전체가 링크이면 안에 다른 버튼을 넣지 않습니다.
    -------------------------------------------------------------------------- */
 .ds-list { display: flex; flex-direction: column; }
 .ds-list[data-variant="inset"] {
@@ -2693,7 +2763,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
      </nav>
    Figma: t03 · 항목 fg/neutral-subtle(링크 hover 밑줄) · 현재 fg/neutral Medium · 구분 chevron-right 14 fg/neutral-subtle
           항목·구분 사이 x1 · 줄바꿈 허용(좁으면 다음 줄)
-   마지막 항목(현재 화면)은 링크가 아니다. 모바일 앱 화면에는 쓰지 않는다(뒤로 가기 헤더 사용).
+   마지막 항목(현재 화면)에는 링크를 걸지 않습니다. 모바일 앱 화면에는 사용하지 않습니다(뒤로 가기 헤더 사용).
    -------------------------------------------------------------------------- */
 .ds-breadcrumbs > ol { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-x1); font-size: var(--ds-font-size-t03); line-height: var(--ds-line-height-t03); }
 .ds-breadcrumbs li { display: inline-flex; align-items: center; gap: var(--ds-space-x1); color: var(--ds-color-fg-neutral-subtle); }
@@ -2723,7 +2793,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
      complete bg/brand-solid + check 14 fg/on-brand-solid · 연결선 stroke/brand-solid
      current 1px stroke/brand-solid + 숫자 fg/brand · 라벨 Bold fg/neutral
      upcoming bg/neutral-muted + 숫자 fg/neutral-subtle · 라벨 fg/neutral-subtle · 연결선 stroke/neutral-weak
-   단계는 3~5개. 라벨은 짧은 명사형(한글 6자 안팎). 단계가 더 많으면 "2 / 6" 처럼 글자로 보여 준다.
+   단계는 3~5개, 라벨은 짧은 명사형(한글 6자 안팎)으로 작성합니다. 단계가 더 많으면 "2 / 6"처럼 글자로 표시합니다.
    -------------------------------------------------------------------------- */
 .ds-stepper { display: flex; counter-reset: ds-step; }
 .ds-stepper__step {
@@ -2809,10 +2879,10 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
      t04 · 제목 Bold · 아이콘 Solid 16 · action t04 Bold 밑줄 · 닫기 20(터치 영역 40)
      weak: Callout 과 같은 tone 색 · 아래 1px stroke/neutral-weak
      solid: bg/{tone}-solid + fg/on-{tone}-solid (neutral = bg/neutral-solid + fg/on-neutral-solid)
-   Callout 과 차이: Callout 은 본문 안 안내(둥근 상자), Banner 는 페이지 전체에 걸린 공지(화면 맨 위, 한 번에 1개).
+   Callout과의 차이: Callout은 본문 안의 안내(둥근 상자)이고, Banner는 페이지 전체에 해당하는 공지(화면 맨 위, 한 번에 1개)입니다.
    -------------------------------------------------------------------------- */
 .ds-banner {
-  --ds-banner-bg: var(--ds-color-bg-neutral);
+  --ds-banner-bg: var(--ds-color-bg-neutral-weak-alpha);
   --ds-banner-fg: var(--ds-color-fg-neutral);
   --ds-banner-max: 1200px;
   width: 100%;
@@ -2854,7 +2924,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
          또는 <span class="ds-radio" data-tone="neutral" data-size="medium"><input type="radio" class="ds-radio__control" name="g"></span>
        </label>
      </div>
-   표시는 Checkbox(square/neutral/medium), Radio(neutral/medium) 를 그대로 쓴다.
+   선택 표시는 Checkbox(square/neutral/medium), Radio(neutral/medium)를 그대로 사용합니다.
    Figma: padding x4 x5 / gap x3 / shape/lg / bg/layer-default / 1px stroke/neutral-weak
      선택 1px stroke/neutral-contrast(색만 진해짐) / disabled bg/disabled + 글자 fg/disabled
      label t05 Medium fg/neutral / desc t04 fg/neutral-subtle / 글 사이 2 / 앞 아이콘 24
@@ -2908,14 +2978,14 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
        <div class="ds-timepicker__column" role="listbox" aria-label="시" tabindex="0">… 1 ~ 12</div>
        <div class="ds-timepicker__column" role="listbox" aria-label="분" tabindex="0">… 00, 05 ~ 55</div>
      </div>
-   ybm-ds.js 가 가운데 온 항목에 aria-selected 를 붙이고 열에서 change 이벤트(detail.value)를 보낸다.
-   처음 값은 aria-selected="true" 로 표시해 두면 그 위치로 맞춰 준다. 분 간격은 넣는 항목으로 정한다(기본 5분).
+   ybm-ds.js가 가운데에 온 항목에 aria-selected를 붙이고, 열에서 change 이벤트(detail.value)를 보냅니다.
+   초기 값에 aria-selected="true"를 붙이면 그 위치로 맞춰집니다. 분 간격은 넣는 항목으로 정합니다(기본 5분).
    Figma: 폭 320(채움) / 높이 220 = 항목 5줄 × x11 / 좌우 x4 / 열 간격 x2
      가운데 띠 bg/neutral-weak-alpha shape/md
      가운데 t07 SemiBold fg/neutral / 바로 위아래 t06 fg/neutral-muted / 그 밖 t05 fg/neutral-subtle / disabled 모두 fg/disabled
-   모바일 입력 필드에서는 Field Button + Bottom Sheet 안에 넣어 쓴다.
+   모바일 입력 필드에서는 Field Button으로 여는 Bottom Sheet 안에 넣어 사용합니다.
    -------------------------------------------------------------------------- */
-.ds-timepicker {
+.ds-timepicker, .ds-wheelpicker {
   --ds-tp-item: var(--ds-space-x11);
   position: relative;
   display: flex;
@@ -2924,7 +2994,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
   height: calc(var(--ds-tp-item) * 5);
   padding-inline: var(--ds-space-x4);
 }
-.ds-timepicker::before {
+.ds-timepicker::before, .ds-wheelpicker::before {
   content: "";
   position: absolute;
   inset: calc(var(--ds-tp-item) * 2) 0 auto;
@@ -2933,7 +3003,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
   background: var(--ds-color-bg-neutral-weak-alpha);
   pointer-events: none;
 }
-.ds-timepicker__column {
+:is(.ds-timepicker__column, .ds-wheelpicker__column) {
   position: relative;
   flex: 1 1 0;
   min-width: 0;
@@ -2943,9 +3013,9 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
   scrollbar-width: none;
   overscroll-behavior: contain;
 }
-.ds-timepicker__column::-webkit-scrollbar { display: none; }
-.ds-timepicker__column:focus-visible { outline-offset: -2px; border-radius: var(--ds-shape-md); }
-.ds-timepicker__option {
+:is(.ds-timepicker__column, .ds-wheelpicker__column)::-webkit-scrollbar { display: none; }
+:is(.ds-timepicker__column, .ds-wheelpicker__column):focus-visible { outline-offset: -2px; border-radius: var(--ds-shape-md); }
+:is(.ds-timepicker__option, .ds-wheelpicker__option) {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2958,10 +3028,10 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
   cursor: pointer;
   user-select: none;
 }
-.ds-timepicker__option[data-near] { color: var(--ds-color-fg-neutral-muted); font-size: var(--ds-font-size-t06); line-height: var(--ds-line-height-t06); }
-.ds-timepicker__option[aria-selected="true"] { color: var(--ds-color-fg-neutral); font-size: var(--ds-font-size-t07); line-height: var(--ds-line-height-t07); font-weight: var(--ds-font-weight-semibold); }
-.ds-timepicker[aria-disabled="true"] .ds-timepicker__column { overflow: hidden; pointer-events: none; }
-.ds-timepicker[aria-disabled="true"] .ds-timepicker__option { color: var(--ds-color-fg-disabled); }
+:is(.ds-timepicker__option, .ds-wheelpicker__option)[data-near] { color: var(--ds-color-fg-neutral-muted); font-size: var(--ds-font-size-t06); line-height: var(--ds-line-height-t06); }
+:is(.ds-timepicker__option, .ds-wheelpicker__option)[aria-selected="true"] { color: var(--ds-color-fg-neutral); font-size: var(--ds-font-size-t07); line-height: var(--ds-line-height-t07); font-weight: var(--ds-font-weight-semibold); }
+:is(.ds-timepicker, .ds-wheelpicker)[aria-disabled="true"] :is(.ds-timepicker__column, .ds-wheelpicker__column) { overflow: hidden; pointer-events: none; }
+:is(.ds-timepicker, .ds-wheelpicker)[aria-disabled="true"] :is(.ds-timepicker__option, .ds-wheelpicker__option) { color: var(--ds-color-fg-disabled); }
 
 
 /* --------------------------------------------------------------------------
@@ -2985,10 +3055,10 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
        </div>
      </div>
    empty: 범위 select 에 disabled, 이동 버튼에 aria-disabled="true"
-   Figma: 최소 폭 640 / padding x2 x4 / 양 끝 정렬 / 한 줄 고정(좁으면 표와 같은 가로 스크롤 영역에 둔다)
+   Figma: 최소 폭 640 / padding x2 x4 / 양 끝 정렬 / 한 줄 고정(좁으면 표와 같은 가로 스크롤 영역에 배치)
      label, total t04 fg/neutral-subtle / select h36 padding 0 8 0 12 gap x1 shape/sm bg/layer-default 1px stroke/neutral-weak
      값 t04 Medium fg/neutral / chevron 16 / disabled bg/disabled fg/disabled / 이동 버튼은 Pagination Item(prev, next)
-   일반 목록의 페이지 이동은 Pagination 을 쓴다.
+   일반 목록의 페이지 이동에는 Pagination을 사용합니다.
    -------------------------------------------------------------------------- */
 .ds-tablepagination {
   display: flex;
@@ -3060,12 +3130,13 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
          [<div class="ds-popover__footer"><button class="ds-btn" data-variant="neutralWeak" data-size="small">취소</button><button class="ds-btn" data-variant="neutralSolid" data-size="small">확인</button></div>]
        </div>
      </span>
-   ybm-ds.js: data-ds-popover 로 열고 닫기, 바깥 클릭과 Esc 로 닫기, 안의 data-ds-close 로 닫기.
+   ybm-ds.js: data-ds-popover로 열고 닫으며, 바깥 클릭, Esc, 안쪽의 data-ds-close로도 닫힙니다.
    Figma: 폭 320 / padding x5 / gap x4 / shape/xl / bg/layer-floating / 1px stroke/neutral-muted / elevation 2
      title t05 Bold fg/neutral / desc t04 fg/neutral-subtle / 글 사이 x1 / 머리말 gap x3 / 닫기 Lucide/x 20 fg/neutral
      body t04 fg/neutral / footer 오른쪽 정렬 gap x2, Action Button small
-   닫기 버튼을 숨기면 본문이나 버튼 영역에 닫는 동작을 꼭 둔다.
+   닫기 버튼을 숨길 때는 본문이나 버튼 영역에 닫을 수 있는 동작을 제공하세요.
    고르는 법: 짧은 설명은 Tooltip, Help Bubble / 제목과 버튼이 있는 작은 작업 창은 Popover / 화면을 막아야 하면 Dialog
+   알림 고르는 법(2026-11-10): 작업 결과는 Snackbar / 입력 오류는 입력 필드 아래 안내 글 / 작업을 막는 오류와 화면 전체 상태는 Banner / 화면 안 안내는 Callout / 되돌릴 수 없는 작업 확인은 Alert Dialog
    -------------------------------------------------------------------------- */
 .ds-popover-anchor { position: relative; display: inline-flex; }
 .ds-popover {
@@ -3114,7 +3185,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
        <button type="button" class="ds-chat-send" aria-label="보내기" [data-state="stop"] [disabled]></button>
      Figma: 36 원 / 아이콘 20 / send bg/brand-solid + arrow-up fg/on-brand-solid
             stop bg/neutral-solid + square fg/on-neutral-solid / disabled bg/disabled + fg/disabled
-   ▸ Composer  state: empty / typing (비어 있으면 보내기 비활성 - ybm-ds.js 가 맞춰 준다)
+   ▸ Composer  state: empty / typing (비어 있으면 보내기 버튼 비활성, ybm-ds.js가 처리)
        <form class="ds-chat-composer">
          <button type="button" class="ds-chat-composer__attach" aria-label="첨부"><i class="ds-icon ds-icon--plus" aria-hidden="true"></i></button>
          <div class="ds-chat-composer__field">
@@ -3237,7 +3308,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
    54 Top App Bar - 모바일 화면 맨 위에서 제목과 이동 버튼을 보여 주는 막대 (2026-10-29 추가)
    theme(Figma) = data-platform: 기본 ios(제목 가운데) / "android"(제목 왼쪽)
    tone: 기본 layer / data-tone="transparent"(사진 같은 배경 위, 글자와 아이콘 흰색) + data-gradient(가독성용 위쪽 그라데이션)
-   titleLayout: 부제목을 넣으면 withSubtitle 모양이 된다
+   titleLayout: 부제목을 넣으면 withSubtitle 모양이 됩니다
      <header class="ds-appbar" [data-platform="android"] [data-tone="transparent" data-gradient]>
        <div class="ds-appbar__left">
          <button type="button" class="ds-appbar__button" aria-label="뒤로"><i class="ds-icon ds-icon--chevron-left" aria-hidden="true"></i></button>
@@ -3367,9 +3438,9 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 
 /* --------------------------------------------------------------------------
    56 Search Suggestion - 검색 입력 칸 아래에 뜨는 추천어 목록 (2026-10-29 추가)
-   검색 입력 칸은 Text Field(04) outline 에 search 아이콘과 지우기 버튼을 붙여 쓴다.
-   입력 전 최근 검색어(머리말 + clock), 입력 중 추천어(search), 찾은 것이 없으면 empty 문구.
-   열고 닫기와 목록 채우기는 서비스가 한다. ybm-ds.js 는 입력 칸의 위아래 화살표로 줄 고르기와 Enter 만 맡는다.
+   검색 입력 필드는 Text Field(04) outline에 search 아이콘과 지우기 버튼을 붙여 사용합니다.
+   입력 전에는 최근 검색어(머리말 + clock), 입력 중에는 추천어(search), 결과가 없으면 empty 문구를 표시합니다.
+   열고 닫기와 목록 채우기는 서비스에서 처리합니다. ybm-ds.js는 입력 필드에서 위아래 화살표로 줄을 선택하는 것과 Enter만 처리합니다.
      <div class="ds-search-anchor">
        <div class="ds-input" data-variant="outline" data-size="medium">
          <i class="ds-icon ds-icon--search ds-input__icon" aria-hidden="true"></i>
@@ -3433,8 +3504,8 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 
 /* --------------------------------------------------------------------------
    57 File Attach - 파일을 끌어 놓거나 골라서 첨부하는 부품 (2026-10-29 추가)
-   끌어 놓는 칸(Dropzone) 아래에 고르기 버튼(Trigger)과 파일(Item)을 한 줄로 놓는다. 넘치면 옆으로 넘긴다.
-   Dropzone 은 파일을 끌고 오면 ybm-ds.js 가 data-state="dragover" 를 붙인다(점선 → 실선).
+   끌어 놓는 영역(Dropzone) 아래에 선택 버튼(Trigger)과 파일(Item)을 한 줄로 배치합니다. 넘치면 가로로 스크롤합니다.
+   파일을 Dropzone 위로 끌고 오면 ybm-ds.js가 data-state="dragover"를 붙입니다(점선 → 실선).
      <div class="ds-fileattach">
        <label class="ds-fileattach__dropzone">
          <input type="file" class="ds-fileattach__input" multiple>
@@ -3518,7 +3589,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
   border-radius: var(--ds-shape-lg);
   box-shadow: inset 0 0 0 1px var(--ds-color-stroke-neutral-weak);
 }
-.ds-fileitem__thumbnail { display: grid; place-items: center; flex: none; width: var(--ds-space-x12); height: var(--ds-space-x12); border-radius: var(--ds-shape-sm); background: var(--ds-color-bg-neutral); color: var(--ds-color-fg-neutral-subtle); }
+.ds-fileitem__thumbnail { display: grid; place-items: center; flex: none; width: var(--ds-space-x12); height: var(--ds-space-x12); border-radius: var(--ds-shape-sm); background: var(--ds-color-bg-neutral-weak-alpha); color: var(--ds-color-fg-neutral-subtle); }
 .ds-fileitem__thumbnail > .ds-icon { --ds-icon-size: 24px; }
 .ds-fileitem__texts { display: flex; flex-direction: column; min-width: 0; }
 .ds-fileitem__name {
@@ -3534,7 +3605,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 }
 .ds-fileitem__size { color: var(--ds-color-fg-neutral-subtle); font-size: var(--ds-font-size-t01); line-height: var(--ds-line-height-t01); }
 .ds-fileitem[data-readonly] :is(.ds-fileitem__thumbnail, .ds-fileitem__name, .ds-fileitem__size) { color: var(--ds-color-fg-disabled); }
-.ds-fileitem[data-type="image"] { width: var(--ds-space-x20); padding: 0; background: var(--ds-color-bg-neutral); box-shadow: none; }
+.ds-fileitem[data-type="image"] { width: var(--ds-space-x20); padding: 0; background: var(--ds-color-bg-neutral-weak-alpha); box-shadow: none; }
 .ds-fileitem[data-type="image"]::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px var(--ds-color-stroke-neutral-subtle); pointer-events: none; }
 .ds-fileitem[data-type="image"][data-readonly] { opacity: 0.5; }
 .ds-fileitem__image { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: inherit; object-fit: cover; }
@@ -3575,7 +3646,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 
 /* --------------------------------------------------------------------------
    58 Menu Sheet - 모바일 화면 아래에서 올라오는 고르기 목록 (2026-10-29 추가)
-   Bottom Sheet 와 같이 네이티브 <dialog> 를 쓴다. data-ds-open 으로 열고, data-ds-close 와 바깥 누르기로 닫는다.
+   Bottom Sheet와 같이 네이티브 <dialog>를 사용합니다. data-ds-open으로 열고, data-ds-close나 바깥 영역을 누르면 닫힙니다.
    Item tone: 기본 neutral / data-tone="critical"(되돌릴 수 없는 동작)   labelAlign: 기본 left / data-label-align="center"
      <dialog class="ds-menusheet" id="ms" aria-labelledby="ms-t">
        [<div class="ds-menusheet__header"><h2 class="ds-menusheet__title" id="ms-t">제목</h2>[<p class="ds-menusheet__desc">설명</p>]</div>]
@@ -3625,7 +3696,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
   width: 100%;
   min-height: 52px;
   padding: var(--ds-space-x3_5) var(--ds-space-x4);
-  background: var(--ds-color-bg-neutral);
+  background: var(--ds-color-bg-neutral);  /* 어두운 덮개 위에 떠서 불투명 */
   color: var(--ds-color-fg-neutral);
   font-size: var(--ds-font-size-t05);
   line-height: var(--ds-line-height-t05);
@@ -3657,7 +3728,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 /* --------------------------------------------------------------------------
    59 Result Section - 사용자 행동의 결과를 아이콘, 제목, 설명, 버튼으로 알려 주는 묶음 (2026-10-29 추가)
    size: 기본 large(화면 전체) / data-size="medium"(화면 일부)
-   위쪽 그림은 40 아이콘(완료 fg/positive, 오류 fg/critical)이나 Progress Circle 40 으로 바꿔 쓴다.
+   위쪽 그림은 40 아이콘(완료 fg/positive, 오류 fg/critical)이나 Progress Circle 40으로 바꿔 사용합니다.
      <section class="ds-result" [data-size="medium"]>
        [<div class="ds-result__asset"><i class="ds-icon ds-icon--circle-check-solid" aria-hidden="true"></i></div>]
        <div class="ds-result__texts">
@@ -3671,7 +3742,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
      </section>
    Figma: 가운데 정렬, padding x4 x12 / 그림 아래 x4, 아이콘 40
      large 글자 사이 x3, 아래 x7, 제목 t08 Bold, 설명 t05 fg/neutral-muted / medium 글자 사이 x2, 아래 x6, 제목 t05 Bold, 설명 t04
-     버튼 사이 x5, 위 Action Button neutralWeak medium, 아래 ghost small
+     버튼 사이 x5, 주요 버튼(위) Action Button neutralWeak medium, 보조 버튼(아래) ghost small
    -------------------------------------------------------------------------- */
 .ds-result {
   --ds-result-gap: var(--ds-space-x3);
@@ -3699,9 +3770,9 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
    60 Timer - 흐른 시간이나 남은 시간을 숫자로 보여 주는 글자 (2026-10-29 추가)
    format: 기본 clock(12:34, 1시간 넘으면 1:02:34) / data-format="elapsed"(12분 34초)
    흐른 시간: data-start="시작 시각" / 남은 시간: data-end="끝 시각" (ISO 문자열 또는 밀리초)
-   ybm-ds.js 가 1초마다 글자와 datetime 을 바꾸고, 남은 시간이 0 이 되면 ds-timer-end 이벤트를 한 번 보낸다.
+   ybm-ds.js가 1초마다 글자와 datetime을 바꾸고, 남은 시간이 0이 되면 ds-timer-end 이벤트를 한 번 보냅니다.
      <time class="ds-timer" data-end="2026-10-29T15:00:00+09:00" [data-format="elapsed"]>0:00</time>
-   Figma: t02 fg/neutral-muted, 숫자 폭 고정 / 크기와 색은 놓이는 자리에 맞춰 바꿔 쓴다
+   Figma: t02 fg/neutral-muted, 숫자 폭 고정 / 크기와 색은 배치되는 위치에 맞게 바꿔 사용합니다
    -------------------------------------------------------------------------- */
 .ds-timer {
   color: var(--ds-color-fg-neutral-muted);
@@ -3739,7 +3810,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 
 /* --------------------------------------------------------------------------
    62 Checkbox Group - 관련된 체크박스를 한 묶음으로 세로로 쌓는 틀 (2026-10-29 추가)
-   묶음 이름, 설명, 오류 문구는 03 Field Label 로 감싼다.
+   묶음 이름, 설명, 오류 문구는 03 Field Label로 감쌉니다.
      <fieldset class="ds-checkbox-group">
        <label class="ds-checkbox" data-tone="neutral"><input type="checkbox" class="ds-checkbox__control"><span class="ds-checkbox__label">이메일</span></label>
      </fieldset>
@@ -3750,9 +3821,9 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 
 /* --------------------------------------------------------------------------
    63 Scroll Fog - 스크롤 영역의 끝을 흐리게 해 내용이 더 있음을 알리는 효과 (2026-10-29 추가)
-   direction: 기본 세로 / data-direction="horizontal"   흐려지는 쪽에 최소 20 의 여백을 둔다(화면 전체 세로 스크롤은 위 20, 아래 80)
+   direction: 기본 세로 / data-direction="horizontal"   흐려지는 쪽에는 최소 20의 여백을 확보합니다(화면 전체 세로 스크롤은 위 20, 아래 80)
      <div class="ds-scrollfog" [data-direction="horizontal"]>…스크롤 되는 내용…</div>
-   Figma: 끝 20 을 투명 → 불투명으로 / 코드는 배경색 덮개가 아니라 mask 라 어떤 배경 위에서도 쓴다
+   Figma: 끝 20 을 투명 → 불투명으로 / 코드는 배경색 덮개가 아닌 mask라 어떤 배경 위에서도 사용할 수 있습니다
    -------------------------------------------------------------------------- */
 .ds-scrollfog {
   --ds-scrollfog-size: 20px;
@@ -3766,8 +3837,8 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 
 /* --------------------------------------------------------------------------
    64 Pull To Refresh - 목록 맨 위에서 아래로 당겨 새로 고치는 동작 (2026-10-29 추가)
-   ybm-ds.js 가 터치로 당긴 거리를 --ds-ptr-displacement 에 넣고, 88 을 넘겨 놓으면 data-state="refreshing" 과 ds-refresh 이벤트.
-   새로 고침이 끝나면 DS.endRefresh(요소) 로 되돌린다. data-disabled 로 끈다.
+   ybm-ds.js가 터치로 당긴 거리를 --ds-ptr-displacement에 넣고, 88을 넘겨서 놓으면 data-state="refreshing"을 붙이고 ds-refresh 이벤트를 보냅니다.
+   새로 고침이 끝나면 DS.endRefresh(요소)로 원래 상태로 되돌립니다. data-disabled로 비활성화합니다.
      <div class="ds-ptr">
        <div class="ds-ptr__indicator">
          <span class="ds-progress-circle" role="progressbar" aria-label="새로 고침"><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="ds-progress-circle__track" pathLength="100"/><circle class="ds-progress-circle__range" pathLength="100"/></svg></span>
@@ -3798,9 +3869,9 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 
 /* --------------------------------------------------------------------------
    65 Side Panel - PC 화면 가장자리에서 밀려 나오는 패널 (2026-10-29 추가)
-   네이티브 <dialog> 를 쓴다. data-ds-open 으로 열고, data-ds-close 와 바깥 누르기로 닫는다.
+   네이티브 <dialog>를 사용합니다. data-ds-open으로 열고, data-ds-close나 바깥 영역을 누르면 닫힙니다.
    size: small 480 / 기본 medium 720 / large 960 (화면의 80% 를 넘지 않음)   direction: 기본 오른쪽 / data-direction="left"
-   본문이 스크롤되면 ybm-ds.js 가 data-scrolled 를 붙여 본문 위에 1px 선이 생긴다. 화면이 좁으면 Bottom Sheet 로 바꿔 쓴다.
+   본문이 스크롤되면 ybm-ds.js가 data-scrolled를 붙여 본문 위에 1px 선을 표시합니다. 화면이 좁으면 Bottom Sheet로 바꿔 사용합니다.
      <dialog class="ds-sidepanel" id="sp" aria-labelledby="sp-t" [data-size="small"] [data-direction="left"]>
        <div class="ds-sidepanel__header">
          <div class="ds-sidepanel__texts"><h2 class="ds-sidepanel__title" id="sp-t">제목</h2>[<p class="ds-sidepanel__desc">설명</p>]</div>
@@ -3840,7 +3911,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 .ds-sidepanel__texts { display: flex; flex: 1 1 auto; flex-direction: column; gap: var(--ds-space-x1_5); min-width: 0; }
 .ds-sidepanel__title { margin: 0; font-size: var(--ds-font-size-t08); line-height: var(--ds-line-height-t08); font-weight: var(--ds-font-weight-bold); }
 .ds-sidepanel__desc { margin: 0; color: var(--ds-color-fg-neutral-muted); font-size: var(--ds-font-size-t05); line-height: var(--ds-line-height-t05); }
-.ds-sidepanel__close { display: grid; place-items: center; flex: none; width: var(--ds-space-x13); height: var(--ds-space-x13); margin-block: calc(var(--ds-space-x3) * -1); border-radius: var(--ds-shape-lg); color: var(--ds-color-fg-neutral-subtle); }
+.ds-sidepanel__close { display: grid; place-items: center; flex: none; width: var(--ds-space-x13); height: var(--ds-space-x13); margin-block: calc((var(--ds-line-height-t08) - var(--ds-space-x13)) / 2); margin-inline-end: calc((22px - var(--ds-space-x13)) / 2); border-radius: var(--ds-shape-lg); color: var(--ds-color-fg-neutral-subtle); }
 .ds-sidepanel__close > .ds-icon { --ds-icon-size: 22px; }
 .ds-sidepanel__close:active { background: var(--ds-color-bg-transparent-pressed); }
 .ds-sidepanel__body { flex: 1 1 auto; overflow-y: auto; overscroll-behavior: contain; padding: 0 var(--ds-space-x6) var(--ds-space-x12); transition: box-shadow var(--ds-duration-fast) var(--ds-easing-standard); }
@@ -3859,7 +3930,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
    Figma: shape/sm / 빈 자리 bg/neutral / stroke 안쪽 1px stroke/neutral-subtle
      얹는 표시는 가장자리에서 x1_5 / indicator padding x0_5 x1_5, pill, palette/static-black-alpha-800, Static t01 Medium 흰색
    -------------------------------------------------------------------------- */
-.ds-imageframe { --ds-imageframe-ratio: 1; --ds-imageframe-radius: var(--ds-shape-sm); position: relative; overflow: hidden; aspect-ratio: var(--ds-imageframe-ratio); border-radius: var(--ds-imageframe-radius); background: var(--ds-color-bg-neutral); }
+.ds-imageframe { --ds-imageframe-ratio: 1; --ds-imageframe-radius: var(--ds-shape-sm); position: relative; overflow: hidden; aspect-ratio: var(--ds-imageframe-ratio); border-radius: var(--ds-imageframe-radius); background: var(--ds-color-bg-neutral-weak-alpha); }
 .ds-imageframe[data-ratio="4:3"] { --ds-imageframe-ratio: 4 / 3; }
 .ds-imageframe[data-ratio="16:9"] { --ds-imageframe-ratio: 16 / 9; }
 .ds-imageframe[data-radius="none"] { --ds-imageframe-radius: 0; }
@@ -3886,9 +3957,9 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 
 /* --------------------------------------------------------------------------
    67 Carousel - 가로로 넘기며 보는 묶음 (2026-10-29 추가)
-   항목은 넘길 때 시작 위치에 맞춰 멈춘다. 이미지 넘기기 배너는 Image Frame 을 항목으로 넣어 만든다.
-   번호(1/4)는 항목 안이 아니라 캐러셀 바로 안에 [<span class="ds-carousel__count" aria-hidden="true">1/4</span>] 로 둔다. 넘겨도 제자리에 있고 숫자는 ybm-ds.js 가 바꾼다.
-   ybm-ds.js 가 처음/끝에 닿으면 data-at-start / data-at-end 를 붙여 그쪽 흐림과 버튼을 감추고, 버튼을 누르면 한 화면씩 넘긴다.
+   항목은 넘길 때 시작 위치에 맞춰 멈춥니다. 넘겨 보는 이미지 배너는 Image Frame을 항목으로 넣어 만듭니다.
+   번호(1/4)는 항목 안이 아니라 캐러셀 바로 안에 [<span class="ds-carousel__count" aria-hidden="true">1/4</span>]로 배치합니다. 넘겨도 위치가 고정되고 숫자는 ybm-ds.js가 바꿉니다.
+   처음이나 끝에 닿으면 ybm-ds.js가 data-at-start / data-at-end를 붙여 그쪽 흐림과 버튼을 숨기고, 버튼을 누르면 한 화면씩 넘깁니다.
      <div class="ds-carousel" role="region" aria-roledescription="carousel" aria-label="추천">
        <div class="ds-carousel__scroller">
          <div class="ds-carousel__item">…</div>
@@ -3942,7 +4013,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 
 /* --------------------------------------------------------------------------
    68 Markdown - AI 답변 같은 서식 있는 글을 보여 주는 틀 (2026-10-29 추가)
-   변환된 HTML 을 감싸기만 하면 제목, 문단, 목록, 인용, 표, 코드의 크기와 간격이 맞춰진다. 코드 묶음은 Code Block, 출처는 Citation.
+   변환된 HTML을 감싸기만 하면 제목, 문단, 목록, 인용, 표, 코드의 크기와 간격이 맞춰집니다. 코드 묶음은 Code Block, 출처는 Citation을 사용합니다.
      <div class="ds-markdown">…변환된 HTML…</div>
    Figma: 본문 t04 / h1 t09 Bold, h2 t07 Bold (앞뒤 x6 / x3) / h3 t06, h4 t05, h5·h6 t04 SemiBold (앞뒤 x4 / x2)
      문단, 목록, 그림 x3 / 코드, 인용, 표 x4 / 구분선 x6 / 인용 왼쪽 2px stroke/neutral-weak, fg/neutral-muted
@@ -3974,7 +4045,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 .ds-markdown hr { margin: var(--ds-space-x6) 0; border: 0; border-top: 1px solid var(--ds-color-stroke-neutral-muted); }
 .ds-markdown a:not([class]) { color: var(--ds-color-fg-brand); text-decoration: underline; }
 .ds-markdown img { max-width: 100%; border-radius: var(--ds-shape-sm); }
-.ds-markdown :not(pre) > code { padding: 0 var(--ds-space-x1); border-radius: var(--ds-shape-2xs); background: var(--ds-color-bg-neutral); font-family: var(--ds-font-mono); font-size: 0.9em; }
+.ds-markdown :not(pre) > code { padding: 0 var(--ds-space-x1); border-radius: var(--ds-shape-2xs); background: var(--ds-color-bg-neutral-weak-alpha); font-family: var(--ds-font-mono); font-size: 0.9em; }
 .ds-markdown table { border-collapse: collapse; }
 .ds-markdown :is(th, td) { padding: var(--ds-space-x2); border: 1px solid var(--ds-color-stroke-neutral-weak); text-align: start; }
 .ds-markdown th { font-weight: var(--ds-font-weight-semibold); }
@@ -3982,8 +4053,8 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 
 /* --------------------------------------------------------------------------
    69 Code Block - 코드를 고정 폭 글꼴로 보여 주는 칸 (2026-10-29 추가)
-   header 에는 언어 이름과 복사 버튼. 복사 버튼(data-ds-copy)은 ybm-ds.js 가 코드를 복사하고 잠시 data-copied 를 붙인다.
-   data-wrap: 긴 줄을 가로로 넘기지 않고 줄바꿈한다(2026-10-30 추가).
+   header에는 언어 이름과 복사 버튼을 배치합니다. 복사 버튼(data-ds-copy)을 누르면 ybm-ds.js가 코드를 복사하고 잠시 data-copied를 붙입니다.
+   data-wrap: 긴 줄을 가로로 넘기지 않고 줄바꿈합니다(2026-10-30 추가).
      <figure class="ds-codeblock">
        [<figcaption class="ds-codeblock__header"><span class="ds-codeblock__language">javascript</span>
          <button type="button" class="ds-codeblock__copy" data-ds-copy aria-label="코드 복사"><i class="ds-icon ds-icon--copy ds-icon--sm" aria-hidden="true"></i></button></figcaption>]
@@ -3997,7 +4068,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
   margin: 0;
   overflow: hidden;
   border-radius: var(--ds-shape-sm);
-  background: var(--ds-color-bg-neutral);
+  background: var(--ds-color-bg-neutral-weak-alpha);
   box-shadow: inset 0 0 0 1px var(--ds-color-stroke-neutral-weak);
 }
 .ds-codeblock__header { display: flex; align-items: center; justify-content: space-between; gap: var(--ds-space-x2); padding: var(--ds-space-x2) var(--ds-space-x4); box-shadow: inset 0 -1px 0 var(--ds-color-stroke-neutral-muted); }
@@ -4067,8 +4138,8 @@ a.ds-citation[data-type="number"]:hover { background: var(--ds-color-bg-brand-we
 
 /* --------------------------------------------------------------------------
    71 Multi Select - 목록에서 여러 값을 골라 칸에 모아 보여 주는 부품 (2026-10-29 추가)
-   Popover 와 같이 data-ds-popover="id" 로 열고, 바깥 누르기와 Esc 로 닫는다.
-   ybm-ds.js 가 고른 값을 Badge 로 칸에 채우고, data-max(기본 2) 를 넘으면 +N 으로 줄인다.
+   Popover와 같이 data-ds-popover="id"로 열고, 바깥 영역이나 Esc를 누르면 닫힙니다.
+   ybm-ds.js가 선택한 값을 Badge로 필드에 표시하고, data-max(기본 2)를 넘으면 +N으로 줄입니다.
      <div class="ds-multiselect">
        <button type="button" class="ds-multiselect__trigger" data-ds-popover="ms" aria-haspopup="listbox" aria-expanded="false">
          <span class="ds-multiselect__values" data-placeholder="선택하세요" [data-max="2"]></span>
@@ -4186,3 +4257,666 @@ a.ds-citation[data-type="number"]:hover { background: var(--ds-color-bg-brand-we
 .ds-rating__option:hover .ds-rating__star { scale: 1.1; }
 .ds-rating__option:has(:focus-visible) .ds-rating__star { outline: 2px solid var(--ds-color-stroke-focus-ring); outline-offset: 2px; border-radius: var(--ds-shape-2xs); }
 .ds-rating[data-input]:is(:disabled, [aria-disabled="true"]) { opacity: .4; pointer-events: none; }
+
+
+
+/* --------------------------------------------------------------------------
+   73 Code Input - 인증번호처럼 정해진 자리 수를 한 칸에 한 글자씩 넣는 칸 (2026-11-05 추가)
+     <div class="ds-codeinput" role="group" aria-label="인증번호 6자리" [data-size="medium"] [aria-invalid="true"]>
+       <input class="ds-codeinput__cell" inputmode="numeric" autocomplete="one-time-code" aria-label="1번째 숫자"> 칸 수만큼
+     </div>
+   size: large(기본) 칸 48x56, shape/lg, t08 SemiBold / medium 칸 40x48, shape/md, t06 SemiBold / 칸 사이 x2
+   선: 1px stroke/neutral-weak, 포커스 stroke/neutral-contrast, 틀림 stroke/critical-solid, 비활성 bg/disabled
+   ybm-ds.js: 한 글자를 넣으면 다음 칸, 지우면 앞 칸으로 이동하고, 붙여 넣으면 모든 칸을 채웁니다. 다 채우면 ds-code-complete(detail.value)를 보냅니다
+   -------------------------------------------------------------------------- */
+.ds-codeinput {
+  --ds-codeinput-w: 48px;
+  --ds-codeinput-h: 56px;
+  --ds-codeinput-radius: var(--ds-shape-lg);
+  display: flex;
+  gap: var(--ds-space-x2);
+}
+.ds-field:has(> .ds-codeinput) { width: fit-content; max-width: 100%; }  /* 2026-11-11: 칸 묶음 너비에 맞춰 아래 도움말과 링크가 칸 끝선 안에 */
+.ds-codeinput[data-size="medium"] { --ds-codeinput-w: 40px; --ds-codeinput-h: 48px; --ds-codeinput-radius: var(--ds-shape-md); }
+.ds-codeinput__cell {
+  --ds-codeinput-line: var(--ds-color-stroke-neutral-weak);
+  flex: none;
+  width: var(--ds-codeinput-w);
+  height: var(--ds-codeinput-h);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--ds-codeinput-radius);
+  box-shadow: inset 0 0 0 1px var(--ds-codeinput-line);
+  background: var(--ds-color-bg-layer-default);
+  color: var(--ds-color-fg-neutral);
+  font: inherit;
+  font-size: var(--ds-font-size-t08);
+  line-height: var(--ds-line-height-t08);
+  font-weight: var(--ds-font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  caret-color: var(--ds-color-fg-brand);
+  transition: box-shadow var(--ds-duration-fast) var(--ds-easing-standard);
+}
+.ds-codeinput[data-size="medium"] .ds-codeinput__cell { font-size: var(--ds-font-size-t06); line-height: var(--ds-line-height-t06); }
+.ds-codeinput__cell:focus { outline: none; --ds-codeinput-line: var(--ds-color-stroke-neutral-contrast); }
+.ds-codeinput[aria-invalid="true"] .ds-codeinput__cell { --ds-codeinput-line: var(--ds-color-stroke-critical-solid); }
+.ds-codeinput__cell:disabled { background: var(--ds-color-bg-disabled); color: var(--ds-color-fg-disabled); cursor: not-allowed; }
+
+
+/* --------------------------------------------------------------------------
+   74 Chart - 막대, 선, 도넛으로 수치를 비교하거나 흐름을 보여 주는 그래프 (2026-11-05 추가)
+     <figure class="ds-chart" data-type="bar|line|donut">
+       [<figcaption class="ds-chart__header"><span class="ds-chart__title">주간 방문</span><span class="ds-chart__desc">지난 7일</span></figcaption>]
+       <!-- 막대: ds-chart__col 을 칸 수만큼 -->
+       <div class="ds-chart__plot"><div class="ds-chart__col"><span class="ds-chart__bar" style="--ds-chart-value: 72%" [data-series="2"]></span><span class="ds-chart__label">월</span></div> …</div>
+       <!-- 선 -->
+       <div class="ds-chart__plot"><svg class="ds-chart__svg" viewBox="0 0 100 40" preserveAspectRatio="none"><polygon class="ds-chart__area" points="…"/><polyline class="ds-chart__line" [data-series="2"] points="0,30 20,22 …"/></svg></div>
+       <div class="ds-chart__axis"><span>월</span> …</div>
+       <!-- 도넛 -->
+       <div class="ds-chart__donut" style="--ds-chart-1: 40; --ds-chart-2: 30; --ds-chart-3: 20" role="img" aria-label="…">[<span class="ds-chart__total">…</span>]</div>
+       [<ul class="ds-chart__legend"><li><span class="ds-chart__swatch" [data-series="2"]></span>신규</li></ul>]
+     </figure>
+   색: chart/series-1~5 (data-series 1~5, 기본 1) / 눈금선 stroke/neutral-muted / 막대 폭 최대 32, 위 모서리 shape/2xs
+   높이: --ds-chart-height(기본 160) / 도넛 지름 --ds-chart-size(기본 160), 두께 24, 값은 백분율 숫자(합 100 이하, 남은 몫은 bg/neutral)
+   title t05 SemiBold / desc t03 fg/neutral-muted / 축 글자 t02 fg/neutral-muted / 범례 t03, 색 표시 10
+   -------------------------------------------------------------------------- */
+.ds-chart {
+  --ds-chart-height: 160px;
+  --ds-chart-size: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-x4);
+  margin: 0;
+  min-width: 0;
+  color: var(--ds-color-fg-neutral);
+}
+:is(.ds-chart__bar, .ds-chart__line, .ds-chart__area, .ds-chart__swatch) { --ds-chart-color: var(--ds-color-chart-series-1); }
+:is(.ds-chart__bar, .ds-chart__line, .ds-chart__area, .ds-chart__swatch)[data-series="2"] { --ds-chart-color: var(--ds-color-chart-series-2); }
+:is(.ds-chart__bar, .ds-chart__line, .ds-chart__area, .ds-chart__swatch)[data-series="3"] { --ds-chart-color: var(--ds-color-chart-series-3); }
+:is(.ds-chart__bar, .ds-chart__line, .ds-chart__area, .ds-chart__swatch)[data-series="4"] { --ds-chart-color: var(--ds-color-chart-series-4); }
+:is(.ds-chart__bar, .ds-chart__line, .ds-chart__area, .ds-chart__swatch)[data-series="5"] { --ds-chart-color: var(--ds-color-chart-series-5); }
+.ds-chart__header { display: flex; flex-direction: column; gap: var(--ds-space-x1); }
+.ds-chart__title { font-size: var(--ds-font-size-t05); line-height: var(--ds-line-height-t05); font-weight: var(--ds-font-weight-semibold); }
+.ds-chart__desc { color: var(--ds-color-fg-neutral-muted); font-size: var(--ds-font-size-t03); line-height: var(--ds-line-height-t03); }
+.ds-chart__plot {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: var(--ds-space-x2);
+  height: var(--ds-chart-height);
+  border-bottom: 1px solid var(--ds-color-stroke-neutral-muted);
+  background: repeating-linear-gradient(to top, transparent 0 calc(25% - 1px), var(--ds-color-stroke-neutral-muted) calc(25% - 1px) 25%);
+}
+.ds-chart[data-type="bar"] .ds-chart__plot { margin-bottom: calc(var(--ds-line-height-t02) + var(--ds-space-x2)); }
+.ds-chart__col { position: relative; flex: 1 1 0; display: flex; justify-content: center; align-items: flex-end; height: 100%; min-width: 0; }
+.ds-chart__bar {
+  display: block;
+  width: min(100%, 32px);
+  height: var(--ds-chart-value, 0%);
+  border-radius: var(--ds-shape-2xs) var(--ds-shape-2xs) 0 0;
+  background: var(--ds-chart-color);
+  transition: height var(--ds-duration-normal) var(--ds-easing-standard);
+}
+.ds-chart__label {
+  position: absolute;
+  top: calc(100% + var(--ds-space-x2));
+  left: 50%;
+  translate: -50% 0;
+  color: var(--ds-color-fg-neutral-muted);
+  font-size: var(--ds-font-size-t02);
+  line-height: var(--ds-line-height-t02);
+  white-space: nowrap;
+}
+.ds-chart__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.ds-chart__line {
+  fill: none;
+  stroke: var(--ds-chart-color);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.ds-chart__area { fill: var(--ds-chart-color); fill-opacity: .12; stroke: none; }
+.ds-chart__axis { display: flex; justify-content: space-between; color: var(--ds-color-fg-neutral-muted); font-size: var(--ds-font-size-t02); line-height: var(--ds-line-height-t02); }
+.ds-chart__donut {
+  --ds-chart-1: 0; --ds-chart-2: 0; --ds-chart-3: 0; --ds-chart-4: 0; --ds-chart-5: 0;
+  position: relative;
+  display: grid;
+  place-items: center;
+  align-self: center;
+  width: var(--ds-chart-size);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--ds-color-chart-series-1) 0 calc(var(--ds-chart-1) * 1%),
+    var(--ds-color-chart-series-2) 0 calc((var(--ds-chart-1) + var(--ds-chart-2)) * 1%),
+    var(--ds-color-chart-series-3) 0 calc((var(--ds-chart-1) + var(--ds-chart-2) + var(--ds-chart-3)) * 1%),
+    var(--ds-color-chart-series-4) 0 calc((var(--ds-chart-1) + var(--ds-chart-2) + var(--ds-chart-3) + var(--ds-chart-4)) * 1%),
+    var(--ds-color-chart-series-5) 0 calc((var(--ds-chart-1) + var(--ds-chart-2) + var(--ds-chart-3) + var(--ds-chart-4) + var(--ds-chart-5)) * 1%),
+    var(--ds-color-bg-neutral-weak-alpha) 0);
+}
+.ds-chart__donut::before { content: ""; position: absolute; inset: 24px; border-radius: 50%; background: var(--ds-color-bg-layer-default); }
+.ds-chart__total { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; font-size: var(--ds-font-size-t07); line-height: var(--ds-line-height-t07); font-weight: var(--ds-font-weight-bold); }
+.ds-chart__total small { color: var(--ds-color-fg-neutral-muted); font-size: var(--ds-font-size-t02); line-height: var(--ds-line-height-t02); font-weight: var(--ds-font-weight-regular); }
+.ds-chart__legend { display: flex; flex-wrap: wrap; gap: var(--ds-space-x2) var(--ds-space-x4); margin: 0; padding: 0; list-style: none; color: var(--ds-color-fg-neutral-muted); font-size: var(--ds-font-size-t03); line-height: var(--ds-line-height-t03); }
+.ds-chart__legend li { display: inline-flex; align-items: center; gap: var(--ds-space-x1_5); }
+.ds-chart__swatch { flex: none; width: 10px; height: 10px; border-radius: var(--ds-shape-2xs); background: var(--ds-chart-color); }
+
+
+/* --------------------------------------------------------------------------
+   75 Description List - 주문 정보, 계정 정보처럼 항목 이름과 값을 짝지어 보여 주는 목록 (2026-11-05 추가)
+     <dl class="ds-desclist" [data-layout="top"] [data-columns="2|3"] [data-align="end"] [data-divider]>
+       <div class="ds-desclist__item"><dt class="ds-desclist__label">주문 번호</dt><dd class="ds-desclist__value">20261105-0012</dd></div>
+     </dl>
+   layout: start(기본, 이름 왼쪽 + 값 오른쪽) / top(이름 위 + 값 아래, 값이 길 때)
+   이름 t04 Medium fg/neutral-muted, 폭 --ds-desclist-label-width(기본 96) / 값 t04 fg/neutral
+   줄 사이 x2 / data-divider 면 줄마다 위아래 x3 + 사이 선 stroke/neutral-muted / 이름과 값 사이 x4 / 여러 칸 사이 x6(폭 480 아래는 한 칸)
+   data-align="end": 값을 오른쪽 끝에 정렬합니다(금액, 결제 정보)
+   -------------------------------------------------------------------------- */
+.ds-desclist {
+  --ds-desclist-label-width: 96px;
+  display: grid;
+  gap: var(--ds-space-x2) var(--ds-space-x6);
+  margin: 0;
+  min-width: 0;
+  font-size: var(--ds-font-size-t04);
+  line-height: var(--ds-line-height-t04);
+}
+.ds-desclist[data-columns="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ds-desclist[data-columns="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.ds-desclist__item { display: flex; gap: var(--ds-space-x4); min-width: 0; }
+.ds-desclist__label { flex: none; width: var(--ds-desclist-label-width); color: var(--ds-color-fg-neutral-muted); font-weight: var(--ds-font-weight-medium); }
+.ds-desclist__value { flex: 1 1 auto; min-width: 0; margin: 0; color: var(--ds-color-fg-neutral); overflow-wrap: anywhere; }
+.ds-desclist[data-layout="top"] .ds-desclist__item { flex-direction: column; gap: var(--ds-space-x1); }
+.ds-desclist[data-layout="top"] .ds-desclist__label { width: auto; }
+.ds-desclist[data-align="end"] .ds-desclist__value { text-align: end; }
+.ds-desclist[data-divider] { row-gap: 0; }
+.ds-desclist[data-divider] .ds-desclist__item { padding-block: var(--ds-space-x3); border-top: 1px solid var(--ds-color-stroke-neutral-muted); }
+.ds-desclist[data-divider]:not([data-columns]) .ds-desclist__item:first-child,
+.ds-desclist[data-divider][data-columns="2"] .ds-desclist__item:nth-child(-n+2),
+.ds-desclist[data-divider][data-columns="3"] .ds-desclist__item:nth-child(-n+3) { border-top: 0; }
+@media (max-width: 479px) {
+  .ds-desclist[data-columns] { grid-template-columns: minmax(0, 1fr); }
+  .ds-desclist[data-divider][data-columns] .ds-desclist__item:nth-child(n+2) { border-top: 1px solid var(--ds-color-stroke-neutral-muted); }
+}
+
+
+/* --------------------------------------------------------------------------
+   76 Toolbar - 표, 카드, 패널 위에서 그 내용에 쓰는 동작을 한 줄로 모은 막대 (2026-11-05 추가)
+     <div class="ds-toolbar" role="toolbar" aria-label="주문 목록 도구" [data-size="small"] [data-variant="muted"] [data-divider]>
+       <div class="ds-toolbar__start">[<span class="ds-toolbar__title">주문 목록</span>] [<span class="ds-toolbar__count">3개 선택</span>] 버튼, 탭, 찾기 칸</div>
+       [<div class="ds-toolbar__center">…</div>]
+       <div class="ds-toolbar__end">… [<span class="ds-toolbar__separator" role="separator"></span>] … [<button type="button" class="ds-toolbar__clear" aria-label="선택 해제"><i class="ds-icon ds-icon--x" aria-hidden="true"></i></button>]</div>
+     </div>
+   size: medium(기본) 높이 56, 좌우 x4, 사이 x2 / small 높이 48, 좌우 x3 / 안의 버튼은 small을 사용합니다
+   variant: plain(기본, 바탕 없음) / muted(여러 줄을 고른 뒤 잠깐 나오는 막대, bg/neutral-weak-alpha + shape/lg)
+     muted 막대 안 버튼은 ghost(마우스를 올릴 때만 바탕)를 사용합니다. 회색 막대 위에 회색 버튼을 겹치지 않습니다 (2026-11-11)
+   data-divider: 아래 선 stroke/neutral-muted로 내용과 구분합니다 / 묶음 사이 세로선 stroke/neutral-muted 높이 20
+   data-position="floating": 화면 아래 가운데에 떠 있는 막대로 표시합니다, bg/layer-floating + elevation/overlay, [hidden]이면 숨깁니다
+   __clear: 끝에 두는 선택 해제 버튼입니다, 누르면 고른 항목을 모두 풀고 막대를 숨깁니다
+   data-ds-selection="막대 id": 표(또는 목록)에 붙이면 tbody 체크박스를 세어 막대를 표시하거나 숨깁니다, 헤더 체크박스는 전체 선택, 개수 문구는 막대의 data-count-format="{n}개 선택"으로 바꿉니다
+   동작 버튼이 한 줄에 다 들어가지 않으면 겹치지 않고 다음 줄로 넘어갑니다
+   title t05 SemiBold / count(고른 개수) t04 Medium
+   ybm-ds.js: 막대 안에서 좌우 화살표 키로 버튼 사이를 이동합니다
+   -------------------------------------------------------------------------- */
+.ds-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-x2);
+  min-height: 56px;
+  padding-inline: var(--ds-space-x4);
+  color: var(--ds-color-fg-neutral);
+}
+.ds-toolbar[data-size="small"] { min-height: 48px; padding-inline: var(--ds-space-x3); }
+.ds-toolbar[data-variant="muted"] { border-radius: var(--ds-shape-lg); background: var(--ds-color-bg-neutral-weak-alpha); }
+.ds-toolbar[data-divider] { border-bottom: 1px solid var(--ds-color-stroke-neutral-muted); }
+.ds-toolbar[hidden] { display: none; }
+.ds-toolbar[data-position="floating"] {
+  position: fixed;
+  left: 50%;
+  bottom: var(--ds-space-x6);
+  z-index: var(--ds-z-overlay);
+  max-width: calc(100% - var(--ds-space-x8));
+  translate: -50% 0;
+  width: max-content;
+  min-height: var(--ds-space-x12);
+  padding: var(--ds-space-x1_5) var(--ds-space-x2) var(--ds-space-x1_5) var(--ds-space-x4);
+  border-radius: var(--ds-shape-md);
+  background: var(--ds-color-bg-layer-floating);
+  box-shadow: var(--ds-elevation-overlay);
+  animation: ds-fade-in var(--ds-duration-normal) var(--ds-easing-standard);
+}
+.ds-toolbar__start, .ds-toolbar__center, .ds-toolbar__end { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-x2); min-width: 0; }
+.ds-toolbar__start { flex: 1 1 auto; }
+.ds-toolbar__center { flex: none; justify-content: center; }
+.ds-toolbar__end { flex: 0 1 auto; margin-inline-start: auto; justify-content: flex-end; }
+.ds-toolbar__start:has(+ .ds-toolbar__center), .ds-toolbar__center + .ds-toolbar__end { flex: 1 1 0; }
+.ds-toolbar__title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--ds-font-size-t05); line-height: var(--ds-line-height-t05); font-weight: var(--ds-font-weight-semibold); }
+.ds-toolbar__count { white-space: nowrap; font-size: var(--ds-font-size-t04); line-height: var(--ds-line-height-t04); font-weight: var(--ds-font-weight-medium); font-variant-numeric: tabular-nums; }
+.ds-toolbar__separator { flex: none; width: 1px; height: 20px; margin-inline: var(--ds-space-x1); background: var(--ds-color-stroke-neutral-muted); }
+.ds-toolbar__clear { flex: none; display: inline-grid; place-items: center; width: var(--ds-space-x8); height: var(--ds-space-x8); padding: 0; border: 0; border-radius: var(--ds-shape-sm); background: none; color: var(--ds-color-fg-neutral-muted); cursor: pointer; }
+.ds-toolbar__clear:hover { background: var(--ds-color-bg-neutral-weak-alpha); }
+.ds-toolbar__clear:focus-visible { outline: 2px solid var(--ds-color-stroke-focus-ring); outline-offset: 0; }
+
+
+/* --------------------------------------------------------------------------
+   77 Tree - 폴더, 분류처럼 위아래 관계가 있는 항목을 접고 펼쳐 보여 주는 목록 (2026-11-05 추가)
+     <ul class="ds-tree" role="tree" aria-label="폴더" [data-size="small"] [data-guides="none"]>
+       <li class="ds-tree__node" role="treeitem" aria-expanded="true" [aria-selected="true"] tabindex="0">
+         <div class="ds-tree__row">
+           <span class="ds-tree__toggle" aria-hidden="true"></span>
+           [<i class="ds-icon ds-icon--folder ds-tree__icon" aria-hidden="true"></i>]
+           <span class="ds-tree__label">문서</span>
+           [<span class="ds-tree__suffix">12</span>]
+         </div>
+         <ul class="ds-tree__group" role="group"> 아래 단계 ds-tree__node 들 </ul>
+       </li>
+       <li class="ds-tree__node" role="treeitem" tabindex="-1"><a class="ds-tree__row" href="#" [aria-current="page"]>…</a></li>
+     </ul>
+   size: medium(기본) 줄 40, t04 / small 줄 32, t03 / 줄 좌우 x2, 모서리 shape/sm, 아이콘 18
+   한 단계 들여쓰기 20(펼침 표시 자리 20, 펼칠 항목이 없는 줄도 자리를 확보) / 이음선 stroke/neutral-muted, data-guides="none" 이면 들여쓰기만
+   선택 aria-selected 또는 aria-current = bg/neutral-weak-alpha + fg/neutral + Medium (Side Navigation과 같음)
+   ybm-ds.js: 줄을 누르면 펼치거나 접고 그 항목을 선택합니다(change, detail.value). 위아래 화살표로 이동, 오른쪽 화살표로 펼침, 왼쪽 화살표로 접기
+   -------------------------------------------------------------------------- */
+.ds-tree, .ds-tree__group { margin: 0; padding: 0; list-style: none; }
+.ds-tree {
+  --ds-tree-row: 40px;
+  --ds-tree-indent: 20px;
+  display: flex;
+  flex-direction: column;
+  font-size: var(--ds-font-size-t04);
+  line-height: var(--ds-line-height-t04);
+}
+.ds-tree[data-size="small"] { --ds-tree-row: 32px; font-size: var(--ds-font-size-t03); line-height: var(--ds-line-height-t03); }
+.ds-tree__node { display: flex; flex-direction: column; outline: none; }
+.ds-tree__group { position: relative; padding-inline-start: var(--ds-tree-indent); }
+.ds-tree__group::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: var(--ds-space-x1);
+  left: calc(var(--ds-space-x1) + var(--ds-tree-indent) / 2);
+  width: 1px;
+  background: var(--ds-color-stroke-neutral-muted);
+}
+.ds-tree[data-guides="none"] .ds-tree__group::before { content: none; }
+.ds-tree__node[aria-expanded="false"] > .ds-tree__group { display: none; }
+.ds-tree__row {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-x1_5);
+  min-height: var(--ds-tree-row);
+  padding-inline: var(--ds-space-x1) var(--ds-space-x2);
+  border-radius: var(--ds-shape-sm);
+  color: var(--ds-color-fg-neutral-muted);
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+}
+@media (hover: hover) { .ds-tree__row:hover { background: var(--ds-color-bg-transparent-pressed); } }
+.ds-tree__node:focus-visible > .ds-tree__row, .ds-tree__row:focus-visible { outline: 2px solid var(--ds-color-stroke-focus-ring); outline-offset: -2px; }
+.ds-tree__node[aria-selected="true"] > .ds-tree__row, .ds-tree__row[aria-current="page"] { background: var(--ds-color-bg-neutral-weak-alpha); color: var(--ds-color-fg-neutral); font-weight: var(--ds-font-weight-medium); }
+.ds-tree__toggle { flex: none; width: var(--ds-tree-indent); height: var(--ds-tree-indent); }
+.ds-tree__node[aria-expanded] > .ds-tree__row > .ds-tree__toggle::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--ds-color-fg-neutral-subtle);
+  -webkit-mask: var(--ds-icon-chevron-right) center / 16px no-repeat;
+          mask: var(--ds-icon-chevron-right) center / 16px no-repeat;
+  transition: rotate var(--ds-duration-fast) var(--ds-easing-standard);
+}
+.ds-tree__node[aria-expanded="true"] > .ds-tree__row > .ds-tree__toggle::before { rotate: 90deg; }
+.ds-tree__icon { --ds-icon-size: 18px; flex: none; color: var(--ds-color-fg-neutral-subtle); }
+.ds-tree__label { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ds-tree__suffix { flex: none; color: var(--ds-color-fg-neutral-subtle); font-size: var(--ds-font-size-t03); line-height: var(--ds-line-height-t03); font-weight: var(--ds-font-weight-regular); }
+.ds-tree__node[aria-disabled="true"] > .ds-tree__row { color: var(--ds-color-fg-disabled); pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .ds-tree__toggle::before { transition: none; } }
+
+
+/* --------------------------------------------------------------------------
+   78 Wheel Picker - 돌려서 값 하나를 고르는 휠, 날짜나 키처럼 이어진 값에 쓴다 (2026-11-05 추가)
+     <div class="ds-wheelpicker" role="group" aria-label="생년월일" [aria-disabled="true"]>
+       <div class="ds-wheelpicker__column" role="listbox" aria-label="연" tabindex="0">
+         <div class="ds-wheelpicker__option" role="option" [data-value="1990"]>1990년</div>
+         <div class="ds-wheelpicker__option" role="option" aria-selected="true">1991년</div> …
+       </div>
+       열 수만큼
+     </div>
+   모양과 동작은 Time Picker와 같고 규칙도 같습니다(50 Time Picker). 시간을 선택할 때는 Time Picker를 사용합니다
+   ybm-ds.js가 가운데에 온 항목에 aria-selected를 붙이고, 멈추면 열에서 change(detail.value)를 보냅니다
+   Figma: 폭 채움 / 높이 220 = 항목 5줄 x x11 / 좌우 x4 / 열 간격 x2 / 가운데 띠 bg/neutral-weak-alpha shape/md
+   -------------------------------------------------------------------------- */
+.ds-wheelpicker { --ds-tp-item: var(--ds-space-x11); }
+
+
+/* --------------------------------------------------------------------------
+   79 Search Field - 찾는 영역을 알리는 찾기 칸, 지우기와 취소를 함께 둔다 (2026-11-05 추가)
+     <form class="ds-searchfield" role="search" [data-variant="fill"] action="…">
+       <div class="ds-input" data-variant="outline" data-size="medium">
+         <i class="ds-icon ds-icon--search ds-input__icon" aria-hidden="true"></i>
+         <input class="ds-input__control" type="search" name="q" placeholder="찾을 낱말" aria-label="찾기">
+         <button type="button" class="ds-input__clear" aria-label="지우기"></button>
+       </div>
+       [<button type="button" class="ds-searchfield__cancel">취소</button>]
+     </form>
+   입력 필드는 Text Field(outline large / medium)와 같습니다 / variant fill: 선 없이 bg/neutral, 모서리 shape/pill(앱 머리, 목록 위)
+   cancel t05 Medium fg/neutral, 입력 필드와 사이 x3 / Enter로 form을 제출합니다(추천어 목록은 Search Suggestion)
+   -------------------------------------------------------------------------- */
+.ds-searchfield { display: flex; align-items: center; gap: var(--ds-space-x3); margin: 0; min-width: 0; }
+.ds-searchfield > .ds-input { flex: 1 1 auto; min-width: 0; }
+.ds-searchfield .ds-input__control::-webkit-search-decoration,
+.ds-searchfield .ds-input__control::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }
+.ds-searchfield[data-variant="fill"] > .ds-input { --ds-input-bg: var(--ds-color-bg-neutral-weak-alpha); --ds-input-line: transparent; --ds-input-radius: var(--ds-shape-pill); }
+.ds-searchfield__cancel {
+  flex: none;
+  padding: var(--ds-space-x2) 0;
+  border: 0;
+  background: none;
+  color: var(--ds-color-fg-neutral);
+  font: inherit;
+  font-size: var(--ds-font-size-t05);
+  line-height: var(--ds-line-height-t05);
+  font-weight: var(--ds-font-weight-medium);
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   80 Date Field - 날짜를 숫자로 바로 넣는 칸, 달력 버튼으로 Date Picker 를 함께 연다 (2026-11-10 추가)
+     <div class="ds-input ds-datefield" data-variant="outline" data-size="medium">
+       <input class="ds-input__control ds-datefield__control" type="text" inputmode="numeric" maxlength="10" placeholder="YYYY.MM.DD" aria-label="생년월일" autocomplete="bday">
+       [<button type="button" class="ds-datefield__picker" aria-label="달력에서 고르기" data-ds-popover="…"><i class="ds-icon ds-icon--calendar" aria-hidden="true"></i></button>]
+     </div>
+   입력 필드는 Text Field와 같습니다(size, aria-invalid, disabled) / 숫자만 입력하면 스크립트가 점을 넣습니다(20010412 → 2001.04.12)
+   생년월일처럼 먼 날짜는 Date Field, 가까운 날짜를 달력에서 선택할 때는 Date Picker를 사용합니다
+   -------------------------------------------------------------------------- */
+.ds-datefield { --ds-datefield-picker-size: var(--ds-space-x8); }
+.ds-datefield__control { font-variant-numeric: tabular-nums; }
+.ds-datefield__picker {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: var(--ds-datefield-picker-size);
+  height: var(--ds-datefield-picker-size);
+  margin-inline-end: calc(var(--ds-space-x1_5) * -1);
+  padding: 0;
+  border: 0;
+  border-radius: var(--ds-shape-sm);
+  background: none;
+  color: var(--ds-color-fg-neutral-subtle);
+  cursor: pointer;
+}
+.ds-datefield__picker:hover { background: var(--ds-color-bg-neutral-weak-alpha); }
+.ds-datefield__picker:focus-visible { outline: 2px solid var(--ds-color-stroke-focus-ring); outline-offset: 0; }
+.ds-datefield__control:disabled ~ .ds-datefield__picker { pointer-events: none; opacity: .4; }
+
+
+/* --------------------------------------------------------------------------
+   81 Lightbox - 사진을 화면 가득 크게 보고 옆 사진으로 넘긴다 (2026-11-10 추가)
+     <dialog class="ds-lightbox" id="lb" aria-label="사진 크게 보기">
+       <div class="ds-lightbox__bar"><span class="ds-lightbox__count">1 / 3</span>
+         <button type="button" class="ds-lightbox__close" data-ds-close aria-label="닫기"><i class="ds-icon ds-icon--x" aria-hidden="true"></i></button></div>
+       <figure class="ds-lightbox__slide" aria-current="true"><img class="ds-lightbox__img" src="…" alt="…">[<figcaption class="ds-lightbox__caption">…</figcaption>]</figure>
+       <figure class="ds-lightbox__slide">…</figure>
+       <button type="button" class="ds-lightbox__nav" data-direction="previous" aria-label="이전 사진"><i class="ds-icon ds-icon--chevron-left" aria-hidden="true"></i></button>
+       <button type="button" class="ds-lightbox__nav" data-direction="next" aria-label="다음 사진"><i class="ds-icon ds-icon--chevron-right" aria-hidden="true"></i></button>
+     </dialog>
+   여는 버튼: data-ds-open="lb" [data-ds-index="2"](몇 번째 사진부터) / 버튼이나 좌우 화살표 키로 넘기고, Esc나 빈 곳을 누르면 닫힙니다
+   바탕은 항상 어둡습니다(사진이 잘 보이도록 라이트와 다크 모드가 같습니다)
+   -------------------------------------------------------------------------- */
+.ds-lightbox {
+  --ds-lightbox-bg: var(--ds-color-palette-static-black-alpha-900);
+  --ds-lightbox-fg: var(--ds-color-palette-static-white);
+  --ds-lightbox-button-bg: var(--ds-color-palette-static-white-alpha-200);
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--ds-lightbox-bg);
+  color: var(--ds-lightbox-fg);
+}
+dialog.ds-lightbox:not([open]) { display: none; }
+.ds-lightbox::backdrop { background: transparent; }
+.ds-lightbox[open] { animation: ds-fade-in var(--ds-duration-normal) var(--ds-easing-standard); }
+.ds-lightbox__bar { display: flex; align-items: center; justify-content: space-between; gap: var(--ds-space-x3); padding: var(--ds-space-x3) var(--ds-space-x4); font-size: var(--ds-font-size-t04); line-height: var(--ds-line-height-t04); font-variant-numeric: tabular-nums; }
+.ds-lightbox__slide { display: none; min-height: 0; margin: 0; padding: 0 var(--ds-space-x4) var(--ds-space-x6); }
+.ds-lightbox__slide[aria-current="true"] { display: grid; grid-template-rows: minmax(0, 1fr) auto; justify-items: center; gap: var(--ds-space-x3); }
+.ds-lightbox__img { display: block; max-width: 100%; max-height: 100%; min-height: 0; align-self: center; object-fit: contain; border-radius: var(--ds-shape-sm); }
+.ds-lightbox__caption { max-width: 640px; text-align: center; opacity: .8; font-size: var(--ds-font-size-t04); line-height: var(--ds-line-height-t04); }
+.ds-lightbox__close, .ds-lightbox__nav {
+  display: inline-grid;
+  place-items: center;
+  width: var(--ds-space-x10);
+  height: var(--ds-space-x10);
+  padding: 0;
+  border: 0;
+  border-radius: var(--ds-shape-pill);
+  background: var(--ds-lightbox-button-bg);
+  color: inherit;
+  cursor: pointer;
+}
+.ds-lightbox__nav { position: absolute; top: 50%; translate: 0 -50%; }
+.ds-lightbox__nav[data-direction="previous"] { left: var(--ds-space-x4); }
+.ds-lightbox__nav[data-direction="next"] { right: var(--ds-space-x4); }
+.ds-lightbox__nav:disabled { opacity: .3; cursor: default; }
+.ds-lightbox :is(.ds-lightbox__close, .ds-lightbox__nav):focus-visible { outline: 2px solid var(--ds-lightbox-fg); outline-offset: 2px; }
+@media (min-width: 768px) { .ds-lightbox__slide { padding: 0 var(--ds-space-x16) var(--ds-space-x8); } }
+
+
+/* --------------------------------------------------------------------------
+   83 Mega Menu - 위 메뉴 아래로 펼쳐 하위 메뉴 묶음을 한 번에 보여 준다 (2026-11-10 추가)
+     <div class="ds-topnav" style="position: relative">  …
+       <button type="button" class="ds-topnav__item" aria-expanded="false" aria-controls="mm-1" data-ds-megamenu="mm-1">강의</button>
+       <div class="ds-megamenu" id="mm-1" hidden>
+         <div class="ds-megamenu__inner">
+           <section class="ds-megamenu__group" aria-labelledby="mm-1-a"><p class="ds-megamenu__title" id="mm-1-a">영어</p>
+             <ul class="ds-megamenu__list"><li><a class="ds-megamenu__link" href="#">토익</a></li> …</ul></section>
+           [<aside class="ds-megamenu__aside">추천 카드 한 개</aside>]
+         </div>
+       </div>
+     </div>
+   패널은 위 메뉴 바로 아래에 화면 전체 폭으로 펼쳐지고, 안쪽 폭은 --ds-megamenu-width / 묶음은 4개까지
+   트리거를 누르면 열리고 닫힙니다. Esc, 바깥 영역, 다른 트리거를 누르면 닫힙니다 / 768 미만에서는 표시하지 않습니다(Menu Sheet 사용)
+   -------------------------------------------------------------------------- */
+.ds-megamenu {
+  --ds-megamenu-width: 1200px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: var(--ds-z-overlay);
+  display: none;
+  background: var(--ds-color-bg-layer-floating);
+  box-shadow: inset 0 1px 0 var(--ds-color-stroke-neutral-muted), var(--ds-elevation-overlay);
+}
+@media (min-width: 768px) { .ds-megamenu:not([hidden]) { display: block; animation: ds-fade-in var(--ds-duration-fast) var(--ds-easing-standard); } }
+.ds-megamenu__inner { box-sizing: border-box; display: flex; gap: var(--ds-space-x8); width: min(100%, var(--ds-megamenu-width)); margin-inline: auto; padding: var(--ds-space-x6) var(--ds-space-x6) var(--ds-space-x8); }
+.ds-megamenu__group { flex: 1 1 0; min-width: 0; }
+.ds-megamenu__title { margin: 0 0 var(--ds-space-x2); color: var(--ds-color-fg-neutral-subtle); font-size: var(--ds-font-size-t03); line-height: var(--ds-line-height-t03); font-weight: var(--ds-font-weight-medium); }
+.ds-megamenu__list { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+.ds-megamenu__link { display: block; margin-inline: calc(var(--ds-space-x2) * -1); padding: var(--ds-space-x2); border-radius: var(--ds-shape-sm); color: var(--ds-color-fg-neutral); text-decoration: none; font-size: var(--ds-font-size-t05); line-height: var(--ds-line-height-t05); }
+.ds-megamenu__link:hover { background: var(--ds-color-bg-neutral-weak-alpha); }
+.ds-megamenu__link[aria-current="page"] { font-weight: var(--ds-font-weight-semibold); }
+.ds-megamenu__link:focus-visible { outline: 2px solid var(--ds-color-stroke-focus-ring); outline-offset: -2px; }
+.ds-megamenu__aside { flex: 1.2 1 0; min-width: 0; padding: var(--ds-space-x5); border-radius: var(--ds-shape-md); background: var(--ds-color-bg-neutral-weak-alpha); }
+
+
+/* --------------------------------------------------------------------------
+   84 Command Palette - 낱말로 화면 이동과 동작을 찾아 바로 실행하는 창 (2026-11-10 추가)
+     <dialog class="ds-command" id="cmd" aria-label="명령 찾기" [data-ds-hotkey="k"]>
+       <div class="ds-command__search"><i class="ds-icon ds-icon--search" aria-hidden="true"></i>
+         <input class="ds-command__input" type="text" role="combobox" aria-expanded="true" aria-controls="cmd-list" aria-autocomplete="list" placeholder="찾을 낱말" aria-label="명령 찾기"></div>
+       <div class="ds-command__list" id="cmd-list" role="listbox" aria-label="명령">
+         <div class="ds-command__group" role="group" aria-labelledby="cmd-g1"><p class="ds-command__title" id="cmd-g1">이동</p>
+           <div class="ds-command__item" role="option" id="cmd-1" aria-selected="true"><i class="ds-icon ds-icon--house" aria-hidden="true"></i><span class="ds-command__label">홈</span>[<kbd class="ds-command__kbd">H</kbd>]</div>
+         </div>
+         <p class="ds-command__empty" hidden>찾는 명령이 없어요</p>
+       </div>
+     </dialog>
+   여는 법: data-ds-open="cmd", 또는 dialog에 data-ds-hotkey="k"를 붙이면 Ctrl(Mac은 Command) + K로 열립니다
+   검색어를 입력하면 이름으로 필터링하고, 위아래 화살표로 선택한 뒤 Enter로 실행합니다(그 항목의 click) / 화면 위에서 15% 위치, 폭 --ds-command-width
+   -------------------------------------------------------------------------- */
+.ds-command {
+  --ds-command-width: 560px;
+  flex-direction: column;
+  width: min(calc(100% - var(--ds-space-x8)), var(--ds-command-width));
+  max-width: none;
+  max-height: min(480px, 70vh);
+  margin: 15vh auto auto;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--ds-shape-lg);
+  background: var(--ds-color-bg-layer-floating);
+  color: var(--ds-color-fg-neutral);
+  box-shadow: var(--ds-elevation-overlay);
+  display: flex;
+}
+dialog.ds-command:not([open]) { display: none; }
+.ds-command::backdrop { background: var(--ds-color-bg-overlay); animation: ds-fade-in var(--ds-duration-normal) var(--ds-easing-standard); }
+.ds-command__search { flex: none; display: flex; align-items: center; gap: var(--ds-space-x2); height: var(--ds-space-x14); padding: 0 var(--ds-space-x4); box-shadow: inset 0 -1px 0 var(--ds-color-stroke-neutral-muted); color: var(--ds-color-fg-neutral-subtle); }
+.ds-command__input { flex: 1 1 auto; min-width: 0; height: 100%; padding: 0; border: 0; outline: 0; background: none; color: var(--ds-color-fg-neutral); font: inherit; font-size: var(--ds-font-size-t05); line-height: var(--ds-line-height-t05); }
+.ds-command__input::placeholder { color: var(--ds-color-fg-neutral-subtle); }
+.ds-command__list { flex: 1 1 auto; min-height: 0; overflow: auto; padding: var(--ds-space-x2); }
+.ds-command__group[hidden], .ds-command__item[hidden] { display: none; }
+.ds-command__group + .ds-command__group { margin-top: var(--ds-space-x2); }
+.ds-command__title { margin: 0; padding: var(--ds-space-x2) var(--ds-space-x2) var(--ds-space-x1); color: var(--ds-color-fg-neutral-subtle); font-size: var(--ds-font-size-t03); line-height: var(--ds-line-height-t03); font-weight: var(--ds-font-weight-medium); }
+.ds-command__item { display: flex; align-items: center; gap: var(--ds-space-x3); min-height: var(--ds-space-x10); padding: 0 var(--ds-space-x2); border-radius: var(--ds-shape-sm); color: var(--ds-color-fg-neutral); font-size: var(--ds-font-size-t04); line-height: var(--ds-line-height-t04); cursor: pointer; }
+.ds-command__item[aria-selected="true"] { background: var(--ds-color-bg-neutral-weak-alpha); }
+.ds-command__item > .ds-icon { flex: none; --ds-icon-size: 16px; color: var(--ds-color-fg-neutral-muted); }
+.ds-command__label { flex: 1 1 auto; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.ds-command__kbd { flex: none; display: inline-flex; align-items: center; justify-content: center; min-width: var(--ds-space-x5); min-height: var(--ds-space-x5); padding: 0 var(--ds-space-x1_5); border-radius: var(--ds-shape-2xs); background: var(--ds-color-bg-layer-default); box-shadow: inset 0 0 0 1px var(--ds-color-stroke-neutral-weak); color: var(--ds-color-fg-neutral-muted); font-family: inherit; font-size: var(--ds-font-size-t01); line-height: var(--ds-line-height-t01); }
+.ds-command__empty { margin: 0; padding: var(--ds-space-x8) var(--ds-space-x4); text-align: center; color: var(--ds-color-fg-neutral-muted); font-size: var(--ds-font-size-t04); line-height: var(--ds-line-height-t04); }
+
+
+/* --------------------------------------------------------------------------
+   85 Segmented Text Input - 주민등록번호, 카드번호처럼 일부를 가려야 하는 값을 구간마다 나눠 받는 입력 필드 (2026-11-10 추가)
+     <div class="ds-input ds-segmentinput" data-variant="outline" data-size="large" role="group" aria-labelledby="라벨 id">
+       <input class="ds-segmentinput__segment" inputmode="numeric" maxlength="6" aria-label="앞 6자리">
+       <span class="ds-segmentinput__separator" aria-hidden="true">-</span>
+       <input class="ds-segmentinput__segment" inputmode="numeric" maxlength="1" aria-label="뒤 첫 자리" [data-masked]>
+       [<span class="ds-segmentinput__dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>]
+       [<span class="ds-segmentinput__suffix"><img src="…" alt="카드사 이름"></span>]
+     </div>
+   size: large(기본) 높이 52, shape/lg, t05 / medium(PC 전용) 높이 40, shape/sm, t04
+   입력 필드는 Text Field outline과 같습니다(aria-invalid, disabled, readonly) / 구간 너비는 maxlength 자리 수만큼, 구간과 구분자 사이 x1_5
+   data-masked: 입력한 글자를 점으로 표시합니다 / dots: 받지 않는 자리를 지름 7 점으로 표시합니다, 점 사이 x1
+   suffix 30x20, shape/2xs, bg/neutral-weak-alpha(카드사 로고 자리), 아이콘을 넣으면 28x28 정사각형(아이콘 16) / 라벨, 도움말, 오류는 Field Label(.ds-field)로 감쌉니다
+   형식만 정해진 값(전화번호, 이메일, 유효기간)은 Text Field, 인증번호를 한 칸에 한 글자씩 받을 때는 Code Input을 사용합니다
+   ybm-ds.js: 자리 수를 채우면 다음 구간으로 이동하고, 빈 구간에서 Backspace는 앞 구간의 마지막 글자를 지웁니다
+   -------------------------------------------------------------------------- */
+.ds-segmentinput {
+  --ds-segmentinput-gap: var(--ds-space-x1_5);
+  --ds-segmentinput-dot: 7px;
+  --ds-segmentinput-dot-gap: var(--ds-space-x1);
+  --ds-segmentinput-suffix-width: 30px;
+  --ds-segmentinput-suffix-height: 20px;
+  gap: var(--ds-segmentinput-gap);
+}
+.ds-segmentinput__segment {
+  --ds-segmentinput-chars: 4;
+  flex: none;
+  box-sizing: content-box;
+  width: calc(var(--ds-segmentinput-chars) * 1ch + 1px);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ds-input-color);
+  font: inherit;
+  font-size: var(--ds-input-font-size);
+  line-height: var(--ds-input-line-height);
+  font-variant-numeric: tabular-nums;
+  caret-color: var(--ds-color-fg-brand);
+}
+.ds-segmentinput__segment[maxlength="1"] { --ds-segmentinput-chars: 1; }
+.ds-segmentinput__segment[maxlength="2"] { --ds-segmentinput-chars: 2; }
+.ds-segmentinput__segment[maxlength="3"] { --ds-segmentinput-chars: 3; }
+.ds-segmentinput__segment[maxlength="5"] { --ds-segmentinput-chars: 5; }
+.ds-segmentinput__segment[maxlength="6"] { --ds-segmentinput-chars: 6; }
+.ds-segmentinput__segment[maxlength="7"] { --ds-segmentinput-chars: 7; }
+.ds-segmentinput__segment[maxlength="8"] { --ds-segmentinput-chars: 8; }
+.ds-segmentinput__segment::placeholder { color: var(--ds-color-fg-placeholder); opacity: 1; }
+/* 가린 구간: 글자는 투명, 입력한 글자 수(--ds-segmentinput-filled, ybm-ds.js 가 넣는다)만큼 dots 와 같은 점을 바탕에 그린다
+   글자 한 개 자리 = 점 지름 + 점 사이. 칸의 내용 폭은 채운 자리만큼, 남은 자리는 오른쪽 안쪽 여백이라 전체 폭은 그대로다 */
+.ds-segmentinput__segment[data-masked] {
+  --ds-segmentinput-filled: 0;
+  --ds-segmentinput-slot: calc(var(--ds-segmentinput-dot) + var(--ds-segmentinput-dot-gap));
+  width: calc(var(--ds-segmentinput-filled) * var(--ds-segmentinput-slot));
+  padding-inline-end: calc((var(--ds-segmentinput-chars) - var(--ds-segmentinput-filled)) * var(--ds-segmentinput-slot));
+  margin-inline-end: calc(var(--ds-segmentinput-dot-gap) * -1);  /* 마지막 점 뒤 점 사이만큼 당겨 구분자와의 간격을 앞쪽과 같게 */
+  color: transparent;
+  letter-spacing: calc(var(--ds-segmentinput-slot) - 1ch);
+  background: radial-gradient(circle closest-side at calc(var(--ds-segmentinput-dot) / 2) 50%, var(--ds-input-color) 92%, transparent 100%) left center / var(--ds-segmentinput-slot) var(--ds-segmentinput-dot) repeat-x content-box;
+}
+.ds-segmentinput__segment[data-masked]::selection { color: transparent; }
+.ds-segmentinput__separator { flex: none; color: var(--ds-color-fg-neutral-subtle); font-size: var(--ds-input-font-size); line-height: var(--ds-input-line-height); }
+.ds-segmentinput__dots { flex: none; display: inline-flex; align-items: center; gap: var(--ds-segmentinput-dot-gap); color: var(--ds-input-color); }
+.ds-segmentinput__dots > i { width: var(--ds-segmentinput-dot); height: var(--ds-segmentinput-dot); border-radius: var(--ds-shape-pill); background: currentColor; }
+.ds-segmentinput__suffix {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: var(--ds-segmentinput-suffix-width);
+  height: var(--ds-segmentinput-suffix-height);
+  margin-inline-start: auto;
+  overflow: hidden;
+  border-radius: var(--ds-shape-2xs);
+  background: var(--ds-color-bg-neutral-weak-alpha);
+  color: var(--ds-color-fg-neutral-subtle);
+}
+.ds-segmentinput__suffix > img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.ds-segmentinput__suffix > .ds-icon { --ds-icon-size: 16px; }
+.ds-segmentinput__suffix:has(> .ds-icon) { width: var(--ds-space-x7); height: var(--ds-space-x7); border-radius: var(--ds-shape-xs); }  /* 아이콘 칸은 정사각형 (2026-11-11 납작해 보이던 것) */
+/* 상태: 비활성은 글자와 점 모두 fg/disabled, 비활성과 읽기 전용은 바탕 bg/disabled (Text Field outline 과 같다) */
+.ds-segmentinput:has(.ds-segmentinput__segment:disabled) { --ds-input-color: var(--ds-color-fg-disabled); }
+.ds-segmentinput:has(.ds-segmentinput__segment:disabled) .ds-segmentinput__separator { color: var(--ds-color-fg-disabled); }
+.ds-segmentinput[data-variant="outline"]:has(.ds-segmentinput__segment:is(:disabled, [readonly])) { --ds-input-bg: var(--ds-color-bg-disabled); }
+.ds-segmentinput__segment:disabled { cursor: not-allowed; }
+
+
+/* --------------------------------------------------------------------------
+   87 Price - 상품과 요금제의 판매 가격을 할인율, 원래 가격과 함께 보여 주는 가격 표시 (2026-11-12 추가)
+     <div class="ds-price" [data-size="small|large"] [data-align="end"]>
+       [<s class="ds-price__was">48,000원</s>]
+       <div class="ds-price__now">[<span class="ds-price__rate">20%</span>]<strong class="ds-price__value">38,000원</strong>[<span class="ds-price__unit">/ 월</span>]</div>
+     </div>
+   size: small 가격 t05(목록, 장바구니) / medium(기본) 가격 t09(상품 상세) / large 가격 t10(요금제)
+   가격 Bold fg/neutral, 할인율은 가격과 같은 크기 fg/critical / 단위 fg/neutral-muted, 원래 가격 취소선 fg/neutral-subtle(small t03, 그 밖 t04)
+   원래 가격은 판매 가격 위 줄, 사이 2 / 할인율, 가격, 단위 사이 x1 / 숫자는 고정폭
+   data-align="end": 오른쪽 끝에 맞춥니다(장바구니 금액 칸)
+   -------------------------------------------------------------------------- */
+.ds-price {
+  --ds-price-size: var(--ds-font-size-t09);
+  --ds-price-line: var(--ds-line-height-t09);
+  --ds-price-sub-size: var(--ds-font-size-t04);
+  --ds-price-sub-line: var(--ds-line-height-t04);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-width: 0;
+  font-variant-numeric: tabular-nums;
+}
+.ds-price[data-size="small"] { --ds-price-size: var(--ds-font-size-t05); --ds-price-line: var(--ds-line-height-t05); --ds-price-sub-size: var(--ds-font-size-t03); --ds-price-sub-line: var(--ds-line-height-t03); }
+.ds-price[data-size="large"] { --ds-price-size: var(--ds-font-size-t10); --ds-price-line: var(--ds-line-height-t10); }
+.ds-price[data-align="end"] { align-items: flex-end; text-align: end; }
+.ds-price__was { color: var(--ds-color-fg-neutral-subtle); font-size: var(--ds-price-sub-size); line-height: var(--ds-price-sub-line); text-decoration: line-through; }
+.ds-price__now { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--ds-space-x1); min-width: 0; }
+.ds-price__rate,
+.ds-price__value { font-size: var(--ds-price-size); line-height: var(--ds-price-line); font-weight: var(--ds-font-weight-bold); }
+.ds-price__rate { color: var(--ds-color-fg-critical); }
+.ds-price__value { color: var(--ds-color-fg-neutral); }
+.ds-price__unit { color: var(--ds-color-fg-neutral-muted); font-size: var(--ds-price-sub-size); line-height: var(--ds-price-sub-line); }
