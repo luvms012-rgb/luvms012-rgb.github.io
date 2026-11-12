@@ -64,7 +64,7 @@
   // 인증 성공 → 가입완료 (SB.30 = SB.18 과 같은 화면). SB.28 은 보호자 번호를 회원정보에 저장(서버)
   SignupVerify.onVerified(function () { location.href = "complete.html#sb29"; });
 
-  $("#to-notice").addEventListener("click", function () { location.hash = ipin ? "sb28" : "sb27"; });
+  $("#to-notice").addEventListener("click", function () { location.hash = ipin ? "sb28-ipin" : "sb27"; });
   $("#to-phone").addEventListener("click", function () { location.hash = "sb26"; });
   $("#guardian-to-phone").addEventListener("click", function () { location.hash = "sb26"; });
   // 보호자 번호를 회원정보에 저장하고 가입 완료 처리 (서버) → SB.30
@@ -76,8 +76,8 @@
     "sb26-error": { card: "phone", phone: "01000", final: true },
     "sb26-otp":   { card: "phone", phone: "010-1234-5678", otp: true },
     "sb27":       { card: "notice" },
-    "sb28":       { card: "guardian" },
-    "sb28-otp":   { card: "guardian", phone: "010-1234-5678", otp: true }
+    "sb28-ipin":     { card: "guardian" },
+    "sb28-ipin-otp": { card: "guardian", phone: "010-1234-5678", otp: true }
   };
   function applyHash() {
     SignupVerify.closeAll();
