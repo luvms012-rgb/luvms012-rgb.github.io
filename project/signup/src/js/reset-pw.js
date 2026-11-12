@@ -1,8 +1,8 @@
 /* ==========================================================================
-   비밀번호 재설정 (SB.51 ~ SB.57) — 인증 탭 동작은 recover.js (아이디 찾기와 공통)
-   · SB.51 아이디 입력 → [다음] → 아이디 확인(서버) → 인증 화면 (타이틀에 아이디)
-   · SB.52·53 휴대전화번호 / SB.55·56 이메일주소 / SB.57 본인인증(회원정보 변경 동의 필수)
-   · 인증 성공 → SB.54 새 비밀번호 → [확인] → 변경 완료 Alert → ★ 로그인 화면으로
+   비밀번호 재설정 (SB.52 ~ SB.58) — 인증 탭 동작은 recover.js (아이디 찾기와 공통)
+   · SB.52 아이디 입력 → [다음] → 아이디 확인(서버) → 인증 화면 (타이틀에 아이디)
+   · SB.53·54 휴대전화번호 / SB.56·57 이메일주소 / SB.58 본인인증(회원정보 변경 동의 필수)
+   · 인증 성공 → SB.55 새 비밀번호 → [확인] → 변경 완료 Alert → ★ 로그인 화면으로
    ★ 개발 연결 지점: findUser(id) · changePassword(id, pw)
    ========================================================================== */
 (function () {
@@ -22,7 +22,7 @@
   function showCard(key) { Object.keys(cards).forEach(function (k) { cards[k].hidden = k !== key; }); window.scrollTo(0, 0); }
 
   /* ======================================================================
-     SB.51 아이디 입력
+     SB.52 아이디 입력
      ====================================================================== */
   var idInput = $("#reset-id"), idCta = $("#id-cta");
   var userId = "userid";
@@ -51,7 +51,7 @@
   }
 
   /* ======================================================================
-     SB.52 ~ SB.57 인증 (아이디 찾기와 같은 구조)
+     SB.53 ~ SB.58 인증 (아이디 찾기와 같은 구조)
      ====================================================================== */
   var ctaArea = $('[data-role="verify-cta"]'), cta = $("#verify-cta");
   function verified() { showCard("password"); pw.value = ""; showPassword(); pw.focus(); }
@@ -67,13 +67,13 @@
   });
   $("#verify-form").addEventListener("submit", function (e) { e.preventDefault(); if (panels[current]) panels[current].submit(); });
 
-  // SB.57 — 회원정보 변경 동의(필수)를 안 하고 수단을 누르면 Alert
+  // SB.58 — 회원정보 변경 동의(필수)를 안 하고 수단을 누르면 Alert
   // ★ 본인인증을 받지 않은 아이디는 본인인증 탭 자체를 숨긴다 (서버 값으로 판단)
   var consent = $("#consent");
   R.methods($("#panel-identity"), { consent: consent, onPick: function (m) { DS.snackbar("본인인증 팝업: " + m); verified(); } });
 
   /* ======================================================================
-     SB.54 새 비밀번호 — 조건 4개 실시간 체크 (SB.16 과 같은 규칙)
+     SB.55 새 비밀번호 — 조건 4개 실시간 체크 (SB.16 과 같은 규칙)
      ====================================================================== */
   var pw = $("#password"), eye = $("#password-eye"), banned = $("#password-banned"), pwCta = $("#password-cta");
   function pwRules(v) {

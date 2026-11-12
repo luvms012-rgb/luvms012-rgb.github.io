@@ -2,7 +2,8 @@
    회원가입 > 만14세 미만 — 보호자(법정대리인) 절차 (SB.22 ~ SB.25)
    --------------------------------------------------------------------------
    · consent  (SB.22) 인증수단 라디오 2분기 — 휴대전화: 필수 약관 5종 / 아이핀: 저장·파기 안내 1건
-                      전체(필수) 동의 시 [동의하고 인증하기] 활성 → 보호자 정보 입력으로
+                      전체(필수) 동의 시 [동의하고 인증하기] 활성 → 휴대전화: 보호자 정보 입력으로
+                      / 아이핀: 아이핀 인증 모듈(개발) 뒤 아동 휴대전화번호 입력(child-phone.html?auth=ipin)
    · identity (SB.23 이름 → SB.24 생년월일 → 성별 → 휴대전화번호 → SB.25 확인) 누적 스텝
                       일반 가입 본인인증(identity.js)의 실명인증 경로와 같은 규칙. 보호자는 항상 통신사 선택
    · [확인했어요] → 인증번호 입력 팝업(verify.js) → 인증 성공 → 아동 휴대전화번호 입력(child-phone.html)
@@ -48,7 +49,10 @@
 
   consentForm.addEventListener("submit", function (e) {
     e.preventDefault();
-    if (!consentCta.disabled) showCase("identity");
+    if (consentCta.disabled) return;
+    // 보호자 아이핀 → 아이핀 인증 모듈(개발) → 인증 성공 → 아동 휴대전화번호 입력. 보호자 번호가 없어 SB.28 분기가 생긴다
+    if (method() === "ipin") { location.href = "child-phone.html?auth=ipin"; return; }
+    showCase("identity");
   });
 
   function showCase(key, opts) {
@@ -181,7 +185,7 @@
   }
 
   // 인증 성공 → 아동 휴대전화번호 입력(SB.26)
-  // ※ 보호자 YBM 아이디가 조회되면 SB.28 계정 연동이 사이에 들어가지만 비노출 화면이다
+  // ※ 보호자 YBM 아이디가 조회되면 SB.29 계정 연동이 사이에 들어가지만 비노출 화면이다
   SignupVerify.onVerified(function () { location.href = "child-phone.html"; });
 
   /* ---- 선택형 목록(성별·통신사) ----------------------------------------- */

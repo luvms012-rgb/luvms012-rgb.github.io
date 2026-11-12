@@ -1,5 +1,5 @@
 /* ==========================================================================
-   아이디 찾기 · 비밀번호 재설정 공통 (SB.45~57) — find-id.js / reset-pw.js 가 사용
+   아이디 찾기 · 비밀번호 재설정 공통 (SB.46~58) — find-id.js / reset-pw.js 가 사용
    --------------------------------------------------------------------------
    SignupRecover.alert(titleKey, descKey)      Alert (Dialog closeButton=false · footer [확인]) → Promise
    SignupRecover.tabs(tablist, onChange)       DS Tabs — 휴대전화번호 / 이메일주소 / 본인인증
@@ -101,7 +101,7 @@
 
     function sync() {
       if (!active) return;
-      opts.ctaArea.hidden = !sent;                            // [다음] 은 인증번호를 보낸 뒤에만 (SB.45 에는 CTA 없음)
+      opts.ctaArea.hidden = !sent;                            // [다음] 은 인증번호를 보낸 뒤에만 (SB.46 에는 CTA 없음)
       opts.cta.disabled = !(sent && left > 0 && code.value.length === 6);
     }
 

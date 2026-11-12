@@ -1,8 +1,8 @@
 /* ==========================================================================
-   아이디 찾기 (SB.45 ~ SB.50) — 공통 동작은 recover.js
-   · 탭: 휴대전화번호(SB.45·46) / 이메일주소(SB.48·49) / 본인인증(SB.50)
-   · 인증 성공 → 찾은 아이디(SB.47). ★ 본인인증 수단 버튼도 인증 기관 팝업 뒤 SB.47
-   · SB.47 버튼: 로그인하러 가기 = 현재 창 로그인(아이디 자동 입력) · 비밀번호 재설정하기 = 새 창 비밀번호 재설정(추가 인증 없음)
+   아이디 찾기 (SB.46 ~ SB.51) — 공통 동작은 recover.js
+   · 탭: 휴대전화번호(SB.46·47) / 이메일주소(SB.49·50) / 본인인증(SB.51)
+   · 인증 성공 → 찾은 아이디(SB.48). ★ 본인인증 수단 버튼도 인증 기관 팝업 뒤 SB.48
+   · SB.48 버튼: 로그인하러 가기 = 현재 창 로그인(아이디 자동 입력) · 비밀번호 재설정하기 = 새 창 비밀번호 재설정(추가 인증 없음)
    ========================================================================== */
 (function () {
   "use strict";
@@ -36,10 +36,10 @@
     if (panels[current]) panels[current].submit();
   });
 
-  // 본인인증 수단 — 실제는 인증 기관 팝업. 퍼블리싱은 바로 SB.47
+  // 본인인증 수단 — 실제는 인증 기관 팝업. 퍼블리싱은 바로 SB.48
   R.methods($("#panel-identity"), { onPick: function (m) { DS.snackbar("본인인증 팝업: " + m); showResult(true); } });
 
-  // SB.47 이동 — 퍼블리싱에서는 스낵바로 표시
+  // SB.48 이동 — 퍼블리싱에서는 스낵바로 표시
   $("#result-login").addEventListener("click", function () {
     var id = document.querySelector('input[name="found-id"]:checked');
     DS.snackbar((id ? id.value + " · " : "") + "이동: 로그인 (아이디 자동 입력)");
@@ -54,7 +54,7 @@
   var SENT = { sent: true, elapsed: 2 }, FILLED = { sent: true, code: "123456", elapsed: 9, focus: true };
   var PRESETS = {
     "sb45":          { tab: "phone" },
-    // SB.45 는 기획서에 Alert 가 없어 같은 화면인 비밀번호 재설정 SB.52 와 같게 동작한다
+    // SB.46 는 기획서에 Alert 가 없어 같은 화면인 비밀번호 재설정 SB.53 와 같게 동작한다
     "sb45-name":     { tab: "phone", alert: ["이름을 입력해 주세요"] },
     "sb45-phone":    { tab: "phone", p: { name: NAME }, alert: ["휴대전화번호를 입력해 주세요 (2)"] },
     "sb45-sent":     { tab: "phone", p: ext(PHONE, SENT), alert: ["인증번호를 전송했습니다"] },

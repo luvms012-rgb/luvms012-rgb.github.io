@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title data-i18n="비밀번호 재설정 | YBM Family">비밀번호 재설정 | YBM Family</title>
 <!--
-  SB.51 ~ SB.57  비밀번호 재설정
+  SB.52 ~ SB.58  비밀번호 재설정
   기준: 스토리보드 62슬라이드본(260831) 51~57p
   화면 3장(data-case)이 이어진다:
-    · id       SB.51 아이디 입력 → [다음] (아이디 확인 — 서버. 없으면 '입력하신 정보가 일치하지 않습니다')
-    · verify   SB.52·53 휴대전화번호 / SB.55·56 이메일주소 / SB.57 본인인증 — 아이디 찾기와 같은 구조(recover.js), 타이틀에 아이디
-    · password SB.54 새 비밀번호 → [확인] → '비밀번호가 변경되었습니다' (기존과 같으면 '기존에 사용한 비밀번호는 사용할 수 없습니다')
+    · id       SB.52 아이디 입력 → [다음] (아이디 확인 — 서버. 없으면 '입력하신 정보가 일치하지 않습니다')
+    · verify   SB.53·54 휴대전화번호 / SB.56·57 이메일주소 / SB.58 본인인증 — 아이디 찾기와 같은 구조(recover.js), 타이틀에 아이디
+    · password SB.55 새 비밀번호 → [확인] → '비밀번호가 변경되었습니다' (기존과 같으면 '기존에 사용한 비밀번호는 사용할 수 없습니다')
   퍼블리싱 확인용: 아이디 nouser = 정보 불일치 · 새 비밀번호 Ybm2025!old = 기존 비밀번호와 동일 · 인증번호 000000 = 불일치
   바로가기(뷰어·QA용): reset-pw.html#sb51 … (README 표 참고)
 -->
@@ -35,7 +35,7 @@
     <span class="signup-header__end"></span>
   </header>
 
-  <!-- ============ SB.51 · 아이디 입력 ============ -->
+  <!-- ============ SB.52 · 아이디 입력 ============ -->
   <form class="signup-card" data-case="id" id="id-form" aria-labelledby="id-title" novalidate>
     <div class="signup-content">
       <h2 class="signup-title" id="id-title" data-i18n="비밀번호를 재설정하실&#10;아이디를 입력해 주세요">비밀번호를 재설정하실<br>아이디를 입력해 주세요</h2>
@@ -59,10 +59,10 @@
     </div>
   </form>
 
-  <!-- ============ SB.52 ~ SB.57 · 인증 방법 선택 + 인증 (아이디 찾기 SB.45~50 과 같은 구조) ============ -->
+  <!-- ============ SB.53 ~ SB.58 · 인증 방법 선택 + 인증 (아이디 찾기 SB.46~51 과 같은 구조) ============ -->
   <form class="signup-card" data-case="verify" id="verify-form" hidden aria-labelledby="verify-title" novalidate>
     <div class="signup-content">
-      <!-- 아이디 = SB.51 에서 입력한 값 (fg/brand). 실제는 서버 값 -->
+      <!-- 아이디 = SB.52 에서 입력한 값 (fg/brand). 실제는 서버 값 -->
       <h2 class="signup-title" id="verify-title" data-i18n="[[userid]] 님,&#10;아래의 인증방법 중 하나를 선택하여&#10;인증을 진행해 주세요."><em>userid</em> 님,<br>아래의 인증방법 중 하나를 선택하여<br>인증을 진행해 주세요.</h2>
 
       <!-- DS Tabs size=medium · triggerLayout=fill -->
@@ -72,7 +72,7 @@
         <button type="button" class="ds-tabs__trigger" role="tab" id="tab-identity" data-tab="identity" aria-controls="panel-identity" aria-selected="false" tabindex="-1" data-i18n="본인인증">본인인증</button>
       </div>
 
-      <!-- 휴대전화번호 (SB.52 · SB.53) -->
+      <!-- 휴대전화번호 (SB.53 · SB.54) -->
       <div class="signup-fields" role="tabpanel" id="panel-phone" aria-labelledby="tab-phone">
         <div class="signup-recover-field">
           <div class="ds-field">
@@ -111,7 +111,7 @@
         </div>
       </div>
 
-      <!-- 이메일주소 (SB.55 · SB.56) — 안내문 없음 -->
+      <!-- 이메일주소 (SB.56 · SB.57) — 안내문 없음 -->
       <div class="signup-fields" role="tabpanel" id="panel-email" aria-labelledby="tab-email" hidden>
         <div class="signup-recover-field">
           <div class="ds-field">
@@ -149,7 +149,7 @@
         </div>
       </div>
 
-      <!-- 본인인증 (SB.57) — 회원정보 변경 동의(필수) + 수단 버튼 3종. 미동의로 누르면 Alert -->
+      <!-- 본인인증 (SB.58) — 회원정보 변경 동의(필수) + 수단 버튼 3종. 미동의로 누르면 Alert -->
       <div class="signup-methods" role="tabpanel" id="panel-identity" aria-labelledby="tab-identity" hidden>
         <label class="ds-checkbox signup-consent">
           <input type="checkbox" class="ds-checkbox__control" id="consent">
@@ -175,7 +175,7 @@
     </div>
   </form>
 
-  <!-- ============ SB.54 · 새 비밀번호 입력 (SB.16 과 같은 필드) ============ -->
+  <!-- ============ SB.55 · 새 비밀번호 입력 (SB.16 과 같은 필드) ============ -->
   <form class="signup-card" data-case="password" id="password-form" aria-labelledby="password-title" novalidate hidden>
     <div class="signup-content">
       <div>

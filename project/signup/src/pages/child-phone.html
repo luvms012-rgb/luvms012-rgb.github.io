@@ -5,14 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>회원가입 · 휴대전화번호 | YBM Family</title>
 <!--
-  SB.26 ~ SB.27  회원가입 > 만14세 미만 — 실사용자(아동) 휴대전화번호
-  기준: 스토리보드 62슬라이드본(260831) 26~27p
-  두 화면은 서로를 가리키는 한 쌍이라 한 파일에 둔다 (data-case).
-    · phone  = SB.26 아동 번호 입력 (국내 번호만 · 통신사/국가번호 선택 없음) → [인증번호 발송] → 인증번호 팝업
-    · notice = SB.27 휴대전화가 없을 때 보호자 번호를 대신 등록 (입력 없음 · [가입하기] 항상 활성)
+  SB.26 ~ SB.28  회원가입 > 만14세 미만 — 실사용자(아동) 휴대전화번호
+  기준: 스토리보드 11-12 판 26~28p
+  세 화면은 하단 링크로 서로 오가서 한 파일에 둔다 (data-case).
+    · phone    = SB.26 아동 번호 입력 (국내 번호만 · 통신사/국가번호 선택 없음) → [인증번호 발송] → 인증번호 팝업
+    · notice   = SB.27 휴대전화가 없을 때, 보호자를 휴대전화로 인증했으면 그 번호를 대신 등록 (입력 없음 · [가입하기] 항상 활성)
+    · guardian = SB.28 휴대전화가 없을 때, 보호자를 아이핀으로 인증했으면 보호자 번호를 받아 인증 후 등록 (?auth=ipin)
   인증 성공 / [가입하기] → 가입완료(complete.html#sb29)
   만14세 미만 경로는 한국어 전용 (기획서에 영문 없음)
-  바로가기(뷰어·QA용): #sb26 · #sb26-error · #sb26-otp · #sb27
+  바로가기(뷰어·QA용): #sb26 · #sb26-error · #sb26-otp · #sb27 · #sb28 · #sb28-otp
 -->
 <script src="../i18n/en.js"></script>
 <script src="../i18n/i18n.js"></script>
@@ -75,6 +76,34 @@
       <button type="button" class="ds-link" id="to-phone">아동·청소년이 사용하는 휴대전화로 인증할게요</button>
       <button type="button" class="ds-btn" id="notice-cta" data-variant="brandSolid" data-size="large" data-width="fill">가입하기</button>
     </div>
+  </section>
+
+  <!-- ============ SB.28 · 보호자 휴대전화번호 인증 (보호자 아이핀 인증 경로) ============ -->
+  <section class="signup-card" data-case="guardian" aria-labelledby="guardian-title" hidden>
+    <form id="guardian-form" novalidate>
+      <div class="signup-content">
+        <h2 class="signup-title" id="guardian-title">보호자의 휴대전화번호로<br>인증해 주세요</h2>
+
+        <div class="signup-fields">
+          <div class="signup-step" data-step="phone" data-state="active">
+            <div class="ds-field">
+              <label class="ds-field__label" for="guardian-phone">휴대전화번호</label>
+              <div class="ds-input">
+                <input class="ds-input__control" id="guardian-phone" type="tel" inputmode="numeric" autocomplete="tel-national"
+                       value="010" placeholder=" " maxlength="13" aria-describedby="guardian-phone-help">
+                <button type="button" class="ds-input__clear" aria-label="휴대전화번호 지우기"></button>
+              </div>
+              <p class="ds-field__help" id="guardian-phone-help" hidden></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="signup-cta">
+        <button type="button" class="ds-link" id="guardian-to-phone">아동·청소년이 사용하는 휴대전화로 인증할게요</button>
+        <button type="submit" class="ds-btn" id="guardian-cta" data-variant="brandSolid" data-size="large" data-width="fill" disabled>인증번호 발송</button>
+      </div>
+    </form>
   </section>
 </main>
 

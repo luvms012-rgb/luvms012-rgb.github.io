@@ -280,7 +280,7 @@ body.signup { background: var(--ds-color-bg-layer-default); }
 .signup-banned { color: var(--ds-color-fg-critical); font-size: var(--ds-font-size-t04); line-height: 20px; }
 
 
-/* 2-4) 가입완료 — 간편계정 연결 (SB.18 · SB.29) ------------------------------
+/* 2-4) 가입완료 — 간편계정 연결 (SB.18 · SB.30) ------------------------------
    Card = [Content, 소셜 아이콘 행(위 48), CTA Area(링크만, 위 60)]
    소셜 브랜드색은 각 사의 고정 자산이므로 DS 토큰이 아닌 서비스 변수로 둔다
    -------------------------------------------------------------------------- */
@@ -347,7 +347,7 @@ body.signup { background: var(--ds-color-bg-layer-default); }
 .signup-agree-box__notice .ds-checkbox__control { margin-top: var(--ds-space-x1_5); }
 
 
-/* 2-6) 부모·자녀 계정 연동 동의 (SB.28) -------------------------------------
+/* 2-6) 부모·자녀 계정 연동 동의 (SB.29) -------------------------------------
    사전 개발 후 비노출 화면 (플로우에 연결되지 않는다)
    계정 박스는 SB.13 과 같은 규격, 라벨 폭만 96
    -------------------------------------------------------------------------- */
@@ -387,11 +387,11 @@ html[lang="en"] [data-ko-only],
 html:not([lang="en"]) [data-en-only] { display: none !important; }
 
 
-/* 2-7) 아이디 찾기 · 비밀번호 재설정 (SB.45~57) ------------------------------
+/* 2-7) 아이디 찾기 · 비밀번호 재설정 (SB.46~58) ------------------------------
    · 탭 = DS Tabs medium · 폭 채움 (Screen Title 다음)
    · 필드 = [라벨 + 언더라인 입력] + 안내문(16/24). 값이 비어 있으면 라벨을 숨기고
      placeholder 만 보이고, 값이 들어오면 라벨이 올라온다
-     (data-label="always" 를 주면 항상 노출 — SB.54 새 비밀번호)
+     (data-label="always" 를 주면 항상 노출 — SB.55 새 비밀번호)
    · 필드 + 버튼 한 줄: 미입력은 위 정렬, 값이 있으면 가운데 정렬
    -------------------------------------------------------------------------- */
 .signup-tabs { --ds-tabs-height: 44px; }
@@ -403,7 +403,7 @@ html:not([lang="en"]) [data-en-only] { display: none !important; }
 .signup-recover-field:not([data-label="always"]) .ds-field:has(.ds-input__control:placeholder-shown) .ds-field__label {
   position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
 }
-/* SB.54 새 비밀번호 — SB.16 과 같은 필드 (라벨 항상 노출) */
+/* SB.55 새 비밀번호 — SB.16 과 같은 필드 (라벨 항상 노출) */
 .signup-recover-field--password .ds-field { --ds-field-gap: var(--ds-space-x1); }
 .signup-recover-field--password .ds-field__label { line-height: var(--ds-line-height-t05); }
 .signup-recover-field--password .signup-rules-wrap { margin-top: 0; }
@@ -427,7 +427,7 @@ html:not([lang="en"]) [data-en-only] { display: none !important; }
   font-variant-numeric: tabular-nums;
 }
 
-/* 본인인증 수단 선택 (SB.50 · SB.57 · SB.59 · SB.60)
+/* 본인인증 수단 선택 (SB.51 · SB.58 · SB.59 · SB.60)
    수단 버튼 = DS Action Button neutralOutline large 폭 채움 + 앞 아이콘 24 */
 .signup-methods { display: flex; flex-direction: column; gap: var(--ds-space-x6); }
 .signup-methods--note { gap: var(--ds-space-x5); }

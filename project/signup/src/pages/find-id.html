@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title data-i18n="아이디 찾기 | YBM Family">아이디 찾기 | YBM Family</title>
 <!--
-  SB.45 ~ SB.50  아이디 찾기
+  SB.46 ~ SB.51  아이디 찾기
   기준: 스토리보드 62슬라이드본(260831) 45~50p
   한 화면 안에서 탭 3개로 인증 방법을 고른다 (상태별 페이지로 나누지 않음).
-    · 휴대전화번호 / 이메일주소 — 이름 + 연락처 → [인증번호 전송] → 인증번호 칸 + 남은 시간 → [다음] → 찾은 아이디(SB.47)
-    · 본인인증 — 휴대전화 · 아이핀 · 외국인 인증 버튼 (각 인증 기관 팝업 — 개발) → 찾은 아이디(SB.47)
+    · 휴대전화번호 / 이메일주소 — 이름 + 연락처 → [인증번호 전송] → 인증번호 칸 + 남은 시간 → [다음] → 찾은 아이디(SB.48)
+    · 본인인증 — 휴대전화 · 아이핀 · 외국인 인증 버튼 (각 인증 기관 팝업 — 개발) → 찾은 아이디(SB.48)
   Alert 는 모두 하나의 dialog(#dialog-alert)를 문구만 바꿔 쓴다 (recover.js)
   바로가기(뷰어·QA용): find-id.html#sb45 … (README 표 참고)
 -->
@@ -34,7 +34,7 @@
     <span class="signup-header__end"></span>
   </header>
 
-  <!-- ============ SB.45 ~ SB.50 · 인증 방법 선택 + 인증 ============ -->
+  <!-- ============ SB.46 ~ SB.51 · 인증 방법 선택 + 인증 ============ -->
   <form class="signup-card" data-case="verify" id="verify-form" aria-labelledby="verify-title" novalidate>
     <div class="signup-content">
       <h2 class="signup-title" id="verify-title" data-i18n="아래의 인증방법 중 하나를 선택하여&#10;인증을 진행해 주세요.">아래의 인증방법 중 하나를 선택하여<br>인증을 진행해 주세요.</h2>
@@ -46,7 +46,7 @@
         <button type="button" class="ds-tabs__trigger" role="tab" id="tab-identity" data-tab="identity" aria-controls="panel-identity" aria-selected="false" tabindex="-1" data-i18n="본인인증">본인인증</button>
       </div>
 
-      <!-- 휴대전화번호 (SB.45 · SB.46) -->
+      <!-- 휴대전화번호 (SB.46 · SB.47) -->
       <div class="signup-fields" role="tabpanel" id="panel-phone" aria-labelledby="tab-phone">
         <div class="signup-recover-field">
           <div class="ds-field">
@@ -85,7 +85,7 @@
         </div>
       </div>
 
-      <!-- 이메일주소 (SB.48 · SB.49) — 안내문 없음 -->
+      <!-- 이메일주소 (SB.49 · SB.50) — 안내문 없음 -->
       <div class="signup-fields" role="tabpanel" id="panel-email" aria-labelledby="tab-email" hidden>
         <div class="signup-recover-field">
           <div class="ds-field">
@@ -123,7 +123,7 @@
         </div>
       </div>
 
-      <!-- 본인인증 (SB.50) — 수단 버튼 3종 + 안내 (CTA 없음) -->
+      <!-- 본인인증 (SB.51) — 수단 버튼 3종 + 안내 (CTA 없음) -->
       <div class="signup-methods signup-methods--note" role="tabpanel" id="panel-identity" aria-labelledby="tab-identity" hidden>
         <div class="signup-method-list">
           <button type="button" class="ds-btn" data-variant="neutralOutline" data-size="large" data-width="fill" data-method="phone">
@@ -149,7 +149,7 @@
     </div>
   </form>
 
-  <!-- ============ SB.47 · 찾은 아이디 확인 ============ -->
+  <!-- ============ SB.48 · 찾은 아이디 확인 ============ -->
   <section class="signup-card" data-case="result" aria-labelledby="result-title" hidden>
     <div class="signup-content">
       <h2 class="signup-title" id="result-title" data-i18n="가입하신 아이디를&#10;확인하시고 로그인해 주세요">가입하신 아이디를<br>확인하시고 로그인해 주세요</h2>
