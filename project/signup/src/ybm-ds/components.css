@@ -100,7 +100,6 @@
      83 Mega Menu            .ds-megamenu
      84 Command Palette      .ds-command
      85 Segmented Text Input .ds-segmentinput
-     87 Price                .ds-price
    ========================================================================== */
 
 
@@ -108,7 +107,7 @@
    01 Action Button
    variant : brandSolid(기본) · neutralSolid · neutralWeak · criticalSolid · brandOutline · neutralOutline · ghost
    size    : xsmall 32 · small 36 · medium 40(기본) · large 52
-   layout  : 기본 withText / data-layout="iconOnly" / data-width="fill"
+   layout  : 기본 withText / data-layout="iconOnly" / data-layout="fill" (예전 data-width="fill" 도 읽음)
      <button class="ds-btn" data-variant="neutralWeak" data-size="large">
        [<i class="ds-icon ds-icon--plus" aria-hidden="true"></i>] 라벨 [<i class="ds-icon …">]
      </button>
@@ -161,7 +160,7 @@
 .ds-btn[data-size="large"]  { --ds-btn-height: 52px; --ds-btn-padding-x: var(--ds-space-x5);   --ds-btn-gap: var(--ds-space-x2);   --ds-btn-radius: var(--ds-shape-md); --ds-btn-font-size: var(--ds-font-size-t06); --ds-btn-line-height: var(--ds-line-height-t06); --ds-btn-icon: 24px; --ds-btn-icon-only: 24px; }
 
 /* layout */
-.ds-btn[data-width="fill"] { display: flex; width: 100%; }
+.ds-btn:is([data-layout="fill"], [data-width="fill"]) { display: flex; width: 100%; }
 .ds-btn[data-layout="iconOnly"] { padding-inline: 0; width: var(--ds-btn-height); min-width: var(--ds-btn-height); --ds-btn-icon: var(--ds-btn-icon-only); }
 .ds-btn[data-layout="iconOnly"][data-size="xsmall"] { --ds-btn-radius: var(--ds-shape-pill); }
 
@@ -276,7 +275,7 @@
      underline large : py8 · min-h44 · gap10 · t06 · icon 24 · 하단 1px
      underline medium: py6 · min-h36 · gap8  · t05 · icon 20
      focused 1px stroke/neutral-contrast · invalid 1px stroke/critical-solid
-     disabled (outline) bg/disabled · 글자 fg/disabled / readOnly (outline) bg/disabled
+     outline 바탕 bg/layer-default(underline 투명) / disabled (outline) bg/disabled · 글자 fg/disabled / readOnly (outline) bg/disabled
    -------------------------------------------------------------------------- */
 .ds-input {
   --ds-input-height: 44px;
@@ -337,6 +336,7 @@
   --ds-input-font-size: var(--ds-font-size-t05);
   --ds-input-line-height: var(--ds-line-height-t05);
   --ds-input-icon: 20px;
+  --ds-input-bg: var(--ds-color-bg-layer-default);
   box-shadow: inset 0 0 0 1px var(--ds-input-line);
 }
 .ds-input[data-variant="outline"][data-size="medium"] {
@@ -423,7 +423,7 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
    Figma outline large : px16 · py14 · min-h94 · shape/lg · t05
          outline medium: px14 · py12 · min-h82 · shape/sm · t04
          underline large : py8+14 · min-h110 · t06 · 하단 1px / underline medium: py6+12 · min-h94 · t05
-   focused 1px stroke/neutral-contrast · invalid 1px stroke/critical-solid · disabled·readOnly bg/disabled
+   바탕 bg/layer-default(underline 투명) · focused 1px stroke/neutral-contrast · invalid 1px stroke/critical-solid · disabled·readOnly bg/disabled
    -------------------------------------------------------------------------- */
 .ds-textarea {
   --ds-textarea-padding: var(--ds-space-x3_5) var(--ds-space-x4);
@@ -440,7 +440,7 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
   padding: var(--ds-textarea-padding);
   border: 0;
   border-radius: var(--ds-textarea-radius);
-  background: var(--ds-color-bg-transparent);
+  background: var(--ds-color-bg-layer-default);
   box-shadow: inset 0 0 0 var(--ds-textarea-line-width) var(--ds-textarea-line);
   color: var(--ds-color-fg-neutral);
   font: inherit;
@@ -463,6 +463,7 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
   --ds-textarea-radius: 0px;
   --ds-textarea-font-size: var(--ds-font-size-t06);
   --ds-textarea-line-height: var(--ds-line-height-t06);
+  background: var(--ds-color-bg-transparent);
   box-shadow: inset 0 calc(var(--ds-textarea-line-width) * -1) 0 var(--ds-textarea-line);
 }
 .ds-textarea[data-variant="underline"][data-size="medium"] {
@@ -489,7 +490,7 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
        <i class="ds-icon ds-icon--chevron-down" aria-hidden="true"></i>
      </button>
    Figma large : h52 · px16 · gap10 · shape/lg · t05 · icon 20 / medium: h40 · px14 · gap8 · shape/sm · t04 · icon 16
-          1px stroke/neutral-weak · invalid 1px stroke/critical-solid · disabled·readOnly bg/disabled
+          바탕 bg/layer-default · 1px stroke/neutral-weak · invalid 1px stroke/critical-solid · disabled·readOnly bg/disabled
           affix·아이콘 fg/neutral-subtle · placeholder fg/placeholder · 값 fg/neutral
    readOnly: aria-readonly="true" (폼 제출이 필요하면 disabled 대신 readOnly, DS §6.4)
    -------------------------------------------------------------------------- */
@@ -503,7 +504,7 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
   --ds-fb-icon: 20px;
   --ds-fb-line: var(--ds-color-stroke-neutral-weak);
   --ds-fb-line-width: 1px;
-  --ds-fb-bg: var(--ds-color-bg-transparent);
+  --ds-fb-bg: var(--ds-color-bg-layer-default);
   display: flex;
   align-items: center;
   gap: var(--ds-fb-gap);
@@ -572,7 +573,7 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
        <span class="ds-select__value" data-placeholder="선택해 주세요"></span>
      </button>
    Figma large: h52 · px16 · gap10 · shape/lg · t05 · chevron 20 / medium: h40 · px14 · gap8 · shape/sm · t04 · chevron 16
-          chevron fg/neutral(열림 = chevron-up) · invalid 1px critical · disabled·readOnly bg/disabled
+          바탕 bg/layer-default · chevron fg/neutral(열림 = chevron-up) · invalid 1px critical · disabled·readOnly bg/disabled
    -------------------------------------------------------------------------- */
 .ds-select {
   --ds-select-height: 52px;
@@ -584,7 +585,7 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
   --ds-select-icon: 20px;
   --ds-select-line: var(--ds-color-stroke-neutral-weak);
   --ds-select-line-width: 1px;
-  --ds-select-bg: var(--ds-color-bg-transparent);
+  --ds-select-bg: var(--ds-color-bg-layer-default);
   display: flex;
   align-items: center;
   gap: var(--ds-select-gap);
@@ -801,8 +802,8 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
 
 /* --------------------------------------------------------------------------
    11 Radio Group — 택일 선택
-   size: large(기본 24) · medium(20)   tone: brand(기본) · neutral
-     <div class="ds-radio-group" role="radiogroup">
+   size: large(기본 24) · medium(20)   tone: brand(기본) · neutral   orientation: 기본 세로 / data-orientation="horizontal"(짧은 선택지 2~4개, 좁으면 줄바꿈, 2026-11-15 추가)
+     <div class="ds-radio-group" role="radiogroup" [data-orientation="horizontal"]>
        <label class="ds-radio"><input type="radio" class="ds-radio__control" name="g"><span>라벨</span></label>
      </div>
    Figma: 행 min-h 36/32 · 위 6 · gap x2 · 원 bg/layer-default + 1px stroke/neutral-weak · label t05/t04
@@ -810,6 +811,7 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
      disabled bg/disabled + stroke/neutral-muted · disabledChecked 고리 bg/disabled, 가운데 투명
    -------------------------------------------------------------------------- */
 .ds-radio-group { display: flex; flex-direction: column; }
+.ds-radio-group[data-orientation="horizontal"] { flex-direction: row; flex-wrap: wrap; column-gap: var(--ds-space-x5); }
 .ds-radio {
   --ds-radio-size: 24px;
   --ds-radio-dot: 10px;
@@ -1273,7 +1275,7 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
 
 /* --------------------------------------------------------------------------
    20 Badge — 상태 없는 표시 전용 라벨(클릭 불가)
-   size: medium(기본) · large   variant: weak(기본) · solid · outline
+   size: medium(기본) · large · xlarge(2026-11-13, 14px 글자가 필요한 PC 화면)   variant: weak(기본) · solid · outline
    tone: neutral(기본) · brand · informative · positive · warning · critical
      <span class="ds-badge" data-variant="solid" data-tone="brand">NEW</span>
      <span class="ds-badge" data-size="large">
@@ -1283,6 +1285,8 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
      </span>
    Figma medium: py2 px6 · min-h20 · shape/2xs · t01 Medium · 아이콘 12
          large : py4 px8 · min-h24 · shape/xs  · t02 Medium · 아이콘 14
+         xlarge: px10 · min-h28 · shape/sm · t04 Medium · 아이콘 16
+   크기 변수: --ds-badge-height, -padding-x, -radius, -font-size, -line-height, -icon (모서리를 알약으로 쓸 때 --ds-badge-radius: var(--ds-shape-pill))
    공통: gap x0_5 · solid 라벨 fg/on-{tone}-solid
    기본 최대 너비는 없습니다. 말줄임이 필요하면 사용하는 곳에서 max-width를 지정하세요.
    -------------------------------------------------------------------------- */
@@ -1290,31 +1294,37 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
   --ds-badge-bg: var(--ds-color-bg-neutral-weak-alpha);  /* 2026-11-10 알파: 회색 박스(선택 행, 카드 면, 강조 상자) 안에서도 배지 바탕이 보이게 */
   --ds-badge-fg: var(--ds-color-fg-neutral-muted);
   --ds-badge-line: transparent;
+  --ds-badge-height: var(--ds-space-x5);
+  --ds-badge-padding-x: var(--ds-space-x1_5);
+  --ds-badge-radius: var(--ds-shape-2xs);
+  --ds-badge-font-size: var(--ds-font-size-t01);
+  --ds-badge-line-height: var(--ds-line-height-t01);
+  --ds-badge-icon: 12px;
   display: inline-flex;
   vertical-align: middle;  /* 2026-11-04: 제목 글자 옆에 둘 때 글자 가운데에 맞춘다 */
   align-items: center;
   justify-content: center;
   flex: none;
   gap: var(--ds-space-x0_5);
-  min-height: var(--ds-space-x5);
-  padding: 0 var(--ds-space-x1_5);  /* 2026-11-05: 위아래 여백 대신 높이로 가운데 (여백 2 + 줄 17 이 21 이 되어 20 을 넘었다) */
-  border-radius: var(--ds-shape-2xs);
+  min-height: var(--ds-badge-height);
+  padding: 0 var(--ds-badge-padding-x);  /* 2026-11-05: 위아래 여백 대신 높이로 가운데 (여백 2 + 줄 17 이 21 이 되어 20 을 넘었다) */
+  border-radius: var(--ds-badge-radius);
   background: var(--ds-badge-bg);
   box-shadow: inset 0 0 0 1px var(--ds-badge-line);
   color: var(--ds-badge-fg);
-  font-size: var(--ds-font-size-t01);
-  line-height: var(--ds-line-height-t01);
+  font-size: var(--ds-badge-font-size);
+  line-height: var(--ds-badge-line-height);
   font-weight: var(--ds-font-weight-medium);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.ds-badge[data-size="large"] { min-height: var(--ds-space-x6); padding: 0 var(--ds-space-x2); border-radius: var(--ds-shape-xs); font-size: var(--ds-font-size-t02); line-height: var(--ds-line-height-t02); }
+.ds-badge[data-size="large"] { --ds-badge-height: var(--ds-space-x6); --ds-badge-padding-x: var(--ds-space-x2); --ds-badge-radius: var(--ds-shape-xs); --ds-badge-font-size: var(--ds-font-size-t02); --ds-badge-line-height: var(--ds-line-height-t02); --ds-badge-icon: 14px; }
+.ds-badge[data-size="xlarge"] { --ds-badge-height: var(--ds-space-x7); --ds-badge-padding-x: var(--ds-space-x2_5); --ds-badge-radius: var(--ds-shape-sm); --ds-badge-font-size: var(--ds-font-size-t04); --ds-badge-line-height: var(--ds-line-height-t04); --ds-badge-icon: 16px; }
 /* slots — prefix · label · action. 기본 최대 너비 없음: 말줄임이 필요하면 사용처에서 max-width 지정 */
 .ds-badge__label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
-.ds-badge__prefix, .ds-badge__action { flex: none; --ds-icon-size: 12px; color: inherit; }
-.ds-badge[data-size="large"] :is(.ds-badge__prefix, .ds-badge__action) { --ds-icon-size: 14px; }
+.ds-badge__prefix, .ds-badge__action { flex: none; --ds-icon-size: var(--ds-badge-icon); color: inherit; }
 .ds-badge__action { display: inline-flex; padding: 0; border: 0; background: none; cursor: pointer; }
 .ds-badge__action:focus-visible { outline: 2px solid var(--ds-color-stroke-focus-ring); outline-offset: 1px; border-radius: var(--ds-shape-2xs); }
 /* weak */
@@ -1361,7 +1371,7 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
 
 /* --------------------------------------------------------------------------
    22 Avatar — 사람·팀 프로필
-   size : 20 · 24 · 36(기본) · 42 · 48 · 56 · 64 · 80 · 96 · 108
+   size : 20 · 24 · 36(기본) · 40 · 48 · 56 · 64 · 80 · 96 · 108   (모두 4의 배수, 2026-11-15 42 를 40 으로 바꿈. 예전 data-size="42" 도 40 으로 보인다)
    shape: circle(기본) · rounded(크기의 1/4, 곡률 노브 따름) · square
    내용 우선순위: 사진 > 이니셜 > 기본 실루엣(사진·이니셜이 없으면 자동)
 
@@ -1423,7 +1433,7 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
 /* 크기 */
 .ds-avatar[data-size="20"]  { --ds-avatar-size: 20px; }
 .ds-avatar[data-size="24"]  { --ds-avatar-size: 24px;  --ds-avatar-badge: 10px; }
-.ds-avatar[data-size="42"]  { --ds-avatar-size: 42px;  --ds-avatar-badge: 16px; }
+.ds-avatar:is([data-size="40"], [data-size="42"])  { --ds-avatar-size: 40px;  --ds-avatar-badge: 16px; }
 .ds-avatar[data-size="48"]  { --ds-avatar-size: 48px;  --ds-avatar-badge: 18px; }
 .ds-avatar[data-size="56"]  { --ds-avatar-size: 56px;  --ds-avatar-badge: 20px; }
 .ds-avatar[data-size="64"]  { --ds-avatar-size: 64px;  --ds-avatar-badge: 22px; }
@@ -1523,7 +1533,7 @@ button.ds-input__prefix:hover { color: var(--ds-color-fg-neutral); }
 .ds-avatar-group > :focus-visible { z-index: 1; }
 .ds-avatar-group[data-size="20"]  { --ds-avatar-group-size: 20px; }
 .ds-avatar-group[data-size="24"]  { --ds-avatar-group-size: 24px; }
-.ds-avatar-group[data-size="42"]  { --ds-avatar-group-size: 42px; }
+.ds-avatar-group:is([data-size="40"], [data-size="42"])  { --ds-avatar-group-size: 40px; }
 .ds-avatar-group[data-size="48"]  { --ds-avatar-group-size: 48px; }
 .ds-avatar-group[data-size="56"]  { --ds-avatar-group-size: 56px; }
 .ds-avatar-group[data-size="64"]  { --ds-avatar-group-size: 64px; }
@@ -1608,7 +1618,7 @@ a.ds-callout:active, button.ds-callout:active { filter: brightness(0.97); }
 /* --------------------------------------------------------------------------
    24 Snackbar — 하단 중앙 알림, 4초 후 자동 사라짐 (DS.snackbar("문구", { variant, action }))
    variant: default · positive · critical
-     <div class="ds-snackbar" role="status" data-variant="positive" data-state="open">
+     <div class="ds-snackbar" role="status" data-tone="positive" data-state="open">
        <i class="ds-icon ds-icon--circle-check-solid" aria-hidden="true"></i>
        <span class="ds-snackbar__message">저장했어요</span>
        [<button type="button" class="ds-snackbar__action">확인</button>]
@@ -1640,8 +1650,8 @@ a.ds-callout:active, button.ds-callout:active { filter: brightness(0.97); }
 }
 .ds-snackbar[data-state="closed"] { opacity: 0; translate: -50% 12px; pointer-events: none; }
 .ds-snackbar > .ds-icon { --ds-icon-size: 24px; margin-inline: calc(var(--ds-space-x1_5) * -1) calc(var(--ds-space-x0_5) - var(--ds-space-x1_5)); }
-.ds-snackbar[data-variant="positive"] > .ds-icon { color: var(--ds-color-bg-positive-solid); }
-.ds-snackbar[data-variant="critical"] > .ds-icon { color: var(--ds-color-bg-critical-solid); }
+.ds-snackbar:is([data-tone="positive"], [data-variant="positive"]) > .ds-icon { color: var(--ds-color-bg-positive-solid); }
+.ds-snackbar:is([data-tone="critical"], [data-variant="critical"]) > .ds-icon { color: var(--ds-color-bg-critical-solid); }
 .ds-snackbar__message { flex: 1 1 auto; min-width: 0; }
 .ds-snackbar__action { flex: none; color: var(--ds-color-fg-on-neutral-solid); font-weight: var(--ds-font-weight-bold); }
 
@@ -1959,8 +1969,9 @@ html:has(:is(.ds-dialog, .ds-bottomsheet):modal) { overflow: hidden; }  /* 2026-
 /* --------------------------------------------------------------------------
    30 Accordion — 펼쳐 보는 목록(<details> 사용)
    variant: inline(기본) · separated   size: medium(기본) · large
+   inset: data-inset="none" (2026-11-13) 콘텐츠 칸 안에서 제목과 왼쪽 끝을 맞출 때 제목 줄과 내용의 좌우 여백을 없앱니다. inline 에만 씁니다.
    모션: 열고 닫을 때 높이가 부드럽게 바뀝니다(ybm-ds.js, 2026-11-04). 움직임 줄이기 설정을 켜면 바로 바뀝니다. name이 같은 묶음은 함께 움직입니다.
-     <details class="ds-accordion" [data-variant="separated"] [data-size="large"]>
+     <details class="ds-accordion" [data-layout="separated"] [data-size="large"] [data-inset="none"]>
        <summary class="ds-accordion__trigger">
          [<i class="ds-icon ds-icon--… " aria-hidden="true"></i>]
          <span class="ds-accordion__body"><span class="ds-accordion__title">항목</span>[<span class="ds-accordion__desc">설명</span>]</span>
@@ -1994,8 +2005,9 @@ html:has(:is(.ds-dialog, .ds-bottomsheet):modal) { overflow: hidden; }  /* 2026-
   --ds-acc-content-size: var(--ds-font-size-t05);
   --ds-acc-content-line: var(--ds-line-height-t05);
 }
-.ds-accordion[data-variant="separated"] { border-radius: var(--ds-shape-lg); background: var(--ds-color-bg-layer-default); box-shadow: inset 0 0 0 1px var(--ds-color-stroke-neutral-weak); }
-.ds-accordion-group[data-variant="separated"] { display: flex; flex-direction: column; gap: var(--ds-space-x2); }
+.ds-accordion:is([data-layout="separated"], [data-variant="separated"]) { border-radius: var(--ds-shape-lg); background: var(--ds-color-bg-layer-default); box-shadow: inset 0 0 0 1px var(--ds-color-stroke-neutral-weak); }
+.ds-accordion-group:is([data-layout="separated"], [data-variant="separated"]) { display: flex; flex-direction: column; gap: var(--ds-space-x2); }
+.ds-accordion[data-inset="none"] > :is(.ds-accordion__trigger, .ds-accordion__content) { padding-inline: 0; }  /* 2026-11-13: Tabs, Chip Tabs 와 같은 이름. 콘텐츠 칸 안에서 제목과 왼쪽 끝을 맞출 때 */
 .ds-accordion__trigger {
   display: flex;
   align-items: center;
@@ -2123,11 +2135,11 @@ html:has(:is(.ds-dialog, .ds-bottomsheet):modal) { overflow: hidden; }  /* 2026-
 
 /* --------------------------------------------------------------------------
    34 Progress Circle — 원형 진행 표시(값을 모르는 대기는 indeterminate)
-   tone: neutral(기본) · brand · staticWhite   size: 24(기본) · 40 · 56   type: determinate · indeterminate
+   tone: neutral(기본) · brand · staticWhite   size: 24(기본) · 40 · 56   indeterminate: 켜기
      <span class="ds-progress-circle" data-size="40" data-tone="brand" role="progressbar" aria-valuenow="40" style="--ds-progress-value: 40">
        <svg viewBox="0 0 40 40" aria-hidden="true"><circle class="ds-progress-circle__track" pathLength="100"/><circle class="ds-progress-circle__range" pathLength="100"/></svg>
      </span>
-     indeterminate: data-type="indeterminate" (회전하는 25% 호)
+     indeterminate: data-indeterminate (회전하는 25% 호, 예전 data-type="indeterminate" 도 읽음)
    Figma: 두께 24→3 · 40→5 · 56→7 · 둥근 끝 · 12시 시작
      트랙 bg/neutral-weak-alpha(2026-11-11 모든 색 같음) · neutral 호 palette/gray-500 · brand 호 bg/brand-solid
      staticWhite palette/static-white-alpha-300 + palette/static-white (팔레트를 직접 참조하는 것은 의도된 예외)
@@ -2151,8 +2163,8 @@ html:has(:is(.ds-dialog, .ds-bottomsheet):modal) { overflow: hidden; }  /* 2026-
 .ds-progress-circle circle { cx: 50%; cy: 50%; r: calc(50% - var(--ds-pc-stroke) / 2); fill: none; stroke-width: var(--ds-pc-stroke); stroke-linecap: round; }
 .ds-progress-circle__track { stroke: var(--ds-pc-track); }
 .ds-progress-circle__range { stroke: var(--ds-pc-range); stroke-dasharray: var(--ds-progress-value) 100; transition: stroke-dasharray var(--ds-duration-normal) var(--ds-easing-standard); }
-.ds-progress-circle[data-type="indeterminate"] > svg { animation: ds-spin 0.9s linear infinite; }
-.ds-progress-circle[data-type="indeterminate"] .ds-progress-circle__range { stroke-dasharray: 25 100; }
+.ds-progress-circle:is([data-indeterminate], [data-type="indeterminate"]) > svg { animation: ds-spin 0.9s linear infinite; }
+.ds-progress-circle:is([data-indeterminate], [data-type="indeterminate"]) .ds-progress-circle__range { stroke-dasharray: 25 100; }
 @keyframes ds-spin { to { rotate: 270deg; } }
 
 
@@ -2381,7 +2393,7 @@ html:has(:is(.ds-dialog, .ds-bottomsheet):modal) { overflow: hidden; }  /* 2026-
      <article class="ds-card" [data-variant="elevated"] [data-size="small"]>
        <header class="ds-card__header"><h3 class="ds-card__title">카드 제목</h3>[<p class="ds-card__desc">설명</p>]</header>
        <div class="ds-card__content">…</div>
-       [<footer class="ds-card__footer"><button class="ds-btn" data-variant="neutralWeak" data-width="fill">자세히 보기</button></footer>]
+       [<footer class="ds-card__footer"><button class="ds-btn" data-variant="neutralWeak" data-layout="fill">자세히 보기</button></footer>]
      </article>
    Figma: bg/layer-default · shape/xl · padding medium x5 / small x4 · 영역 gap x4 / x3
      header gap x1 · title t06 Bold(small t05 Bold, 2026-11-03 한 단계 올림: Empty 제목과 같은 단계) fg/neutral · desc t04(small t03) fg/neutral-subtle
@@ -2466,7 +2478,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
        <a class="ds-pagination__item" data-type="last" href="?p=10" aria-label="마지막 페이지"></a>
      </nav>
      <!-- simple: 이전, 지금 위치, 다음만 -->
-     <nav class="ds-pagination" data-type="simple" aria-label="페이지">
+     <nav class="ds-pagination" data-layout="simple" aria-label="페이지">
        <a class="ds-pagination__item" data-type="prev" href="?p=2" aria-label="이전 페이지"></a>
        <span class="ds-pagination__indicator"><b>3</b> / 10</span>
        <a class="ds-pagination__item" data-type="next" href="?p=4" aria-label="다음 페이지"></a>
@@ -2476,7 +2488,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
      full gap x1 · simple gap x3 · indicator 현재 t04 Bold fg/neutral + "/ 전체" t04 fg/neutral-subtle
    -------------------------------------------------------------------------- */
 .ds-pagination { display: flex; align-items: center; justify-content: center; gap: var(--ds-space-x1); }
-.ds-pagination[data-type="simple"] { gap: var(--ds-space-x3); }
+.ds-pagination:is([data-layout="simple"], [data-type="simple"]) { gap: var(--ds-space-x3); }
 .ds-pagination__item {
   --ds-pg-icon: none;
   display: inline-flex;
@@ -2517,9 +2529,9 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 
 /* --------------------------------------------------------------------------
    42 Table — 같은 기준(열)으로 비교하는 표 (<table> 그대로)
-   density: default(기본) · compact
+   size: default(기본) · small
      <div class="ds-table-wrap">            ← 열이 넘치면 가로 스크롤
-       <table class="ds-table" [data-density="compact"]>
+       <table class="ds-table" [data-size="small"]>
          <thead><tr><th scope="col">선택</th><th scope="col">제목</th><th scope="col" data-align="end">금액</th></tr></thead>
          <tbody>
            <tr class="ds-table__group"><td colspan="3">묶음 이름</td></tr>        ← 묶음 행(선택)
@@ -2533,7 +2545,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
      </div>
    2026-11-03 개편(템플릿 표 기준과 같게), 2026-11-11 표 맨 위와 맨 아래 선은 바깥 테두리 색(한 단계 짙게), 행 사이는 옅은 선
    Figma: 표 위 1px stroke/neutral-weak · 마지막 줄 아래 1px stroke/neutral-weak · 그 밖의 칸 아래 1px stroke/neutral-muted · header 바탕 없음
-     높이 header 40 / body 56 (compact 40 / 48) · 칸 좌우 x3, 양 끝 칸 x4 · 한 줄 말줄임
+     높이 header 40 / body 56 (small 40 / 48) · 칸 좌우 x3, 양 끝 칸 x4 · 한 줄 말줄임
      header t04 Medium fg/neutral · body t04 fg/neutral · 두 줄 칸 아래 줄 t02 fg/neutral-subtle
      묶음 행 44 bg/neutral-weak-alpha + SemiBold · hover(data-interactive 행만) bg/neutral-weak-alpha · selected bg/brand-weak
      정렬: 글 start(기본) · 숫자 end · 짧은 고정 길이 값(번호·날짜·상태) center → data-align (right 는 end 와 같음)
@@ -2555,7 +2567,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
   line-height: var(--ds-line-height-t04);
   font-variant-numeric: tabular-nums;
 }
-.ds-table[data-density="compact"] { --ds-table-head-h: 40px; --ds-table-row-h: 48px; }
+.ds-table:is([data-size="small"], [data-density="compact"]) { --ds-table-head-h: 40px; --ds-table-row-h: 48px; }
 .ds-table :is(th, td) {
   padding: var(--ds-space-x2) var(--ds-space-x3);
   overflow: hidden;
@@ -2683,8 +2695,8 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 
 /* --------------------------------------------------------------------------
    45 List · List Item — 설정·메뉴·목록 화면의 한 줄 (2026-10-22 추가)
-   variant: plain(기본) · inset(카드 안처럼 둥근 묶음)   size: medium(기본) · small   divider: data-divider
-     <ul class="ds-list" [data-variant="inset"] [data-divider]>
+   inset: data-inset(카드 안처럼 둥근 묶음)   size: medium(기본) · small   divider: data-divider
+     <ul class="ds-list" [data-inset] [data-divider]>
        <li>
          <a class="ds-list-item" href="#" [data-size="small"]>
            [<span class="ds-list-item__prefix"><i class="ds-icon ds-icon--credit-card" aria-hidden="true"></i></span>]
@@ -2705,7 +2717,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
    상호작용 요소(링크, 스위치 등)는 한 줄에 4개 미만으로 배치합니다. 행 전체가 링크이면 안에 다른 버튼을 넣지 않습니다.
    -------------------------------------------------------------------------- */
 .ds-list { display: flex; flex-direction: column; }
-.ds-list[data-variant="inset"] {
+.ds-list:is([data-inset], [data-variant="inset"]) {
   overflow: hidden;
   border-radius: var(--ds-shape-xl);
   background: var(--ds-color-bg-layer-default);
@@ -2749,7 +2761,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
   height: 1px;
   background: var(--ds-color-stroke-neutral-muted);  /* 2026-11-04: 바깥 테두리(neutral)보다 두 단계 옅게 */
 }
-.ds-list[data-variant="inset"][data-divider] > li + li > .ds-list-item::before { right: var(--ds-list-item-px); }  /* 2026-11-04: 카드처럼 묶인 목록은 구분선 좌우 여백을 같게 */
+.ds-list:is([data-inset], [data-variant="inset"])[data-divider] > li + li > .ds-list-item::before { right: var(--ds-list-item-px); }  /* 2026-11-04: 카드처럼 묶인 목록은 구분선 좌우 여백을 같게 */
 
 
 /* --------------------------------------------------------------------------
@@ -2914,7 +2926,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
    49 Select Box - 테두리 상자 안에서 고르는 선택지 (하나: radio / 여러 개: check) (2026-10-28 추가)
    layout: horizontal(기본) / vertical(여러 열로 놓을 때)
      <div class="ds-selectbox-group" [style="--ds-selectbox-columns: 2"]>
-       <label class="ds-selectbox" [data-layout="vertical"]>
+       <label class="ds-selectbox" [data-orientation="vertical"]>
          [<i class="ds-icon ds-icon--…" aria-hidden="true"></i>]
          <span class="ds-selectbox__texts">
            <span class="ds-selectbox__label">라벨</span>
@@ -2961,11 +2973,11 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 .ds-selectbox:has(:disabled) { --ds-selectbox-bg: var(--ds-color-bg-disabled); color: var(--ds-color-fg-disabled); cursor: not-allowed; }
 .ds-selectbox:has(:disabled) .ds-selectbox__desc { color: var(--ds-color-fg-disabled); }
 /* vertical - 위 줄(앞 아이콘, 표시) + 아래 글 */
-.ds-selectbox[data-layout="vertical"] { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; }
-.ds-selectbox[data-layout="vertical"] > .ds-icon { grid-area: 1 / 1; }
-.ds-selectbox[data-layout="vertical"] > :is(.ds-checkbox, .ds-radio) { grid-area: 1 / 2; }
-.ds-selectbox[data-layout="vertical"]:not(:has(> .ds-icon)) > :is(.ds-checkbox, .ds-radio) { grid-area: 1 / 1; }
-.ds-selectbox[data-layout="vertical"] > .ds-selectbox__texts { grid-area: 2 / 1 / 3 / -1; }
+.ds-selectbox:is([data-orientation="vertical"], [data-layout="vertical"]) { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; }
+.ds-selectbox:is([data-orientation="vertical"], [data-layout="vertical"]) > .ds-icon { grid-area: 1 / 1; }
+.ds-selectbox:is([data-orientation="vertical"], [data-layout="vertical"]) > :is(.ds-checkbox, .ds-radio) { grid-area: 1 / 2; }
+.ds-selectbox:is([data-orientation="vertical"], [data-layout="vertical"]):not(:has(> .ds-icon)) > :is(.ds-checkbox, .ds-radio) { grid-area: 1 / 1; }
+.ds-selectbox:is([data-orientation="vertical"], [data-layout="vertical"]) > .ds-selectbox__texts { grid-area: 2 / 1 / 3 / -1; }
 
 
 /* --------------------------------------------------------------------------
@@ -3179,7 +3191,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
        <span class="ds-chat-meta" data-status="read"><b class="ds-chat-meta__status">읽음</b><time>오후 3:24</time></span>
      Figma: gap x1 / t02 fg/neutral-subtle / 상태 Medium, read fg/brand, error fg/critical
    ▸ System Message  variant: default / divider
-       <p class="ds-chat-system" [data-variant="divider"]>오늘</p>
+       <p class="ds-chat-system" [data-layout="divider"]>오늘</p>
      Figma: t03 fg/neutral-muted / default pill padding x1 x3 bg/neutral-weak-alpha / divider 양옆 1px stroke/neutral-weak, gap x3
    ▸ Send Button  state: send / stop / disabled
        <button type="button" class="ds-chat-send" aria-label="보내기" [data-state="stop"] [disabled]></button>
@@ -3237,9 +3249,9 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
   line-height: var(--ds-line-height-t03);
   text-align: center;
 }
-.ds-chat-system[data-variant="divider"] { width: 100%; padding: 0; border-radius: 0; background: none; }
-.ds-chat-system[data-variant="divider"]::before,
-.ds-chat-system[data-variant="divider"]::after { content: ""; flex: 1 1 0; height: 1px; background: var(--ds-color-stroke-neutral-weak); }
+.ds-chat-system:is([data-layout="divider"], [data-variant="divider"]) { width: 100%; padding: 0; border-radius: 0; background: none; }
+.ds-chat-system:is([data-layout="divider"], [data-variant="divider"])::before,
+.ds-chat-system:is([data-layout="divider"], [data-variant="divider"])::after { content: ""; flex: 1 1 0; height: 1px; background: var(--ds-color-stroke-neutral-weak); }
 
 .ds-chat-send {
   --ds-chat-send-bg: var(--ds-color-bg-brand-solid);
@@ -3393,9 +3405,11 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
        </div>
      </header>
    Figma: padding x2 / bg/layer-default / 왼쪽 묶음 gap x4 / 메뉴 사이 x1 / 오른쪽 끝 버튼 사이 x1
-     로고 칸 높이 x8, 좌우 padding x2, 로고 높이 28
-     Top Navigation Item 높이 x8, 좌우 padding x3, shape/sm, t04 Medium fg/neutral-muted
-     hover bg/transparent-pressed / 선택 bg/neutral-weak-alpha, t04 SemiBold fg/neutral
+     로고 칸 높이 x8, 좌우 padding x2, 로고 높이 20(메뉴 글자 14 보다 조금 크게, 2026-11-12)
+     Top Navigation Item 높이 x8, 좌우 padding x3, shape/sm, t04 Medium fg/neutral-subtle(옅게)
+     hover bg/transparent-pressed, fg/neutral / 선택은 바탕 없이 t04 SemiBold fg/neutral (2026-11-12)
+     로그인 뒤 내 정보 Avatar 는 32 로 로그인 버튼(xsmall 32)과 같은 높이 (2026-11-12)
+     data-layout="center": 메뉴를 막대 가운데에, 로고는 왼쪽, 버튼은 오른쪽 그대로 (2026-11-12)
    -------------------------------------------------------------------------- */
 .ds-topnav {
   display: flex;
@@ -3414,7 +3428,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
   color: var(--ds-color-fg-neutral);
   text-decoration: none;
 }
-.ds-topnav__heading > :is(img, svg) { width: auto; height: 28px; }
+.ds-topnav__heading > :is(img, svg) { width: auto; height: 20px; }
 .ds-topnav__menu { display: flex; align-items: center; gap: var(--ds-space-x1); min-width: 0; }
 .ds-topnav__item {
   display: inline-flex;
@@ -3423,7 +3437,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
   height: var(--ds-space-x8);
   padding-inline: var(--ds-space-x3);
   border-radius: var(--ds-shape-sm);
-  color: var(--ds-color-fg-neutral-muted);
+  color: var(--ds-color-fg-neutral-subtle);
   font-size: var(--ds-font-size-t04);
   line-height: var(--ds-line-height-t04);
   font-weight: var(--ds-font-weight-medium);
@@ -3431,9 +3445,14 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
   white-space: nowrap;
   transition: background-color var(--ds-duration-fast) var(--ds-easing-standard), color var(--ds-duration-fast) var(--ds-easing-standard);
 }
-.ds-topnav__item:hover { background: var(--ds-color-bg-transparent-pressed); }
-.ds-topnav__item[aria-current="page"] { background: var(--ds-color-bg-neutral-weak-alpha); color: var(--ds-color-fg-neutral); font-weight: var(--ds-font-weight-semibold); }
+.ds-topnav__item:hover { background: var(--ds-color-bg-transparent-pressed); color: var(--ds-color-fg-neutral); }
+.ds-topnav__item[aria-current="page"] { color: var(--ds-color-fg-neutral); font-weight: var(--ds-font-weight-semibold); }
 .ds-topnav__end { display: flex; flex: none; align-items: center; gap: var(--ds-space-x1); margin-inline-start: auto; }
+.ds-topnav__end > .ds-avatar { --ds-avatar-size: 32px; }  /* 로그인 버튼(xsmall 32)과 같은 높이 */
+.ds-topnav[data-layout="center"] { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: var(--ds-space-x4); }
+.ds-topnav[data-layout="center"] .ds-topnav__left { display: contents; }
+.ds-topnav[data-layout="center"] .ds-topnav__heading { justify-self: start; }
+.ds-topnav[data-layout="center"] .ds-topnav__end { justify-self: end; }
 
 
 /* --------------------------------------------------------------------------
@@ -3517,7 +3536,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
            <i class="ds-icon ds-icon--plus" aria-hidden="true"></i>
            <span class="ds-fileattach__count"><b>2</b>/10</span>
          </label>
-         <div class="ds-fileitem" [data-type="image"] [data-readonly]>
+         <div class="ds-fileitem" [data-layout="image"] [data-readonly]>
            <span class="ds-fileitem__thumbnail"><i class="ds-icon ds-icon--file-text" aria-hidden="true"></i></span>
            <span class="ds-fileitem__texts"><span class="ds-fileitem__name">보고서.pdf</span><span class="ds-fileitem__size">2.4MB</span></span>
            (image 는 <img class="ds-fileitem__image" src="…" alt="…"> [<span class="ds-fileitem__badge">대표</span>])
@@ -3605,9 +3624,9 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 }
 .ds-fileitem__size { color: var(--ds-color-fg-neutral-subtle); font-size: var(--ds-font-size-t01); line-height: var(--ds-line-height-t01); }
 .ds-fileitem[data-readonly] :is(.ds-fileitem__thumbnail, .ds-fileitem__name, .ds-fileitem__size) { color: var(--ds-color-fg-disabled); }
-.ds-fileitem[data-type="image"] { width: var(--ds-space-x20); padding: 0; background: var(--ds-color-bg-neutral-weak-alpha); box-shadow: none; }
-.ds-fileitem[data-type="image"]::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px var(--ds-color-stroke-neutral-subtle); pointer-events: none; }
-.ds-fileitem[data-type="image"][data-readonly] { opacity: 0.5; }
+.ds-fileitem:is([data-layout="image"], [data-type="image"]) { width: var(--ds-space-x20); padding: 0; background: var(--ds-color-bg-neutral-weak-alpha); box-shadow: none; }
+.ds-fileitem:is([data-layout="image"], [data-type="image"])::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px var(--ds-color-stroke-neutral-subtle); pointer-events: none; }
+.ds-fileitem:is([data-layout="image"], [data-type="image"])[data-readonly] { opacity: 0.5; }
 .ds-fileitem__image { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: inherit; object-fit: cover; }
 .ds-fileitem__badge {
   position: absolute;
@@ -3728,9 +3747,10 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 /* --------------------------------------------------------------------------
    59 Result Section - 사용자 행동의 결과를 아이콘, 제목, 설명, 버튼으로 알려 주는 묶음 (2026-10-29 추가)
    size: 기본 large(화면 전체) / data-size="medium"(화면 일부)
-   위쪽 그림은 40 아이콘(완료 fg/positive, 오류 fg/critical)이나 Progress Circle 40으로 바꿔 사용합니다.
+   위쪽 그림은 아이콘(완료 fg/positive, 오류 fg/critical)이나 Progress Circle 로 바꿔 사용합니다.
+   아이콘 크기: 기본은 large 48, medium 40 / 바꿀 때 ds-result__asset 에 data-size="32|40|48|64"
      <section class="ds-result" [data-size="medium"]>
-       [<div class="ds-result__asset"><i class="ds-icon ds-icon--circle-check-solid" aria-hidden="true"></i></div>]
+       [<div class="ds-result__asset" [data-size="48"]><i class="ds-icon ds-icon--circle-check-solid" aria-hidden="true"></i></div>]
        <div class="ds-result__texts">
          <h2 class="ds-result__title">신청을 마쳤어요</h2>
          [<p class="ds-result__desc">처리 결과는 알림으로 알려 드릴게요</p>]
@@ -3740,13 +3760,13 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
          [<button type="button" class="ds-btn" data-variant="ghost" data-size="small">신청 내역 보기</button>]
        </div>
      </section>
-   Figma: 가운데 정렬, padding x4 x12 / 그림 아래 x4, 아이콘 40
-     large 글자 사이 x3, 아래 x7, 제목 t08 Bold, 설명 t05 fg/neutral-muted / medium 글자 사이 x2, 아래 x6, 제목 t05 Bold, 설명 t04
-     버튼 사이 x5, 주요 버튼(위) Action Button neutralWeak medium, 보조 버튼(아래) ghost small
+   Figma: 가운데 정렬, padding x4 x12 / 그림 아래 x4, 글자 사이 x1
+     large 아이콘 48, 글자 아래 x5, 제목 t09 Bold, 설명 t05 fg/neutral-muted / medium 아이콘 40, 글자 아래 x4, 제목 t05 Bold, 설명 t04
+     버튼 사이 x3, 주요 버튼(위) Action Button neutralWeak medium, 보조 버튼(아래) ghost small
    -------------------------------------------------------------------------- */
 .ds-result {
-  --ds-result-gap: var(--ds-space-x3);
-  --ds-result-text-bottom: var(--ds-space-x7);
+  --ds-result-icon: var(--ds-space-x12);
+  --ds-result-text-bottom: var(--ds-space-x5);
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
@@ -3755,15 +3775,19 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
   padding: var(--ds-space-x4) var(--ds-space-x12);
   text-align: center;
 }
-.ds-result[data-size="medium"] { --ds-result-gap: var(--ds-space-x2); --ds-result-text-bottom: var(--ds-space-x6); }
+.ds-result[data-size="medium"] { --ds-result-icon: var(--ds-space-x10); --ds-result-text-bottom: var(--ds-space-x4); }
 .ds-result__asset { padding-bottom: var(--ds-space-x4); }
-.ds-result__asset > .ds-icon { --ds-icon-size: var(--ds-space-x10); }
-.ds-result__texts { display: flex; flex-direction: column; gap: var(--ds-result-gap); padding-bottom: var(--ds-result-text-bottom); }
-.ds-result__title { margin: 0; color: var(--ds-color-fg-neutral); font-size: var(--ds-font-size-t08); line-height: var(--ds-line-height-t08); font-weight: var(--ds-font-weight-bold); white-space: pre-line; }
+.ds-result__asset > .ds-icon { --ds-icon-size: var(--ds-result-icon); }
+.ds-result__asset[data-size="32"] { --ds-result-icon: var(--ds-space-x8); }
+.ds-result__asset[data-size="40"] { --ds-result-icon: var(--ds-space-x10); }
+.ds-result__asset[data-size="48"] { --ds-result-icon: var(--ds-space-x12); }
+.ds-result__asset[data-size="64"] { --ds-result-icon: var(--ds-space-x16); }
+.ds-result__texts { display: flex; flex-direction: column; gap: var(--ds-space-x1); padding-bottom: var(--ds-result-text-bottom); }
+.ds-result__title { margin: 0; color: var(--ds-color-fg-neutral); font-size: var(--ds-font-size-t09); line-height: var(--ds-line-height-t09); font-weight: var(--ds-font-weight-bold); white-space: pre-line; }
 .ds-result__desc { margin: 0; color: var(--ds-color-fg-neutral-muted); font-size: var(--ds-font-size-t05); line-height: var(--ds-line-height-t05); white-space: pre-line; }
 .ds-result[data-size="medium"] .ds-result__title { font-size: var(--ds-font-size-t05); line-height: var(--ds-line-height-t05); }
 .ds-result[data-size="medium"] .ds-result__desc { font-size: var(--ds-font-size-t04); line-height: var(--ds-line-height-t04); }
-.ds-result__actions { display: flex; flex-direction: column; align-items: center; gap: var(--ds-space-x5); }
+.ds-result__actions { display: flex; flex-direction: column; align-items: center; gap: var(--ds-space-x3); }
 
 
 /* --------------------------------------------------------------------------
@@ -3921,7 +3945,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 
 /* --------------------------------------------------------------------------
    66 Image Frame - 사용자가 올린 사진을 정해진 비율로 보여 주는 틀 (2026-10-29 추가)
-   ratio: 기본 1:1 / data-ratio="4:3" / data-ratio="16:9" (그 밖은 --ds-imageframe-ratio)   stroke: data-stroke
+   ratio: 기본 1:1 / data-ratio="4:3" / data-ratio="16:9" / data-ratio="3:4"(책 표지) / data-ratio="2:3"(포스터, 2026-11-15 추가) (그 밖은 --ds-imageframe-ratio)   stroke: data-stroke
    radius: sm(기본) · none · md · lg · xl (2026-11-03 추가, 작은 썸네일 sm/md, 카드 안 사진 lg, 큰 대표 사진 xl)
      <div class="ds-imageframe" data-ratio="4:3" [data-radius="lg"] [data-stroke]>
        <img src="…" alt="…">
@@ -3933,6 +3957,8 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 .ds-imageframe { --ds-imageframe-ratio: 1; --ds-imageframe-radius: var(--ds-shape-sm); position: relative; overflow: hidden; aspect-ratio: var(--ds-imageframe-ratio); border-radius: var(--ds-imageframe-radius); background: var(--ds-color-bg-neutral-weak-alpha); }
 .ds-imageframe[data-ratio="4:3"] { --ds-imageframe-ratio: 4 / 3; }
 .ds-imageframe[data-ratio="16:9"] { --ds-imageframe-ratio: 16 / 9; }
+.ds-imageframe[data-ratio="3:4"] { --ds-imageframe-ratio: 3 / 4; }
+.ds-imageframe[data-ratio="2:3"] { --ds-imageframe-ratio: 2 / 3; }
 .ds-imageframe[data-radius="none"] { --ds-imageframe-radius: 0; }
 .ds-imageframe[data-radius="md"] { --ds-imageframe-radius: var(--ds-shape-md); }
 .ds-imageframe[data-radius="lg"] { --ds-imageframe-radius: var(--ds-shape-lg); }
@@ -3957,6 +3983,7 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
 
 /* --------------------------------------------------------------------------
    67 Carousel - 가로로 넘기며 보는 묶음 (2026-10-29 추가)
+   모양(data-layout): overlay(기본, 버튼과 번호가 항목 위에 뜸) / bar(항목 아래 한 줄에 진행 막대와 버튼). 크기, 둥글기, 위치는 변수로만 바꿉니다.
    항목은 넘길 때 시작 위치에 맞춰 멈춥니다. 넘겨 보는 이미지 배너는 Image Frame을 항목으로 넣어 만듭니다.
    번호(1/4)는 항목 안이 아니라 캐러셀 바로 안에 [<span class="ds-carousel__count" aria-hidden="true">1/4</span>]로 배치합니다. 넘겨도 위치가 고정되고 숫자는 ybm-ds.js가 바꿉니다.
    처음이나 끝에 닿으면 ybm-ds.js가 data-at-start / data-at-end를 붙여 그쪽 흐림과 버튼을 숨기고, 버튼을 누르면 한 화면씩 넘깁니다.
@@ -3967,9 +3994,39 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
        <button type="button" class="ds-carousel__button" data-direction="previous" aria-label="이전"><i class="ds-icon ds-icon--chevron-left ds-icon--sm" aria-hidden="true"></i></button>
        <button type="button" class="ds-carousel__button" data-direction="next" aria-label="다음"><i class="ds-icon ds-icon--chevron-right ds-icon--sm" aria-hidden="true"></i></button>
      </div>
+   큰 배너 (2026-11-12): 자동 넘김은 큰 배너에만 쓰고, 멈춤 버튼을 늘 함께 둡니다. 마우스를 올리거나 포커스가 들어오면 멈추고, 움직임 줄이기 설정이면 처음부터 멈춰 있습니다.
+   번호를 버튼으로 두면 누를 때 모든 항목을 Dialog 에 모아 보여 줍니다. 모음 칸이 비어 있으면 ybm-ds.js 가 항목을 복사해 채웁니다.
+     <div class="ds-carousel" role="region" aria-roledescription="carousel" aria-label="이벤트" data-autoplay="5000">
+       <div class="ds-carousel__scroller">…</div>
+       <button type="button" class="ds-carousel__button" data-direction="previous" aria-label="이전"><i class="ds-icon ds-icon--chevron-left ds-icon--sm" aria-hidden="true"></i></button>
+       <button type="button" class="ds-carousel__button" data-direction="next" aria-label="다음"><i class="ds-icon ds-icon--chevron-right ds-icon--sm" aria-hidden="true"></i></button>
+       <div class="ds-carousel__controls">
+         <button type="button" class="ds-carousel__play" aria-label="멈춤"><i class="ds-icon ds-icon--pause-solid" aria-hidden="true"></i></button>
+         <button type="button" class="ds-carousel__count" data-ds-open="banner-all" aria-label="전체 배너 보기">1/12<i class="ds-icon ds-icon--plus" aria-hidden="true"></i></button>
+       </div>
+     </div>
+     <dialog class="ds-dialog" id="banner-all" data-size="large" aria-labelledby="banner-all-title">
+       <div class="ds-dialog__header"><h2 class="ds-dialog__title" id="banner-all-title">전체 보기</h2><button class="ds-dialog__close" data-ds-close aria-label="닫기"></button></div>
+       <div class="ds-dialog__body"><div class="ds-carousel__all"></div></div>
+     </dialog>
+   끝없이 넘기기 (2026-11-12): data-loop 를 붙이면 첫 장 왼쪽에 마지막 장, 마지막 장 오른쪽에 첫 장이 보이고 끊김 없이 이어집니다. 복제 장은 ybm-ds.js 가 만들고 번호, 진행 막대, 전체 보기에서는 세지 않습니다. 양옆 장을 보이려면 --ds-carousel-padding 을 줍니다.
+   진행 막대 (2026-11-12): 항목 아래 한 줄에 진행 막대, 이전, 번호(05 | 23), 다음, 멈춤 버튼을 둡니다. 막대는 지금 몇 번째까지 왔는지 채워 보여 주고, 이동 버튼은 끝에서 반대쪽 끝으로 돌아갑니다. 번호는 ybm-ds.js 가 두 자리로 채웁니다.
+     <div class="ds-carousel" role="region" aria-roledescription="carousel" aria-label="이벤트" data-layout="bar" data-autoplay="5000">
+       <div class="ds-carousel__scroller">…</div>
+       <div class="ds-carousel__bar">
+         <div class="ds-carousel__progress" aria-hidden="true"></div>
+         <div class="ds-carousel__controls">
+           <button type="button" class="ds-carousel__button" data-direction="previous" aria-label="이전"><i class="ds-icon ds-icon--chevron-left ds-icon--sm" aria-hidden="true"></i></button>
+           <span class="ds-carousel__count" aria-hidden="true">01/05</span>
+           <button type="button" class="ds-carousel__button" data-direction="next" aria-label="다음"><i class="ds-icon ds-icon--chevron-right ds-icon--sm" aria-hidden="true"></i></button>
+           <button type="button" class="ds-carousel__play" aria-label="멈춤"><i class="ds-icon ds-icon--pause-solid" aria-hidden="true"></i></button>
+         </div>
+       </div>
+     </div>
+   서비스 크기 맞춤은 변수로: --ds-carousel-button-size / -button-radius / -button-shadow / -button-inset, --ds-carousel-control-size(멈춤 버튼, 번호 높이) / -play-icon-size / -count-font-size / -count-padding, --ds-carousel-controls-x / -controls-y
    Figma: 항목 사이 x2 / 양 끝 흐림 x1 / Carousel Button 32 pill, bg/layer-floating, elevation overlay, 아이콘 16, 가장자리에서 x2
    -------------------------------------------------------------------------- */
-.ds-carousel { --ds-carousel-gap: var(--ds-space-x2); --ds-carousel-padding: 0px; --ds-carousel-fade: var(--ds-space-x1); position: relative; min-width: 0; max-width: 100%; }
+.ds-carousel { --ds-carousel-gap: var(--ds-space-x2); --ds-carousel-padding: 0px; --ds-carousel-fade: var(--ds-space-x1); --ds-carousel-button-size: var(--ds-space-x8); --ds-carousel-button-radius: var(--ds-shape-pill); --ds-carousel-button-shadow: var(--ds-elevation-overlay); --ds-carousel-button-inset: calc(var(--ds-carousel-padding) + var(--ds-space-x2)); --ds-carousel-control-size: var(--ds-space-x6); --ds-carousel-play-icon-size: 12px; --ds-carousel-count-font-size: var(--ds-font-size-t02); --ds-carousel-count-padding: 0 var(--ds-space-x2); --ds-carousel-controls-x: calc(var(--ds-carousel-padding) + var(--ds-space-x2)); --ds-carousel-controls-y: var(--ds-space-x2); position: relative; min-width: 0; max-width: 100%; }
 .ds-carousel__scroller {
   --ds-carousel-fade-start: var(--ds-carousel-fade);
   --ds-carousel-fade-end: var(--ds-carousel-fade);
@@ -3996,19 +4053,45 @@ a.ds-card:active, button.ds-card:active { background: linear-gradient(var(--ds-c
   top: 50%;
   display: grid;
   place-items: center;
-  width: var(--ds-space-x8);
-  height: var(--ds-space-x8);
-  border-radius: var(--ds-shape-pill);
+  width: var(--ds-carousel-button-size);
+  height: var(--ds-carousel-button-size);
+  border-radius: var(--ds-carousel-button-radius);
   background: var(--ds-color-bg-layer-floating);
-  box-shadow: var(--ds-elevation-overlay);
+  box-shadow: var(--ds-carousel-button-shadow);
   color: var(--ds-color-fg-neutral);
   translate: 0 -50%;
   transition: opacity var(--ds-duration-fast) var(--ds-easing-standard);
 }
-.ds-carousel__button[data-direction="previous"] { left: var(--ds-space-x2); }
-.ds-carousel__button[data-direction="next"] { right: var(--ds-space-x2); }
+.ds-carousel__button[data-direction="previous"] { left: var(--ds-carousel-button-inset); }
+.ds-carousel__button[data-direction="next"] { right: var(--ds-carousel-button-inset); }
 .ds-carousel[data-at-start] .ds-carousel__button[data-direction="previous"],
 .ds-carousel[data-at-end] .ds-carousel__button[data-direction="next"] { opacity: 0; pointer-events: none; }
+/* 2026-11-12: 멈춤 버튼과 번호 버튼을 오른쪽 아래에 함께 둔다. 자동 넘김은 끝에서 처음으로 돌아간다 */
+.ds-carousel__controls { position: absolute; z-index: 1; right: var(--ds-carousel-controls-x); bottom: var(--ds-carousel-controls-y); display: flex; align-items: center; gap: var(--ds-space-x1); }
+.ds-carousel__controls .ds-carousel__count { position: static; }
+.ds-carousel__play { display: grid; place-items: center; width: var(--ds-carousel-control-size); height: var(--ds-carousel-control-size); border-radius: var(--ds-shape-pill); background: var(--ds-color-palette-static-black-alpha-600); color: var(--ds-color-palette-static-white); }
+.ds-carousel__play .ds-icon { --ds-icon-size: var(--ds-carousel-play-icon-size); }
+button.ds-carousel__count { display: inline-flex; align-items: center; gap: var(--ds-space-x0_5); height: var(--ds-carousel-control-size); padding: var(--ds-carousel-count-padding); font-size: var(--ds-carousel-count-font-size); line-height: 1; font-weight: var(--ds-font-weight-regular); pointer-events: auto; cursor: pointer; }
+button.ds-carousel__count strong { font-weight: var(--ds-font-weight-bold); }
+.ds-carousel__count strong { font-weight: inherit; }
+button.ds-carousel__count .ds-icon { --ds-icon-size: 12px; }
+/* 2026-11-12: 진행 막대. 항목 아래 한 줄, 막대는 남는 폭을 채우고 오른쪽에 버튼 묶음. 채운 길이는 ybm-ds.js 가 --ds-carousel-progress(0~1)로 */
+.ds-carousel__bar { display: flex; align-items: center; gap: var(--ds-space-x6); margin-top: var(--ds-space-x3); }
+.ds-carousel__progress { --ds-carousel-progress: 0; position: relative; flex: 1; height: 2px; overflow: hidden; border-radius: var(--ds-shape-pill); background: var(--ds-color-bg-neutral-weak-alpha); }
+.ds-carousel__progress::before { content: ""; position: absolute; inset: 0 auto 0 0; width: calc(var(--ds-carousel-progress) * 100%); background: var(--ds-color-bg-neutral-inverted); transition: width var(--ds-duration-normal) var(--ds-easing-standard); }
+.ds-carousel__bar .ds-carousel__controls { position: static; gap: var(--ds-space-x1); }
+.ds-carousel__bar .ds-carousel__button { position: static; inset: auto; width: var(--ds-space-x6); height: var(--ds-space-x6); border-radius: var(--ds-shape-xs); background: none; box-shadow: none; translate: none; }
+/* 막대 줄 번호: 지금 번호 | 전체 수, 사이에 짧은 세로선 */
+.ds-carousel__bar .ds-carousel__count { display: inline-flex; align-items: center; gap: var(--ds-space-x1_5); padding: 0; border-radius: 0; background: none; color: var(--ds-color-fg-neutral); font-size: var(--ds-font-size-t03); line-height: var(--ds-line-height-t03); font-weight: var(--ds-font-weight-regular); }
+.ds-carousel__bar .ds-carousel__count strong { font-weight: inherit; }
+.ds-carousel__bar .ds-carousel__total { display: inline-flex; align-items: center; gap: var(--ds-space-x1_5); }
+.ds-carousel__bar .ds-carousel__total::before { content: ""; width: 1px; height: 10px; background: var(--ds-color-stroke-neutral-weak); }
+.ds-carousel[data-at-start] .ds-carousel__bar .ds-carousel__button[data-direction="previous"],
+.ds-carousel[data-at-end] .ds-carousel__bar .ds-carousel__button[data-direction="next"] { opacity: 1; pointer-events: auto; }
+.ds-carousel__bar .ds-carousel__play { background: none; color: var(--ds-color-fg-neutral); }
+@media (prefers-reduced-motion: reduce) { .ds-carousel__progress::before { transition: none; } }
+.ds-carousel__all { display: grid; gap: var(--ds-space-x3); }
+@media (min-width: 768px) { .ds-carousel__all { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
 
 /* --------------------------------------------------------------------------
@@ -4150,7 +4233,7 @@ a.ds-citation[data-type="number"]:hover { background: var(--ds-color-bg-brand-we
          <label class="ds-multiselect__option"><span class="ds-checkbox" data-tone="neutral"><input type="checkbox" class="ds-checkbox__control"></span><span class="ds-multiselect__label">디자인</span></label>
        </div>
      </div>
-   Figma: Trigger 높이 40, padding x2 x3_5, gap x2, shape/sm, 1px stroke/neutral-weak (열림 stroke/neutral-contrast), 값 사이 x1, +N t04 Medium fg/neutral-muted
+   Figma: Trigger 높이 40, padding x2 x3_5, gap x2, shape/sm, bg/layer-default, 1px stroke/neutral-weak (열림 stroke/neutral-contrast), 값 사이 x1, +N t04 Medium fg/neutral-muted
      Panel padding x1, shape/lg, bg/layer-floating, elevation overlay, 최대 높이 300 / heading padding x1 x2, t02 fg/neutral-muted
      Option padding x1_5 x2, gap x2, shape/sm, t04 Medium / highlighted bg/transparent-pressed / disabled fg/disabled
    -------------------------------------------------------------------------- */
@@ -4163,6 +4246,7 @@ a.ds-citation[data-type="number"]:hover { background: var(--ds-color-bg-brand-we
   min-height: var(--ds-space-x10);
   padding: var(--ds-space-x2) var(--ds-space-x3_5);
   border-radius: var(--ds-shape-sm);
+  background: var(--ds-color-bg-layer-default);
   box-shadow: inset 0 0 0 1px var(--ds-color-stroke-neutral-weak);
   color: var(--ds-color-fg-neutral);
   font-size: var(--ds-font-size-t04);
@@ -4454,7 +4538,7 @@ a.ds-citation[data-type="number"]:hover { background: var(--ds-color-bg-brand-we
    variant: plain(기본, 바탕 없음) / muted(여러 줄을 고른 뒤 잠깐 나오는 막대, bg/neutral-weak-alpha + shape/lg)
      muted 막대 안 버튼은 ghost(마우스를 올릴 때만 바탕)를 사용합니다. 회색 막대 위에 회색 버튼을 겹치지 않습니다 (2026-11-11)
    data-divider: 아래 선 stroke/neutral-muted로 내용과 구분합니다 / 묶음 사이 세로선 stroke/neutral-muted 높이 20
-   data-position="floating": 화면 아래 가운데에 떠 있는 막대로 표시합니다, bg/layer-floating + elevation/overlay, [hidden]이면 숨깁니다
+   data-layout="floating": 화면 아래 가운데에 떠 있는 막대로 표시합니다, bg/layer-floating + elevation/overlay, [hidden]이면 숨깁니다
    __clear: 끝에 두는 선택 해제 버튼입니다, 누르면 고른 항목을 모두 풀고 막대를 숨깁니다
    data-ds-selection="막대 id": 표(또는 목록)에 붙이면 tbody 체크박스를 세어 막대를 표시하거나 숨깁니다, 헤더 체크박스는 전체 선택, 개수 문구는 막대의 data-count-format="{n}개 선택"으로 바꿉니다
    동작 버튼이 한 줄에 다 들어가지 않으면 겹치지 않고 다음 줄로 넘어갑니다
@@ -4473,7 +4557,7 @@ a.ds-citation[data-type="number"]:hover { background: var(--ds-color-bg-brand-we
 .ds-toolbar[data-variant="muted"] { border-radius: var(--ds-shape-lg); background: var(--ds-color-bg-neutral-weak-alpha); }
 .ds-toolbar[data-divider] { border-bottom: 1px solid var(--ds-color-stroke-neutral-muted); }
 .ds-toolbar[hidden] { display: none; }
-.ds-toolbar[data-position="floating"] {
+.ds-toolbar:is([data-layout="floating"], [data-position="floating"]) {
   position: fixed;
   left: 50%;
   bottom: var(--ds-space-x6);
@@ -4885,38 +4969,3 @@ dialog.ds-command:not([open]) { display: none; }
 .ds-segmentinput:has(.ds-segmentinput__segment:disabled) .ds-segmentinput__separator { color: var(--ds-color-fg-disabled); }
 .ds-segmentinput[data-variant="outline"]:has(.ds-segmentinput__segment:is(:disabled, [readonly])) { --ds-input-bg: var(--ds-color-bg-disabled); }
 .ds-segmentinput__segment:disabled { cursor: not-allowed; }
-
-
-/* --------------------------------------------------------------------------
-   87 Price - 상품과 요금제의 판매 가격을 할인율, 원래 가격과 함께 보여 주는 가격 표시 (2026-11-12 추가)
-     <div class="ds-price" [data-size="small|large"] [data-align="end"]>
-       [<s class="ds-price__was">48,000원</s>]
-       <div class="ds-price__now">[<span class="ds-price__rate">20%</span>]<strong class="ds-price__value">38,000원</strong>[<span class="ds-price__unit">/ 월</span>]</div>
-     </div>
-   size: small 가격 t05(목록, 장바구니) / medium(기본) 가격 t09(상품 상세) / large 가격 t10(요금제)
-   가격 Bold fg/neutral, 할인율은 가격과 같은 크기 fg/critical / 단위 fg/neutral-muted, 원래 가격 취소선 fg/neutral-subtle(small t03, 그 밖 t04)
-   원래 가격은 판매 가격 위 줄, 사이 2 / 할인율, 가격, 단위 사이 x1 / 숫자는 고정폭
-   data-align="end": 오른쪽 끝에 맞춥니다(장바구니 금액 칸)
-   -------------------------------------------------------------------------- */
-.ds-price {
-  --ds-price-size: var(--ds-font-size-t09);
-  --ds-price-line: var(--ds-line-height-t09);
-  --ds-price-sub-size: var(--ds-font-size-t04);
-  --ds-price-sub-line: var(--ds-line-height-t04);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
-  min-width: 0;
-  font-variant-numeric: tabular-nums;
-}
-.ds-price[data-size="small"] { --ds-price-size: var(--ds-font-size-t05); --ds-price-line: var(--ds-line-height-t05); --ds-price-sub-size: var(--ds-font-size-t03); --ds-price-sub-line: var(--ds-line-height-t03); }
-.ds-price[data-size="large"] { --ds-price-size: var(--ds-font-size-t10); --ds-price-line: var(--ds-line-height-t10); }
-.ds-price[data-align="end"] { align-items: flex-end; text-align: end; }
-.ds-price__was { color: var(--ds-color-fg-neutral-subtle); font-size: var(--ds-price-sub-size); line-height: var(--ds-price-sub-line); text-decoration: line-through; }
-.ds-price__now { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--ds-space-x1); min-width: 0; }
-.ds-price__rate,
-.ds-price__value { font-size: var(--ds-price-size); line-height: var(--ds-price-line); font-weight: var(--ds-font-weight-bold); }
-.ds-price__rate { color: var(--ds-color-fg-critical); }
-.ds-price__value { color: var(--ds-color-fg-neutral); }
-.ds-price__unit { color: var(--ds-color-fg-neutral-muted); font-size: var(--ds-price-sub-size); line-height: var(--ds-price-sub-line); }

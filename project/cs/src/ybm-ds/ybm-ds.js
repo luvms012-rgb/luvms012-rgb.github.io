@@ -4,7 +4,7 @@
    원칙: 모양은 CSS, 스크립트는 "CSS만으로 안 되는 동작"만.
      · Text Field clear 버튼 — 값 지우기 (노출/숨김은 CSS 가 처리)
      · Dialog — data-ds-open / data-ds-close 속성으로 열고 닫기, 바깥(dim) 클릭 닫기
-     · Snackbar — DS.snackbar("문구", { variant: "positive"|"critical", action: "확인", onAction, duration })
+     · Snackbar — DS.snackbar("문구", { tone: "positive"|"critical", action: "확인", onAction, duration })
      · Slider — <input class="ds-slider"> 채움 길이(--ds-slider-value) 동기화
      · Checkbox — data-indeterminate 속성 → input.indeterminate
      · Popover — data-ds-popover="id" 로 열고 닫기, 바깥 클릭과 Esc, 안의 data-ds-close 로 닫기
@@ -16,7 +16,7 @@
      · Segmented Control — 누르면 하나만 aria-pressed, change 이벤트. 선택 배경이 고른 항목으로 미끄러져 이동(위치는 --ds-seg-x / --ds-seg-w)
      · Side Panel — Dialog 와 같이 열고 닫기, 본문이 스크롤되면 data-scrolled
      · Pull To Refresh — 터치로 당긴 거리 표시, 넘겨 놓으면 ds-refresh 이벤트, DS.endRefresh(요소) 로 되돌리기
-     · Carousel — 처음/끝이면 data-at-start / data-at-end, 버튼으로 한 화면씩 넘기기
+     · Carousel — 처음/끝이면 data-at-start / data-at-end, 버튼으로 한 화면씩 넘기기(진행 막대 안 버튼은 끝에서 반대쪽 끝으로), 진행 막대 채우기, data-loop 면 앞뒤 복제 장으로 끝없이 넘기기(번호, 막대, 전체 보기는 진짜 장만), data-autoplay 면 자동 넘김(멈춤 버튼, 마우스 올림, 포커스에 멈춤), 번호 버튼으로 연 전체 보기 칸 채우기
      · Code Block — data-ds-copy 버튼으로 코드 복사
      · Multi Select — Popover 와 같이 열고 닫기, 고른 값을 칸에 Badge 로 채우기
      · File Attach — 파일을 끌어 놓는 칸 위로 끌고 오면 data-state="dragover", 벗어나거나 놓으면 뺀다
@@ -61,11 +61,13 @@
       document.body.appendChild(el);
     }
     el.textContent = "";
-    if (opts.variant && opts.variant !== "default") el.setAttribute("data-variant", opts.variant);
-    else el.removeAttribute("data-variant");
-    if (SNACK_ICON[opts.variant]) {
+    var tone = opts.tone || opts.variant;   // 예전 이름 variant 도 받는다
+    el.removeAttribute("data-variant");
+    if (tone && tone !== "default") el.setAttribute("data-tone", tone);
+    else el.removeAttribute("data-tone");
+    if (SNACK_ICON[tone]) {
       var icon = document.createElement("i");
-      icon.className = "ds-icon ds-icon--" + SNACK_ICON[opts.variant];
+      icon.className = "ds-icon ds-icon--" + SNACK_ICON[tone];
       icon.setAttribute("aria-hidden", "true");
       el.appendChild(icon);
     }
@@ -251,20 +253,146 @@
     var sc = car.querySelector(".ds-carousel__scroller");
     if (!sc) return;
     var max = sc.scrollWidth - sc.clientWidth;
-    car.toggleAttribute("data-at-start", sc.scrollLeft <= 1);
-    car.toggleAttribute("data-at-end", sc.scrollLeft >= max - 1);
+    var loop = !!car._dsLoop;
+    // 루프면 끝이 없으므로 처음/끝 표시를 붙이지 않는다
+    car.toggleAttribute("data-at-start", !loop && sc.scrollLeft <= 1);
+    car.toggleAttribute("data-at-end", !loop && sc.scrollLeft >= max - 1);
     var count = car.querySelector(".ds-carousel__count");
-    var items = sc.querySelectorAll(".ds-carousel__item");
-    if (count && items.length) {
-      var w = items[0].offsetWidth + (parseFloat(getComputedStyle(sc).columnGap) || 0);
-      var idx = sc.scrollLeft >= max - 1 ? items.length - 1 : Math.round(sc.scrollLeft / (w || 1));
-      count.textContent = Math.min(items.length, idx + 1) + "/" + items.length;
+    var bar = car.querySelector(".ds-carousel__progress");
+    var items = sc.querySelectorAll(".ds-carousel__item:not([data-ds-clone])");
+    if ((count || bar) && items.length) {
+      var idx;
+      if (loop) {
+        var near = carouselNearest(sc);
+        idx = near.hasAttribute("data-ds-clone") ? +near.getAttribute("data-ds-clone") : Array.prototype.indexOf.call(items, near);
+      } else {
+        var w = items[0].offsetWidth + (parseFloat(getComputedStyle(sc).columnGap) || 0);
+        idx = sc.scrollLeft >= max - 1 ? items.length - 1 : Math.round(sc.scrollLeft / (w || 1));
+      }
+      var now = Math.min(items.length, idx + 1);
+      // 진행 막대: 지금 번호까지 채운다
+      if (bar) bar.style.setProperty("--ds-carousel-progress", now / items.length);
+      if (!count) return;
+      // 진행 막대 줄 안 번호는 두 자리(05 | 23), 그 밖은 지금 번호를 <strong> 으로(3/12). 뒤의 아이콘은 그대로 둔다
+      var inBar = !!count.closest(".ds-carousel__bar");
+      var pad = function (n) { return inBar && n < 10 ? "0" + n : "" + n; };
+      if (count.querySelector("strong") && count.textContent === pad(now) + (inBar ? "" : "/") + pad(items.length)) return;
+      var icon = count.querySelector(".ds-icon");
+      while (count.firstChild && count.firstChild !== icon) count.removeChild(count.firstChild);
+      var cur = document.createElement("strong");
+      cur.textContent = pad(now);
+      count.insertBefore(cur, icon);
+      if (inBar) {
+        var total = document.createElement("span");
+        total.className = "ds-carousel__total";
+        total.textContent = pad(items.length);
+        count.insertBefore(total, icon);
+      } else count.insertBefore(document.createTextNode("/" + items.length), icon);
     }
+  }
+  // 항목이 멈추는 자리(항목 왼쪽 - 안쪽 여백)
+  function carouselPos(sc, item) {
+    return item.getBoundingClientRect().left - sc.getBoundingClientRect().left + sc.scrollLeft - (parseFloat(getComputedStyle(sc).scrollPaddingLeft) || 0);
+  }
+  function carouselNearest(sc) {
+    var best = null, dist = Infinity;
+    sc.querySelectorAll(".ds-carousel__item").forEach(function (it) {
+      var d = Math.abs(carouselPos(sc, it) - sc.scrollLeft);
+      if (d < dist) { dist = d; best = it; }
+    });
+    return best;
+  }
+  function carouselStep(sc) {
+    var item = sc.querySelector(".ds-carousel__item");
+    return item ? item.offsetWidth + (parseFloat(getComputedStyle(sc).columnGap) || 0) : sc.clientWidth;
+  }
+  // 루프: 앞뒤에 복제 장을 두고, 복제 장에 멈추면 같은 진짜 장으로 순간 이동한다
+  function setupLoop(car) {
+    var sc = car.querySelector(".ds-carousel__scroller");
+    if (!sc || car._dsLoop) return;
+    var items = Array.prototype.slice.call(sc.querySelectorAll(".ds-carousel__item"));
+    if (items.length < 2) return;
+    var k = Math.min(2, items.length);
+    var clone = function (it, i) {
+      var c = it.cloneNode(true);
+      c.setAttribute("data-ds-clone", i);
+      c.setAttribute("aria-hidden", "true");
+      c.inert = true;
+      c.removeAttribute("id");
+      c.querySelectorAll("[id]").forEach(function (n) { n.removeAttribute("id"); });
+      return c;
+    };
+    for (var i = 0; i < k; i++) {
+      sc.insertBefore(clone(items[items.length - 1 - i], items.length - 1 - i), sc.firstChild);
+      sc.appendChild(clone(items[i], i));
+    }
+    car._dsLoop = true;
+    sc.scrollLeft = carouselPos(sc, items[0]);
+  }
+  function fixLoop(car) {
+    var sc = car.querySelector(".ds-carousel__scroller");
+    var near = sc && carouselNearest(sc);
+    if (!near || !near.hasAttribute("data-ds-clone")) return;
+    var real = sc.querySelectorAll(".ds-carousel__item:not([data-ds-clone])")[+near.getAttribute("data-ds-clone")];
+    if (real) sc.scrollLeft = carouselPos(sc, real) + (sc.scrollLeft - carouselPos(sc, near));
+  }
+  // 자동 넘김: 큰 배너에만. 멈춤 버튼(data-paused)과 마우스 올림/포커스(_dsHold)에 멈춘다
+  function carouselNext(car) {
+    var sc = car.querySelector(".ds-carousel__scroller");
+    if (!sc || !sc.querySelector(".ds-carousel__item")) return;
+    if (car._dsLoop) fixLoop(car);
+    if (!car._dsLoop && sc.scrollLeft >= sc.scrollWidth - sc.clientWidth - 1) sc.scrollTo({ left: 0, behavior: "smooth" });
+    else sc.scrollBy({ left: carouselStep(sc), behavior: "smooth" });
+  }
+  function setCarouselPaused(car, paused) {
+    car.toggleAttribute("data-paused", paused);
+    var btn = car.querySelector(".ds-carousel__play");
+    if (!btn) return;
+    btn.setAttribute("aria-label", paused ? "재생" : "멈춤");
+    var icon = btn.querySelector(".ds-icon");
+    if (icon) {
+      // 채운 모양(-solid)을 썼으면 채운 모양끼리 바꾼다
+      var solid = icon.classList.contains("ds-icon--pause-solid") || icon.classList.contains("ds-icon--play-solid");
+      ["ds-icon--pause", "ds-icon--play", "ds-icon--pause-solid", "ds-icon--play-solid"].forEach(function (n) { icon.classList.remove(n); });
+      icon.classList.add("ds-icon--" + (paused ? "play" : "pause") + (solid ? "-solid" : ""));
+    }
+  }
+  function startAutoplay(car) {
+    var ms = parseInt(car.getAttribute("data-autoplay"), 10);
+    if (!ms || car._dsAutoplay) return;
+    if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) setCarouselPaused(car, true);
+    else setCarouselPaused(car, car.hasAttribute("data-paused"));
+    var hold = function (v) { return function () { car._dsHold = v; }; };
+    car.addEventListener("mouseenter", hold(true));
+    car.addEventListener("mouseleave", hold(false));
+    car.addEventListener("focusin", hold(true));
+    car.addEventListener("focusout", function (e) { if (!car.contains(e.relatedTarget)) car._dsHold = false; });
+    car._dsAutoplay = setInterval(function () {
+      if (!car.isConnected) { clearInterval(car._dsAutoplay); return; }
+      if (!car.hasAttribute("data-paused") && !car._dsHold && !document.hidden) carouselNext(car);
+    }, Math.max(ms, 2000));
+  }
+  // 번호 버튼으로 연 모음 칸이 비어 있으면 항목을 복사해 채운다
+  function fillCarouselAll(car, dialog) {
+    var all = dialog && dialog.querySelector(".ds-carousel__all");
+    if (!all || all.children.length) return;
+    car.querySelectorAll(".ds-carousel__item:not([data-ds-clone])").forEach(function (item) {
+      Array.prototype.forEach.call(item.children, function (c) {
+        var copy = c.cloneNode(true);
+        copy.removeAttribute("id");
+        copy.querySelectorAll("[id]").forEach(function (n) { n.removeAttribute("id"); });
+        all.appendChild(copy);
+      });
+    });
   }
   document.addEventListener("scroll", function (e) {
     var el = e.target;
     if (!el.classList) return;
-    if (el.classList.contains("ds-carousel__scroller")) syncCarousel(el.parentElement);
+    if (el.classList.contains("ds-carousel__scroller")) {
+      var car = el.parentElement;
+      syncCarousel(car);
+      if (car._dsLoop) { clearTimeout(car._dsLoopTimer); car._dsLoopTimer = setTimeout(function () { fixLoop(car); }, 150); }
+    }
     else if (el.classList.contains("ds-sidepanel__body")) el.toggleAttribute("data-scrolled", el.scrollTop > 0);
   }, true);
 
@@ -313,7 +441,7 @@
     if (pull.d >= size) {
       el.setAttribute("data-state", "refreshing");
       el.style.setProperty("--ds-ptr-displacement", size + "px");
-      if (p.circle) p.circle.setAttribute("data-type", "indeterminate");
+      if (p.circle) p.circle.setAttribute("data-indeterminate", "");
       el.dispatchEvent(new CustomEvent("ds-refresh", { bubbles: true }));
     } else el.style.setProperty("--ds-ptr-displacement", "0px");
     pull = null;
@@ -322,7 +450,7 @@
     var p = ptrParts(el);
     el.removeAttribute("data-state");
     el.style.setProperty("--ds-ptr-displacement", "0px");
-    if (p.circle) { p.circle.removeAttribute("data-type"); p.circle.style.setProperty("--ds-progress-value", 0); }
+    if (p.circle) { p.circle.removeAttribute("data-indeterminate"); p.circle.removeAttribute("data-type"); p.circle.style.setProperty("--ds-progress-value", 0); }
   }
 
   /* ---- Segmented Control: 하나만 누름 + 선택 배경 미끄러짐 ------------------- */
@@ -626,7 +754,9 @@
     (root || document).querySelectorAll(".ds-chat-composer__input").forEach(syncComposer);
     tickTimers();
     (root || document).querySelectorAll(".ds-segmented").forEach(watchSegmented);
+    (root || document).querySelectorAll(".ds-carousel[data-loop]").forEach(setupLoop);
     (root || document).querySelectorAll(".ds-carousel").forEach(syncCarousel);
+    (root || document).querySelectorAll(".ds-carousel[data-autoplay]").forEach(startAutoplay);
     (root || document).querySelectorAll(".ds-multiselect__panel[id]").forEach(syncMultiSelect);
     (root || document).querySelectorAll("[data-ds-selection]").forEach(syncSelection);
     (root || document).querySelectorAll("dialog.ds-lightbox").forEach(function (b) { lightboxGo(b, Math.max(0, lightboxIndex(b))); });
@@ -690,10 +820,22 @@
     // Carousel 버튼 → 한 화면의 80% 만큼 넘긴다
     var carBtn = t.closest(".ds-carousel__button");
     if (carBtn) {
-      var sc = carBtn.closest(".ds-carousel").querySelector(".ds-carousel__scroller");
+      var btnCar = carBtn.closest(".ds-carousel");
+      var sc = btnCar.querySelector(".ds-carousel__scroller");
+      var back = carBtn.getAttribute("data-direction") === "previous";
+      // 루프는 한 장씩 계속 넘긴다
+      if (btnCar._dsLoop) { fixLoop(btnCar); sc.scrollBy({ left: (back ? -1 : 1) * carouselStep(sc), behavior: "smooth" }); return; }
+      // 진행 막대 안의 버튼은 끝에서 반대쪽 끝으로 돌아간다
+      if (carBtn.closest(".ds-carousel__bar") && (back ? sc.scrollLeft <= 1 : sc.scrollLeft >= sc.scrollWidth - sc.clientWidth - 1)) {
+        sc.scrollTo({ left: back ? sc.scrollWidth : 0, behavior: "smooth" });
+        return;
+      }
       sc.scrollBy({ left: (carBtn.getAttribute("data-direction") === "previous" ? -1 : 1) * sc.clientWidth * 0.8, behavior: "smooth" });
       return;
     }
+    // Carousel 멈춤/재생 버튼
+    var carPlay = t.closest(".ds-carousel__play");
+    if (carPlay) { var pc = carPlay.closest(".ds-carousel"); setCarouselPaused(pc, !pc.hasAttribute("data-paused")); return; }
 
     // Code Block 복사 버튼 → 코드를 복사하고 2초 동안 data-copied
     var copyBtn = t.closest("[data-ds-copy]");
@@ -715,6 +857,8 @@
       var opened = openDialog(opener.getAttribute("data-ds-open"));
       if (opened && opened.classList.contains("ds-lightbox")) lightboxGo(opened, +(opener.getAttribute("data-ds-index") || 0));
       if (opened && opened.classList.contains("ds-command")) commandReset(opened);
+      var openCar = opener.closest(".ds-carousel");
+      if (opened && openCar) fillCarouselAll(openCar, opened);
       return;
     }
 
@@ -835,6 +979,6 @@
     if (zone) zone.removeAttribute("data-state");
   });
 
-  window.DS = { version: "1.1.0", openDialog: openDialog, closeDialog: closeDialog, snackbar: snackbar, endRefresh: endRefresh, init: init };  // version 은 VERSION 과 같다 (node sync.mjs release 가 바꾼다)
+  window.DS = { version: "1.2.0", openDialog: openDialog, closeDialog: closeDialog, snackbar: snackbar, endRefresh: endRefresh, init: init };  // version 은 VERSION 과 같다 (node sync.mjs release 가 바꾼다)
   window.YBM = window.DS;  // 예전 이름 (2026-11-04 DS 로 바꿈). 이미 YBM.snackbar 를 쓰는 화면이 깨지지 않게 남겨 둔다
 })();

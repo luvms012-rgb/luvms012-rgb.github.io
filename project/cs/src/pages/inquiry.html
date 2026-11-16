@@ -82,11 +82,14 @@
             <!-- 휴대폰 번호 (선택) -->
             <div class="ds-field">
               <div class="ds-field__header">
-                <label class="ds-field__label" for="applicant-phone">답변 받을 휴대폰 번호</label>
+                <label class="ds-field__label" for="applicant-phone">휴대폰 번호</label>
               </div>
               <div class="ds-input" data-variant="outline">
-                <input class="ds-input__control" type="tel" id="applicant-phone" inputmode="numeric" autocomplete="tel-national" maxlength="13" placeholder="휴대폰 번호를 입력해 주세요.">
+                <input class="ds-input__control" type="tel" id="applicant-phone" inputmode="numeric" autocomplete="tel-national" maxlength="13" placeholder="휴대폰 번호를 입력해 주세요." aria-describedby="phone-note">
               </div>
+              <p class="cs-info-caption" id="phone-note">
+                <i class="ds-icon ds-icon--info" aria-hidden="true"></i>연락처를 남겨주시면 보다 신속하고 정확하게 문의를 처리해 드릴 수 있습니다.
+              </p>
             </div>
 
           </div>
