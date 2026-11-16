@@ -10,7 +10,7 @@
      hash   : 한 파일 안의 특정 상태로 바로 여는 바로가기
      figma  : Figma node-id (작업 파일 etsLv4DqIAlXp9QiC4hwLw)
      notes  : 기획/개발 확인 포인트
-     en     : true 면 영문 보기(?lang=en)에서도 열린다. 영문 사전은 src/i18n/en.js
+     en     : true 면 영문 보기(?lang=en)에서도 열린다. 영문 사전은 src/pages/_preview/i18n/en.js
      enNote : 영문이 없는 화면에서 영문 보기 시 보여줄 문구 (없으면 "영문 화면 없음 - 한국어 전용 화면입니다")
    ========================================================================== */
 window.GUIDE_SCREENS = [

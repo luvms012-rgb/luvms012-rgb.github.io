@@ -2,7 +2,7 @@
    YDS v1.2.0 — 진입 파일 (서비스는 이 파일 하나만 link 한다)
    버전은 저장소 VERSION 과 같다. 바꾸는 것은 node sync.mjs release 버전 (손으로 고치지 않는다)
    --------------------------------------------------------------------------
-   <link rel="stylesheet" href="…/ybm-ds/dist/ybm-ds.css">   ← 공통 DS
+   <link rel="stylesheet" href="/assets/css/ybm-ds.css">   ← 공통 DS
    <link rel="stylesheet" href="…/services/{서비스}/{서비스}.css">  ← 서비스 전용
 
    ▣ Cascade Layers
@@ -20,8 +20,8 @@
 
 @layer ds.tokens, ds.base, ds.icons, ds.components, ds.utilities;
 
-@import url("tokens.css") layer(ds.tokens);
-@import url("base.css") layer(ds.base);
-@import url("icons.css") layer(ds.icons);
-@import url("components.css") layer(ds.components);
-@import url("utilities.css") layer(ds.utilities);
+@import url("ybm-ds-tokens.css") layer(ds.tokens);
+@import url("ybm-ds-base.css") layer(ds.base);
+@import url("ybm-ds-icons.css") layer(ds.icons);
+@import url("ybm-ds-components.css") layer(ds.components);
+@import url("ybm-ds-utilities.css") layer(ds.utilities);

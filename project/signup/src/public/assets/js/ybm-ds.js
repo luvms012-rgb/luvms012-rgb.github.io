@@ -30,7 +30,7 @@
      · Mega Menu — data-ds-megamenu 트리거로 열고 닫기, Esc 와 바깥 누름으로 닫기
      · Command Palette — Dialog 와 같이 열기, data-ds-hotkey="k" 면 Ctrl/Command + K, 낱말로 거르기, 위아래 화살표와 Enter
      · Segmented Text Input — 자리 수를 채우면 다음 구간, 빈 구간에서 Backspace 는 앞 구간 마지막 글자 지우기, 끝과 처음에서 좌우 화살표로 옆 구간, 붙여 넣으면 구분자를 빼고 차례로 채우되 가린 구간 앞에서 멈춤, 한글 조합 중에는 옮기지 않음
-   사용: <script src="…/ybm-ds/dist/ybm-ds.js" defer></script>
+   사용: <script src="/assets/js/ybm-ds.js" defer></script>
    ========================================================================== */
 (function () {
   "use strict";

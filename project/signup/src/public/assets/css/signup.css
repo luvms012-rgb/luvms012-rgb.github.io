@@ -263,6 +263,11 @@ body.signup { background: var(--ds-color-bg-layer-default); }
 /* 비밀번호 보기/숨기기 — 입력 suffix 아이콘 24 */
 .signup-eye { display: grid; place-items: center; width: 24px; height: 24px; color: var(--ds-color-fg-neutral); position: relative; }
 .signup-eye::after { content: ""; position: absolute; inset: -8px; }                  /* 터치 영역 40 */
+/* 브라우저 기본 비밀번호 보기 버튼 숨김 (Edge 등) — 위 보기/숨기기 버튼과 겹치지 않게 */
+.signup-card input[type="password"]::-ms-reveal,
+.signup-card input[type="password"]::-ms-clear {
+  display: none;
+}
 
 /* 비밀번호 조건 체크리스트 — 충족하면 data-met="true" 로 브랜드색 */
 .signup-rules-wrap { display: flex; flex-direction: column; gap: var(--ds-space-x2); margin-top: calc(var(--ds-field-help-gap) - var(--ds-field-gap)); }
@@ -378,7 +383,7 @@ body.signup { background: var(--ds-color-bg-layer-default); }
 }
 
 
-/* 5) 한/영 (i18n/i18n.js) — HTML 한 벌, <html lang> 으로 전환 ----------------
+/* 5) 한/영 (pages/_preview/i18n/i18n.js) — HTML 한 벌, <html lang> 으로 전환 ----------------
    · data-ko-only : 한국어에서만 보이는 요소 (실명인증 체크박스 등)
    · data-en-only : 영문에서만 보이는 요소
    · 영문에서만 다른 모양은 :lang(en) 규칙으로 추가한다

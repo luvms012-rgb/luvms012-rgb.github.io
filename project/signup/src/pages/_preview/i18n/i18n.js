@@ -13,8 +13,8 @@
    · 영문 값의 \n 은 PC 에서만 줄을 바꾸고 모바일(1024 미만)은 자연 줄바꿈(.u-br-pc).
    · 스크립트에서 문구를 바꿀 때는 YBM_I18N.t("키") / YBM_I18N.setText(el, "키") 사용.
    사용: <head> 안, CSS 보다 먼저 (defer 없이)
-         <script src="../i18n/en.js"></script>
-         <script src="../i18n/i18n.js"></script>
+         <script src="_preview/i18n/en.js"></script>
+         <script src="_preview/i18n/i18n.js"></script>
    ========================================================================== */
 (function () {
   "use strict";
